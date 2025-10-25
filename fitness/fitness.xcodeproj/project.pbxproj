@@ -1,0 +1,1008 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 77;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		96C7A8E82E9E8BDE00F62AFD /* Fitness Watch App.app in Embed Watch Content */ = {isa = PBXBuildFile; fileRef = 96C7A8E72E9E8BDE00F62AFD /* Fitness Watch App.app */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
+/* End PBXBuildFile section */
+
+/* Begin PBXContainerItemProxy section */
+		96C7A8D22E9E8BDE00F62AFD /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 96C7A8BC2E9E8BDD00F62AFD /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 96C7A8C32E9E8BDD00F62AFD;
+			remoteInfo = Fitness;
+		};
+		96C7A8DC2E9E8BDE00F62AFD /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 96C7A8BC2E9E8BDD00F62AFD /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 96C7A8C32E9E8BDD00F62AFD;
+			remoteInfo = Fitness;
+		};
+		96C7A8E92E9E8BDE00F62AFD /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 96C7A8BC2E9E8BDD00F62AFD /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 96C7A8E62E9E8BDE00F62AFD;
+			remoteInfo = "Fitness Watch App";
+		};
+		96C7A8F72E9E8BDF00F62AFD /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 96C7A8BC2E9E8BDD00F62AFD /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 96C7A8E62E9E8BDE00F62AFD;
+			remoteInfo = "Fitness Watch App";
+		};
+		96C7A9012E9E8BDF00F62AFD /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 96C7A8BC2E9E8BDD00F62AFD /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 96C7A8E62E9E8BDE00F62AFD;
+			remoteInfo = "Fitness Watch App";
+		};
+/* End PBXContainerItemProxy section */
+
+/* Begin PBXCopyFilesBuildPhase section */
+		96C7A90D2E9E8BDF00F62AFD /* Embed Watch Content */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "$(CONTENTS_FOLDER_PATH)/Watch";
+			dstSubfolderSpec = 16;
+			files = (
+				96C7A8E82E9E8BDE00F62AFD /* Fitness Watch App.app in Embed Watch Content */,
+			);
+			name = "Embed Watch Content";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXCopyFilesBuildPhase section */
+
+/* Begin PBXFileReference section */
+		96C7A8C42E9E8BDD00F62AFD /* Fitness.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Fitness.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		96C7A8D12E9E8BDE00F62AFD /* FitnessTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = FitnessTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		96C7A8DB2E9E8BDE00F62AFD /* FitnessUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = FitnessUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		96C7A8E72E9E8BDE00F62AFD /* Fitness Watch App.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Fitness Watch App.app"; sourceTree = BUILT_PRODUCTS_DIR; };
+		96C7A8F62E9E8BDF00F62AFD /* Fitness Watch AppTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "Fitness Watch AppTests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
+		96C7A9002E9E8BDF00F62AFD /* Fitness Watch AppUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "Fitness Watch AppUITests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
+/* End PBXFileReference section */
+
+/* Begin PBXFileSystemSynchronizedRootGroup section */
+		961E85DB2EA1401900F24424 /* Fitness */ = {
+			isa = PBXFileSystemSynchronizedRootGroup;
+			path = Fitness;
+			sourceTree = "<group>";
+		};
+		96C7A8D42E9E8BDE00F62AFD /* FitnessTests */ = {
+			isa = PBXFileSystemSynchronizedRootGroup;
+			path = FitnessTests;
+			sourceTree = "<group>";
+		};
+		96C7A8DE2E9E8BDE00F62AFD /* FitnessUITests */ = {
+			isa = PBXFileSystemSynchronizedRootGroup;
+			path = FitnessUITests;
+			sourceTree = "<group>";
+		};
+		96C7A8EB2E9E8BDE00F62AFD /* Fitness Watch App */ = {
+			isa = PBXFileSystemSynchronizedRootGroup;
+			path = "Fitness Watch App";
+			sourceTree = "<group>";
+		};
+		96C7A8F92E9E8BDF00F62AFD /* Fitness Watch AppTests */ = {
+			isa = PBXFileSystemSynchronizedRootGroup;
+			path = "Fitness Watch AppTests";
+			sourceTree = "<group>";
+		};
+		96C7A9032E9E8BDF00F62AFD /* Fitness Watch AppUITests */ = {
+			isa = PBXFileSystemSynchronizedRootGroup;
+			path = "Fitness Watch AppUITests";
+			sourceTree = "<group>";
+		};
+/* End PBXFileSystemSynchronizedRootGroup section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		96C7A8C12E9E8BDD00F62AFD /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		96C7A8CE2E9E8BDE00F62AFD /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		96C7A8D82E9E8BDE00F62AFD /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		96C7A8E42E9E8BDE00F62AFD /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		96C7A8F32E9E8BDF00F62AFD /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		96C7A8FD2E9E8BDF00F62AFD /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		96C7A8BB2E9E8BDD00F62AFD = {
+			isa = PBXGroup;
+			children = (
+				961E85DB2EA1401900F24424 /* Fitness */,
+				96C7A8D42E9E8BDE00F62AFD /* FitnessTests */,
+				96C7A8DE2E9E8BDE00F62AFD /* FitnessUITests */,
+				96C7A8EB2E9E8BDE00F62AFD /* Fitness Watch App */,
+				96C7A8F92E9E8BDF00F62AFD /* Fitness Watch AppTests */,
+				96C7A9032E9E8BDF00F62AFD /* Fitness Watch AppUITests */,
+				96C7A8C52E9E8BDD00F62AFD /* Products */,
+			);
+			sourceTree = "<group>";
+		};
+		96C7A8C52E9E8BDD00F62AFD /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				96C7A8C42E9E8BDD00F62AFD /* Fitness.app */,
+				96C7A8D12E9E8BDE00F62AFD /* FitnessTests.xctest */,
+				96C7A8DB2E9E8BDE00F62AFD /* FitnessUITests.xctest */,
+				96C7A8E72E9E8BDE00F62AFD /* Fitness Watch App.app */,
+				96C7A8F62E9E8BDF00F62AFD /* Fitness Watch AppTests.xctest */,
+				96C7A9002E9E8BDF00F62AFD /* Fitness Watch AppUITests.xctest */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		96C7A8C32E9E8BDD00F62AFD /* Fitness */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 96C7A90E2E9E8BDF00F62AFD /* Build configuration list for PBXNativeTarget "Fitness" */;
+			buildPhases = (
+				96C7A8C02E9E8BDD00F62AFD /* Sources */,
+				96C7A8C12E9E8BDD00F62AFD /* Frameworks */,
+				96C7A8C22E9E8BDD00F62AFD /* Resources */,
+				96C7A90D2E9E8BDF00F62AFD /* Embed Watch Content */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				96C7A8EA2E9E8BDE00F62AFD /* PBXTargetDependency */,
+			);
+			fileSystemSynchronizedGroups = (
+				961E85DB2EA1401900F24424 /* Fitness */,
+			);
+			name = Fitness;
+			packageProductDependencies = (
+			);
+			productName = Fitness;
+			productReference = 96C7A8C42E9E8BDD00F62AFD /* Fitness.app */;
+			productType = "com.apple.product-type.application";
+		};
+		96C7A8D02E9E8BDE00F62AFD /* FitnessTests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 96C7A9112E9E8BDF00F62AFD /* Build configuration list for PBXNativeTarget "FitnessTests" */;
+			buildPhases = (
+				96C7A8CD2E9E8BDE00F62AFD /* Sources */,
+				96C7A8CE2E9E8BDE00F62AFD /* Frameworks */,
+				96C7A8CF2E9E8BDE00F62AFD /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				96C7A8D32E9E8BDE00F62AFD /* PBXTargetDependency */,
+			);
+			fileSystemSynchronizedGroups = (
+				96C7A8D42E9E8BDE00F62AFD /* FitnessTests */,
+			);
+			name = FitnessTests;
+			packageProductDependencies = (
+			);
+			productName = FitnessTests;
+			productReference = 96C7A8D12E9E8BDE00F62AFD /* FitnessTests.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
+		};
+		96C7A8DA2E9E8BDE00F62AFD /* FitnessUITests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 96C7A9142E9E8BDF00F62AFD /* Build configuration list for PBXNativeTarget "FitnessUITests" */;
+			buildPhases = (
+				96C7A8D72E9E8BDE00F62AFD /* Sources */,
+				96C7A8D82E9E8BDE00F62AFD /* Frameworks */,
+				96C7A8D92E9E8BDE00F62AFD /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				96C7A8DD2E9E8BDE00F62AFD /* PBXTargetDependency */,
+			);
+			fileSystemSynchronizedGroups = (
+				96C7A8DE2E9E8BDE00F62AFD /* FitnessUITests */,
+			);
+			name = FitnessUITests;
+			packageProductDependencies = (
+			);
+			productName = FitnessUITests;
+			productReference = 96C7A8DB2E9E8BDE00F62AFD /* FitnessUITests.xctest */;
+			productType = "com.apple.product-type.bundle.ui-testing";
+		};
+		96C7A8E62E9E8BDE00F62AFD /* Fitness Watch App */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 96C7A90A2E9E8BDF00F62AFD /* Build configuration list for PBXNativeTarget "Fitness Watch App" */;
+			buildPhases = (
+				96C7A8E32E9E8BDE00F62AFD /* Sources */,
+				96C7A8E42E9E8BDE00F62AFD /* Frameworks */,
+				96C7A8E52E9E8BDE00F62AFD /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			fileSystemSynchronizedGroups = (
+				96C7A8EB2E9E8BDE00F62AFD /* Fitness Watch App */,
+			);
+			name = "Fitness Watch App";
+			packageProductDependencies = (
+			);
+			productName = "Fitness Watch App";
+			productReference = 96C7A8E72E9E8BDE00F62AFD /* Fitness Watch App.app */;
+			productType = "com.apple.product-type.application";
+		};
+		96C7A8F52E9E8BDF00F62AFD /* Fitness Watch AppTests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 96C7A9172E9E8BDF00F62AFD /* Build configuration list for PBXNativeTarget "Fitness Watch AppTests" */;
+			buildPhases = (
+				96C7A8F22E9E8BDF00F62AFD /* Sources */,
+				96C7A8F32E9E8BDF00F62AFD /* Frameworks */,
+				96C7A8F42E9E8BDF00F62AFD /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				96C7A8F82E9E8BDF00F62AFD /* PBXTargetDependency */,
+			);
+			fileSystemSynchronizedGroups = (
+				96C7A8F92E9E8BDF00F62AFD /* Fitness Watch AppTests */,
+			);
+			name = "Fitness Watch AppTests";
+			packageProductDependencies = (
+			);
+			productName = "Fitness Watch AppTests";
+			productReference = 96C7A8F62E9E8BDF00F62AFD /* Fitness Watch AppTests.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
+		};
+		96C7A8FF2E9E8BDF00F62AFD /* Fitness Watch AppUITests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 96C7A91A2E9E8BDF00F62AFD /* Build configuration list for PBXNativeTarget "Fitness Watch AppUITests" */;
+			buildPhases = (
+				96C7A8FC2E9E8BDF00F62AFD /* Sources */,
+				96C7A8FD2E9E8BDF00F62AFD /* Frameworks */,
+				96C7A8FE2E9E8BDF00F62AFD /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				96C7A9022E9E8BDF00F62AFD /* PBXTargetDependency */,
+			);
+			fileSystemSynchronizedGroups = (
+				96C7A9032E9E8BDF00F62AFD /* Fitness Watch AppUITests */,
+			);
+			name = "Fitness Watch AppUITests";
+			packageProductDependencies = (
+			);
+			productName = "Fitness Watch AppUITests";
+			productReference = 96C7A9002E9E8BDF00F62AFD /* Fitness Watch AppUITests.xctest */;
+			productType = "com.apple.product-type.bundle.ui-testing";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		96C7A8BC2E9E8BDD00F62AFD /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				BuildIndependentTargetsInParallel = 1;
+				LastSwiftUpdateCheck = 2600;
+				LastUpgradeCheck = 2600;
+				TargetAttributes = {
+					96C7A8C32E9E8BDD00F62AFD = {
+						CreatedOnToolsVersion = 26.0.1;
+					};
+					96C7A8D02E9E8BDE00F62AFD = {
+						CreatedOnToolsVersion = 26.0.1;
+						TestTargetID = 96C7A8C32E9E8BDD00F62AFD;
+					};
+					96C7A8DA2E9E8BDE00F62AFD = {
+						CreatedOnToolsVersion = 26.0.1;
+						TestTargetID = 96C7A8C32E9E8BDD00F62AFD;
+					};
+					96C7A8E62E9E8BDE00F62AFD = {
+						CreatedOnToolsVersion = 26.0.1;
+					};
+					96C7A8F52E9E8BDF00F62AFD = {
+						CreatedOnToolsVersion = 26.0.1;
+						TestTargetID = 96C7A8E62E9E8BDE00F62AFD;
+					};
+					96C7A8FF2E9E8BDF00F62AFD = {
+						CreatedOnToolsVersion = 26.0.1;
+						TestTargetID = 96C7A8E62E9E8BDE00F62AFD;
+					};
+				};
+			};
+			buildConfigurationList = 96C7A8BF2E9E8BDD00F62AFD /* Build configuration list for PBXProject "Fitness" */;
+			developmentRegion = en;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+				Base,
+			);
+			mainGroup = 96C7A8BB2E9E8BDD00F62AFD;
+			minimizedProjectReferenceProxies = 1;
+			preferredProjectObjectVersion = 77;
+			productRefGroup = 96C7A8C52E9E8BDD00F62AFD /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				96C7A8C32E9E8BDD00F62AFD /* Fitness */,
+				96C7A8D02E9E8BDE00F62AFD /* FitnessTests */,
+				96C7A8DA2E9E8BDE00F62AFD /* FitnessUITests */,
+				96C7A8E62E9E8BDE00F62AFD /* Fitness Watch App */,
+				96C7A8F52E9E8BDF00F62AFD /* Fitness Watch AppTests */,
+				96C7A8FF2E9E8BDF00F62AFD /* Fitness Watch AppUITests */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		96C7A8C22E9E8BDD00F62AFD /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		96C7A8CF2E9E8BDE00F62AFD /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		96C7A8D92E9E8BDE00F62AFD /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		96C7A8E52E9E8BDE00F62AFD /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		96C7A8F42E9E8BDF00F62AFD /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		96C7A8FE2E9E8BDF00F62AFD /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		96C7A8C02E9E8BDD00F62AFD /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		96C7A8CD2E9E8BDE00F62AFD /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		96C7A8D72E9E8BDE00F62AFD /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		96C7A8E32E9E8BDE00F62AFD /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		96C7A8F22E9E8BDF00F62AFD /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		96C7A8FC2E9E8BDF00F62AFD /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		96C7A8D32E9E8BDE00F62AFD /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 96C7A8C32E9E8BDD00F62AFD /* Fitness */;
+			targetProxy = 96C7A8D22E9E8BDE00F62AFD /* PBXContainerItemProxy */;
+		};
+		96C7A8DD2E9E8BDE00F62AFD /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 96C7A8C32E9E8BDD00F62AFD /* Fitness */;
+			targetProxy = 96C7A8DC2E9E8BDE00F62AFD /* PBXContainerItemProxy */;
+		};
+		96C7A8EA2E9E8BDE00F62AFD /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 96C7A8E62E9E8BDE00F62AFD /* Fitness Watch App */;
+			targetProxy = 96C7A8E92E9E8BDE00F62AFD /* PBXContainerItemProxy */;
+		};
+		96C7A8F82E9E8BDF00F62AFD /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 96C7A8E62E9E8BDE00F62AFD /* Fitness Watch App */;
+			targetProxy = 96C7A8F72E9E8BDF00F62AFD /* PBXContainerItemProxy */;
+		};
+		96C7A9022E9E8BDF00F62AFD /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 96C7A8E62E9E8BDE00F62AFD /* Fitness Watch App */;
+			targetProxy = 96C7A9012E9E8BDF00F62AFD /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
+
+/* Begin XCBuildConfiguration section */
+		96C7A9082E9E8BDF00F62AFD /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				ASSETCATALOG_COMPILER_GENERATE_SWIFT_ASSET_SYMBOL_EXTENSIONS = YES;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++20";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				DEVELOPMENT_TEAM = EABA6DB862;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_TESTABILITY = YES;
+				ENABLE_USER_SCRIPT_SANDBOXING = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu17;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				LOCALIZATION_PREFERS_STRING_CATALOGS = YES;
+				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
+				MTL_FAST_MATH = YES;
+				ONLY_ACTIVE_ARCH = YES;
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = "DEBUG $(inherited)";
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+			};
+			name = Debug;
+		};
+		96C7A9092E9E8BDF00F62AFD /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				ASSETCATALOG_COMPILER_GENERATE_SWIFT_ASSET_SYMBOL_EXTENSIONS = YES;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++20";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				DEVELOPMENT_TEAM = EABA6DB862;
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_USER_SCRIPT_SANDBOXING = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu17;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				LOCALIZATION_PREFERS_STRING_CATALOGS = YES;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				MTL_FAST_MATH = YES;
+				SWIFT_COMPILATION_MODE = wholemodule;
+			};
+			name = Release;
+		};
+		96C7A90B2E9E8BDF00F62AFD /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = EABA6DB862;
+				ENABLE_PREVIEWS = YES;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_KEY_CFBundleDisplayName = Fitness;
+				INFOPLIST_KEY_UISupportedInterfaceOrientations = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown";
+				INFOPLIST_KEY_WKCompanionAppBundleIdentifier = com.abinnewies.Fitness;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.abinnewies.Fitness.watchkitapp;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = watchos;
+				SKIP_INSTALL = YES;
+				STRING_CATALOG_GENERATE_SYMBOLS = YES;
+				SWIFT_APPROACHABLE_CONCURRENCY = YES;
+				SWIFT_DEFAULT_ACTOR_ISOLATION = MainActor;
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_UPCOMING_FEATURE_MEMBER_IMPORT_VISIBILITY = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = 4;
+				WATCHOS_DEPLOYMENT_TARGET = 26.0;
+			};
+			name = Debug;
+		};
+		96C7A90C2E9E8BDF00F62AFD /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = EABA6DB862;
+				ENABLE_PREVIEWS = YES;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_KEY_CFBundleDisplayName = Fitness;
+				INFOPLIST_KEY_UISupportedInterfaceOrientations = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown";
+				INFOPLIST_KEY_WKCompanionAppBundleIdentifier = com.abinnewies.Fitness;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.abinnewies.Fitness.watchkitapp;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = watchos;
+				SKIP_INSTALL = YES;
+				STRING_CATALOG_GENERATE_SYMBOLS = YES;
+				SWIFT_APPROACHABLE_CONCURRENCY = YES;
+				SWIFT_DEFAULT_ACTOR_ISOLATION = MainActor;
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_UPCOMING_FEATURE_MEMBER_IMPORT_VISIBILITY = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = 4;
+				VALIDATE_PRODUCT = YES;
+				WATCHOS_DEPLOYMENT_TARGET = 26.0;
+			};
+			name = Release;
+		};
+		96C7A90F2E9E8BDF00F62AFD /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_ENTITLEMENTS = Fitness/Fitness.entitlements;
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = EABA6DB862;
+				ENABLE_PREVIEWS = YES;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_KEY_CFBundleDisplayName = Fitness;
+				INFOPLIST_KEY_NSHealthShareUsageDescription = "This app reads your health data to track your fitness progress and analyze workout performance";
+				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
+				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
+				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				IPHONEOS_DEPLOYMENT_TARGET = 26.0;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.abinnewies.Fitness;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = iphoneos;
+				STRING_CATALOG_GENERATE_SYMBOLS = YES;
+				SWIFT_APPROACHABLE_CONCURRENCY = YES;
+				SWIFT_DEFAULT_ACTOR_ISOLATION = MainActor;
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_UPCOMING_FEATURE_MEMBER_IMPORT_VISIBILITY = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Debug;
+		};
+		96C7A9102E9E8BDF00F62AFD /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_ENTITLEMENTS = Fitness/Fitness.entitlements;
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = EABA6DB862;
+				ENABLE_PREVIEWS = YES;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_KEY_CFBundleDisplayName = Fitness;
+				INFOPLIST_KEY_NSHealthShareUsageDescription = "This app reads your health data to track your fitness progress and analyze workout performance";
+				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
+				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
+				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				IPHONEOS_DEPLOYMENT_TARGET = 26.0;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.abinnewies.Fitness;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = iphoneos;
+				STRING_CATALOG_GENERATE_SYMBOLS = YES;
+				SWIFT_APPROACHABLE_CONCURRENCY = YES;
+				SWIFT_DEFAULT_ACTOR_ISOLATION = MainActor;
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_UPCOMING_FEATURE_MEMBER_IMPORT_VISIBILITY = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				VALIDATE_PRODUCT = YES;
+			};
+			name = Release;
+		};
+		96C7A9122E9E8BDF00F62AFD /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = EABA6DB862;
+				GENERATE_INFOPLIST_FILE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 26.0;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.abinnewies.FitnessTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = iphoneos;
+				STRING_CATALOG_GENERATE_SYMBOLS = NO;
+				SWIFT_APPROACHABLE_CONCURRENCY = YES;
+				SWIFT_EMIT_LOC_STRINGS = NO;
+				SWIFT_UPCOMING_FEATURE_MEMBER_IMPORT_VISIBILITY = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Fitness.app/$(BUNDLE_EXECUTABLE_FOLDER_PATH)/Fitness";
+			};
+			name = Debug;
+		};
+		96C7A9132E9E8BDF00F62AFD /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = EABA6DB862;
+				GENERATE_INFOPLIST_FILE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 26.0;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.abinnewies.FitnessTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = iphoneos;
+				STRING_CATALOG_GENERATE_SYMBOLS = NO;
+				SWIFT_APPROACHABLE_CONCURRENCY = YES;
+				SWIFT_EMIT_LOC_STRINGS = NO;
+				SWIFT_UPCOMING_FEATURE_MEMBER_IMPORT_VISIBILITY = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Fitness.app/$(BUNDLE_EXECUTABLE_FOLDER_PATH)/Fitness";
+				VALIDATE_PRODUCT = YES;
+			};
+			name = Release;
+		};
+		96C7A9152E9E8BDF00F62AFD /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = EABA6DB862;
+				GENERATE_INFOPLIST_FILE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 26.0;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.abinnewies.FitnessUITests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = iphoneos;
+				STRING_CATALOG_GENERATE_SYMBOLS = NO;
+				SWIFT_APPROACHABLE_CONCURRENCY = YES;
+				SWIFT_EMIT_LOC_STRINGS = NO;
+				SWIFT_UPCOMING_FEATURE_MEMBER_IMPORT_VISIBILITY = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_TARGET_NAME = Fitness;
+			};
+			name = Debug;
+		};
+		96C7A9162E9E8BDF00F62AFD /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = EABA6DB862;
+				GENERATE_INFOPLIST_FILE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 26.0;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.abinnewies.FitnessUITests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = iphoneos;
+				STRING_CATALOG_GENERATE_SYMBOLS = NO;
+				SWIFT_APPROACHABLE_CONCURRENCY = YES;
+				SWIFT_EMIT_LOC_STRINGS = NO;
+				SWIFT_UPCOMING_FEATURE_MEMBER_IMPORT_VISIBILITY = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_TARGET_NAME = Fitness;
+				VALIDATE_PRODUCT = YES;
+			};
+			name = Release;
+		};
+		96C7A9182E9E8BDF00F62AFD /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = EABA6DB862;
+				GENERATE_INFOPLIST_FILE = YES;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = "com.abinnewies.Fitness-Watch-AppTests";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = watchos;
+				STRING_CATALOG_GENERATE_SYMBOLS = NO;
+				SWIFT_APPROACHABLE_CONCURRENCY = YES;
+				SWIFT_EMIT_LOC_STRINGS = NO;
+				SWIFT_UPCOMING_FEATURE_MEMBER_IMPORT_VISIBILITY = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = 4;
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Fitness Watch App.app/$(BUNDLE_EXECUTABLE_FOLDER_PATH)/Fitness Watch App";
+				WATCHOS_DEPLOYMENT_TARGET = 26.0;
+			};
+			name = Debug;
+		};
+		96C7A9192E9E8BDF00F62AFD /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = EABA6DB862;
+				GENERATE_INFOPLIST_FILE = YES;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = "com.abinnewies.Fitness-Watch-AppTests";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = watchos;
+				STRING_CATALOG_GENERATE_SYMBOLS = NO;
+				SWIFT_APPROACHABLE_CONCURRENCY = YES;
+				SWIFT_EMIT_LOC_STRINGS = NO;
+				SWIFT_UPCOMING_FEATURE_MEMBER_IMPORT_VISIBILITY = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = 4;
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Fitness Watch App.app/$(BUNDLE_EXECUTABLE_FOLDER_PATH)/Fitness Watch App";
+				VALIDATE_PRODUCT = YES;
+				WATCHOS_DEPLOYMENT_TARGET = 26.0;
+			};
+			name = Release;
+		};
+		96C7A91B2E9E8BDF00F62AFD /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = EABA6DB862;
+				GENERATE_INFOPLIST_FILE = YES;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = "com.abinnewies.Fitness-Watch-AppUITests";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = watchos;
+				STRING_CATALOG_GENERATE_SYMBOLS = NO;
+				SWIFT_APPROACHABLE_CONCURRENCY = YES;
+				SWIFT_EMIT_LOC_STRINGS = NO;
+				SWIFT_UPCOMING_FEATURE_MEMBER_IMPORT_VISIBILITY = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = 4;
+				TEST_TARGET_NAME = "Fitness Watch App";
+				WATCHOS_DEPLOYMENT_TARGET = 26.0;
+			};
+			name = Debug;
+		};
+		96C7A91C2E9E8BDF00F62AFD /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = EABA6DB862;
+				GENERATE_INFOPLIST_FILE = YES;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = "com.abinnewies.Fitness-Watch-AppUITests";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = watchos;
+				STRING_CATALOG_GENERATE_SYMBOLS = NO;
+				SWIFT_APPROACHABLE_CONCURRENCY = YES;
+				SWIFT_EMIT_LOC_STRINGS = NO;
+				SWIFT_UPCOMING_FEATURE_MEMBER_IMPORT_VISIBILITY = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = 4;
+				TEST_TARGET_NAME = "Fitness Watch App";
+				VALIDATE_PRODUCT = YES;
+				WATCHOS_DEPLOYMENT_TARGET = 26.0;
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		96C7A8BF2E9E8BDD00F62AFD /* Build configuration list for PBXProject "Fitness" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				96C7A9082E9E8BDF00F62AFD /* Debug */,
+				96C7A9092E9E8BDF00F62AFD /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		96C7A90A2E9E8BDF00F62AFD /* Build configuration list for PBXNativeTarget "Fitness Watch App" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				96C7A90B2E9E8BDF00F62AFD /* Debug */,
+				96C7A90C2E9E8BDF00F62AFD /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		96C7A90E2E9E8BDF00F62AFD /* Build configuration list for PBXNativeTarget "Fitness" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				96C7A90F2E9E8BDF00F62AFD /* Debug */,
+				96C7A9102E9E8BDF00F62AFD /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		96C7A9112E9E8BDF00F62AFD /* Build configuration list for PBXNativeTarget "FitnessTests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				96C7A9122E9E8BDF00F62AFD /* Debug */,
+				96C7A9132E9E8BDF00F62AFD /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		96C7A9142E9E8BDF00F62AFD /* Build configuration list for PBXNativeTarget "FitnessUITests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				96C7A9152E9E8BDF00F62AFD /* Debug */,
+				96C7A9162E9E8BDF00F62AFD /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		96C7A9172E9E8BDF00F62AFD /* Build configuration list for PBXNativeTarget "Fitness Watch AppTests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				96C7A9182E9E8BDF00F62AFD /* Debug */,
+				96C7A9192E9E8BDF00F62AFD /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		96C7A91A2E9E8BDF00F62AFD /* Build configuration list for PBXNativeTarget "Fitness Watch AppUITests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				96C7A91B2E9E8BDF00F62AFD /* Debug */,
+				96C7A91C2E9E8BDF00F62AFD /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = 96C7A8BC2E9E8BDD00F62AFD /* Project object */;
+}
