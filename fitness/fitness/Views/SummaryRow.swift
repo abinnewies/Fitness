@@ -8,14 +8,13 @@
 import SwiftUI
 
 struct SummaryRow: View {
-  let emoji: String
+  let symbol: SFSymbolName
   let title: String
   let value: String
 
   var body: some View {
     HStack(spacing: 8) {
-      Text(emoji)
-      Text(title)
+      MetricLabel(symbol: symbol, title: title)
 
       Spacer()
 
@@ -27,5 +26,5 @@ struct SummaryRow: View {
 }
 
 #Preview {
-  SummaryRow(emoji: "👣", title: "Steps", value: "5,200")
+  SummaryRow(symbol: .shoeprintsFill, title: "Steps", value: "5,200")
 }

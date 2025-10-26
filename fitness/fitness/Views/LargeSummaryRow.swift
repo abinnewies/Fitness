@@ -8,24 +8,21 @@
 import SwiftUI
 
 struct LargeSummaryRow: View {
-  let emoji: String
+  let symbol: SFSymbolName
   let title: String
   let value: String
   let unit: String
 
   var body: some View {
     VStack(spacing: 8) {
-      HStack {
-        Text(emoji)
-        Text(title)
-      }
-      .frame(maxWidth: .infinity, alignment: .leading)
+      MetricLabel(symbol: symbol, title: title)
+        .frame(maxWidth: .infinity, alignment: .leading)
 
-      Spacer(minLength: 16)
+      Spacer(minLength: 8)
 
       HStack(alignment: .lastTextBaseline, spacing: 4) {
         Text(value)
-          .font(.title)
+          .font(.headline)
         Text(unit)
           .font(.subheadline)
           .foregroundStyle(Color(.secondaryLabel))
@@ -40,5 +37,5 @@ struct LargeSummaryRow: View {
 }
 
 #Preview {
-  LargeSummaryRow(emoji: "👣", title: "Steps", value: "5,200", unit: "Steps")
+  LargeSummaryRow(symbol: .shoeprintsFill, title: "Steps", value: "5,200", unit: "Steps")
 }

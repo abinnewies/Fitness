@@ -6,6 +6,7 @@
 //
 
 import Combine
+import CoreLocation
 import HealthKit
 import SwiftUI
 
@@ -22,15 +23,6 @@ struct HeartRateSample {
 
 enum ContentViewModelError: Error {
   case missingValue
-}
-
-struct Summary {
-  let range: SummaryRange
-  let caloriesBurned: Int
-  let elevationAscended: Int
-  let milesRun: Double
-  let restingHeartRate: Int?
-  let steps: Int
 }
 
 private enum StatisticsType {
@@ -62,6 +54,7 @@ class ContentViewModel {
     HKQuantityType(.basalEnergyBurned),
     HKQuantityType(.stepCount),
     HKObjectType.workoutType(),
+    HKSeriesType.workoutRoute(),
   ]
 
   private var anchor: HKQueryAnchor?
@@ -76,10 +69,11 @@ class ContentViewModel {
     try Summary(
       range: summaryRange,
       caloriesBurned: await fetchCalories(forRange: summaryRange),
-      elevationAscended: await fetchElevationAscended(forRange: summaryRange),
-      milesRun: await fetchMilesRun(forRange: summaryRange),
+      elevationAscendedMeters: summaryRange == .last7Days ? await fetchElevationAscended(forRange: summaryRange) : nil,
+      distanceRunMeters: summaryRange == .last7Days ? await fetchMetersRun(forRange: summaryRange) : nil,
       restingHeartRate: try? await fetchingRestingHeartRate(forRange: summaryRange),
-      steps: await fetchSteps(forRange: summaryRange)
+      steps: await fetchSteps(forRange: summaryRange),
+      runs: await fetchRunSummaries(forRange: summaryRange)
     )
   }
 
@@ -124,10 +118,38 @@ class ContentViewModel {
     return Int(round(restingHeartRate))
   }
 
-  private func fetchWorkouts(from: Date, to: Date, ofType _: HKWorkoutActivityType) async throws -> [HKWorkout] {
+  private func fetchRunSummaries(forRange summaryRange: SummaryRange) async throws -> [RunSummary] {
+    guard summaryRange != .last7Days else {
+      return []
+    }
+
+    let workouts = try await fetchWorkouts(from: summaryRange.from, to: summaryRange.to, ofType: .running)
+
+    var summaries: [RunSummary] = []
+    for workout in workouts {
+      let route = try? await fetchRoutes(for: workout).first
+      let routePoints: [RoutePoint]
+      if let route {
+        routePoints = (try? await fetchRoutePoints(for: route)) ?? []
+      } else {
+        routePoints = []
+      }
+      let summary = RunSummary(
+        id: workout.uuid.uuidString,
+        distanceMeters: workout.distanceMeters,
+        duration: workout.duration,
+        elevationAscendedMeters: workout.elevationAscendedMeters,
+        routePoints: routePoints
+      )
+      summaries.append(summary)
+    }
+    return summaries
+  }
+
+  private func fetchWorkouts(from: Date, to: Date, ofType type: HKWorkoutActivityType) async throws -> [HKWorkout] {
     let workoutType = HKObjectType.workoutType()
     let predicate = NSCompoundPredicate(andPredicateWithSubpredicates: [
-      HKQuery.predicateForWorkouts(with: .running),
+      HKQuery.predicateForWorkouts(with: type),
       HKQuery.predicateForSamples(withStart: from, end: to, options: .strictStartDate),
     ])
 
@@ -149,26 +171,66 @@ class ContentViewModel {
     }
   }
 
-  func fetchMilesRun(forRange summaryRange: SummaryRange) async throws -> Double {
-    let workouts = try await fetchWorkouts(from: summaryRange.from, to: summaryRange.to, ofType: .running)
-    let totalMeters = workouts
-      .compactMap {
-        $0.totalDistance?.doubleValue(for: .meter())
+  private func fetchRoutes(for workout: HKWorkout) async throws -> [HKWorkoutRoute] {
+    let predicate = HKQuery.predicateForObjects(from: workout)
+
+    return try await withCheckedThrowingContinuation { continuation in
+      let query = HKSampleQuery(
+        sampleType: HKSeriesType.workoutRoute(),
+        predicate: predicate,
+        limit: HKObjectQueryNoLimit,
+        sortDescriptors: nil
+      ) { _, samples, error in
+        if let error {
+          continuation.resume(throwing: error)
+          return
+        }
+
+        let routes = samples as? [HKWorkoutRoute] ?? []
+        continuation.resume(returning: routes)
       }
-      .reduce(0, +)
-    return summaryRange.averageIfNeeded(totalMeters.milesFromMeters)
+
+      store.execute(query)
+    }
   }
 
-  func fetchElevationAscended(forRange summaryRange: SummaryRange) async throws -> Int {
-    let workouts = try await fetchWorkouts(from: summaryRange.from, to: summaryRange.to, ofType: .running)
-    let totalMetersAscended: Double = workouts.compactMap { workout in
-      if let quantity = workout.metadata?[HKMetadataKeyElevationAscended] as? HKQuantity {
-        return quantity.doubleValue(for: .meter())
-      } else {
-        return nil
+  private func fetchRoutePoints(for route: HKWorkoutRoute) async throws -> [RoutePoint] {
+    return try await withCheckedThrowingContinuation { continuation in
+      var routePoints: [RoutePoint] = []
+
+      let query = HKWorkoutRouteQuery(route: route) { _, locations, done, error in
+        if let error {
+          continuation.resume(throwing: error)
+          return
+        }
+
+        if let locations {
+          routePoints.append(contentsOf: locations.map {
+            RoutePoint(location: $0)
+          })
+        }
+
+        if done {
+          continuation.resume(returning: routePoints)
+        }
       }
-    }.reduce(0, +)
-    return Int(summaryRange.averageIfNeeded(totalMetersAscended).feetFromMeters)
+
+      store.execute(query)
+    }
+  }
+
+  func fetchMetersRun(forRange summaryRange: SummaryRange) async throws -> Double {
+    let workouts = try await fetchWorkouts(from: summaryRange.from, to: summaryRange.to, ofType: .running)
+    let totalMeters = workouts
+      .compactMap(\.distanceMeters)
+      .reduce(0, +)
+    return totalMeters
+  }
+
+  func fetchElevationAscended(forRange summaryRange: SummaryRange) async throws -> Double {
+    let workouts = try await fetchWorkouts(from: summaryRange.from, to: summaryRange.to, ofType: .running)
+    let totalMetersAscended: Double = workouts.compactMap(\.elevationAscendedMeters).reduce(0, +)
+    return totalMetersAscended
   }
 
   func fetchHourlyHeartRateDate() async throws -> [HourlyHeartRateSample] {

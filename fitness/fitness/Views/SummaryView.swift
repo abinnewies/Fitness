@@ -15,24 +15,45 @@ struct SummaryView: View {
       .frame(maxWidth: .infinity, alignment: .leading)
       .font(.title2)
 
-    VStack(spacing: 0) {
-      if let restingHeartRate = summary.restingHeartRate {
-        SummaryRow(emoji: "❤️", title: "Resting Heart Rate", value: String(restingHeartRate))
+    VStack(spacing: 8) {
+      ForEach(summary.runs) { runSummary in
+        RunSummaryView(runSummary: runSummary)
       }
-      SummaryRow(emoji: "👣", title: "Steps", value: summary.steps.commaDelimitedString)
-      Divider()
-      SummaryRow(emoji: "🔥", title: "Calories", value: summary.caloriesBurned.commaDelimitedString)
-      if summary.milesRun > 0 {
+
+      VStack(spacing: 0) {
+        if let restingHeartRate = summary.restingHeartRate {
+          SummaryRow(symbol: .heartFill, title: "Resting Heart Rate", value: String(restingHeartRate))
+          Divider()
+        }
+        SummaryRow(symbol: .shoeprintsFill, title: "Steps", value: summary.steps.commaDelimitedString)
         Divider()
-        SummaryRow(emoji: "👟", title: "Miles Run", value: String(format: "%.1f", summary.milesRun))
+        SummaryRow(
+          symbol: .flameFill,
+          title: "Calories",
+          value: summary.caloriesBurned.commaDelimitedString
+        )
+        if let distanceRunMeters = summary.distanceRunMeters, distanceRunMeters > 0 {
+          Divider()
+          let distanceRunMiles = distanceRunMeters.milesFromMeters
+          SummaryRow(
+            symbol: .figureRun,
+            title: "Miles Run",
+            value: String(format: "%.1f", distanceRunMiles)
+          )
+        }
+        if let elevationAscendedMeters = summary.elevationAscendedMeters, elevationAscendedMeters > 0 {
+          Divider()
+          let elevationAscendedFeet = Int(elevationAscendedMeters.feetFromMeters)
+          SummaryRow(
+            symbol: .arrowUpRight,
+            title: "Feet Ascended",
+            value: elevationAscendedFeet.commaDelimitedString
+          )
+        }
       }
-      if summary.elevationAscended > 0 {
-        Divider()
-        SummaryRow(emoji: "🏔️", title: "Feet Ascended", value: summary.elevationAscended.commaDelimitedString)
-      }
+      .background(RoundedRectangle(cornerRadius: 12)
+        .fill(Color(uiColor: .secondarySystemBackground)))
     }
-    .background(RoundedRectangle(cornerRadius: 12)
-      .fill(Color(uiColor: .secondarySystemBackground)))
   }
 }
 
@@ -40,9 +61,10 @@ struct SummaryView: View {
   SummaryView(summary: .init(
     range: .today,
     caloriesBurned: 3175,
-    elevationAscended: 1200,
-    milesRun: 10,
+    elevationAscendedMeters: 1200,
+    distanceRunMeters: 16093.4,
     restingHeartRate: 60,
-    steps: 34501
+    steps: 34501,
+    runs: []
   ))
 }

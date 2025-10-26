@@ -13,23 +13,40 @@ struct LargeSummaryView: View {
   var body: some View {
     VStack(spacing: 8) {
       if let restingHeartRate = summary.restingHeartRate {
-        LargeSummaryRow(emoji: "❤️", title: "Resting Heart Rate", value: String(restingHeartRate), unit: "bpm")
+        LargeSummaryRow(
+          symbol: .heartFill,
+          title: "Resting Heart Rate",
+          value: String(restingHeartRate),
+          unit: "bpm"
+        )
       }
-      LargeSummaryRow(emoji: "👣", title: "Steps", value: summary.steps.commaDelimitedString, unit: "steps")
       LargeSummaryRow(
-        emoji: "🔥",
+        symbol: .shoeprintsFill,
+        title: "Steps",
+        value: summary.steps.commaDelimitedString,
+        unit: "steps"
+      )
+      LargeSummaryRow(
+        symbol: .flameFill,
         title: "Calories",
         value: summary.caloriesBurned.commaDelimitedString,
         unit: "calories"
       )
-      if summary.milesRun > 0 {
-        LargeSummaryRow(emoji: "👟", title: "Miles Run", value: String(format: "%.1f", summary.milesRun), unit: "miles")
-      }
-      if summary.elevationAscended > 0 {
+      if let distanceRunMeters = summary.distanceRunMeters, distanceRunMeters > 0 {
+        let distanceRunMiles = distanceRunMeters.milesFromMeters
         LargeSummaryRow(
-          emoji: "🏔️",
+          symbol: .figureRun,
+          title: "Miles Run",
+          value: String(format: "%.1f", distanceRunMiles),
+          unit: "miles"
+        )
+      }
+      if let elevationAscendedMeters = summary.elevationAscendedMeters, elevationAscendedMeters > 0 {
+        let elevationAscendedFeet = Int(elevationAscendedMeters.feetFromMeters)
+        LargeSummaryRow(
+          symbol: .mountain2Fill,
           title: "Feet Ascended",
-          value: summary.elevationAscended.commaDelimitedString,
+          value: elevationAscendedFeet.commaDelimitedString,
           unit: "feet"
         )
       }
@@ -41,9 +58,10 @@ struct LargeSummaryView: View {
   SummaryView(summary: .init(
     range: .today,
     caloriesBurned: 3175,
-    elevationAscended: 1200,
-    milesRun: 10,
+    elevationAscendedMeters: 1200,
+    distanceRunMeters: 16093.4,
     restingHeartRate: 60,
-    steps: 34501
+    steps: 34501,
+    runs: []
   ))
 }

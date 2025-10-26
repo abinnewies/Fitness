@@ -77,6 +77,11 @@
 			path = Fitness;
 			sourceTree = "<group>";
 		};
+		9644F2682EAE975400FF5E0E /* Frameworks */ = {
+			isa = PBXFileSystemSynchronizedRootGroup;
+			path = Frameworks;
+			sourceTree = "<group>";
+		};
 		96C7A8D42E9E8BDE00F62AFD /* FitnessTests */ = {
 			isa = PBXFileSystemSynchronizedRootGroup;
 			path = FitnessTests;
@@ -153,6 +158,7 @@
 		96C7A8BB2E9E8BDD00F62AFD = {
 			isa = PBXGroup;
 			children = (
+				9644F2682EAE975400FF5E0E /* Frameworks */,
 				961E85DB2EA1401900F24424 /* Fitness */,
 				96C7A8D42E9E8BDE00F62AFD /* FitnessTests */,
 				96C7A8DE2E9E8BDE00F62AFD /* FitnessUITests */,
@@ -196,6 +202,7 @@
 			);
 			fileSystemSynchronizedGroups = (
 				961E85DB2EA1401900F24424 /* Fitness */,
+				9644F2682EAE975400FF5E0E /* Frameworks */,
 			);
 			name = Fitness;
 			packageProductDependencies = (

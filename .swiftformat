@@ -31,5 +31,5 @@
 
 # Rules
 --enable isEmpty
---enable sortedImports
+--enable sortImports
 --disable andOperator
