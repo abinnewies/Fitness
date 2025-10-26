@@ -25,13 +25,13 @@ struct ContentView: View {
         }
 
         Spacer().frame(height: 24)
-        
+
         if let yesterdaySummary {
           SummaryView(summary: yesterdaySummary)
         }
-        
+
         Spacer().frame(height: 24)
-        
+
         if let last7DaysSummary {
           SummaryView(summary: last7DaysSummary)
         }

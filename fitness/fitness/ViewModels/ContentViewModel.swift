@@ -61,7 +61,7 @@ class ContentViewModel {
     HKQuantityType(.activeEnergyBurned),
     HKQuantityType(.basalEnergyBurned),
     HKQuantityType(.stepCount),
-    HKObjectType.workoutType()
+    HKObjectType.workoutType(),
   ]
 
   private var anchor: HKQueryAnchor?
@@ -73,19 +73,23 @@ class ContentViewModel {
   }
 
   func fetchSummary(forRange summaryRange: SummaryRange) async throws -> Summary {
-    Summary(
+    try Summary(
       range: summaryRange,
-      caloriesBurned: try await fetchCalories(forRange: summaryRange),
-      elevationAscended: try await fetchElevationAscended(forRange: summaryRange),
-      milesRun: try await fetchMilesRun(forRange: summaryRange),
+      caloriesBurned: await fetchCalories(forRange: summaryRange),
+      elevationAscended: await fetchElevationAscended(forRange: summaryRange),
+      milesRun: await fetchMilesRun(forRange: summaryRange),
       restingHeartRate: try? await fetchingRestingHeartRate(forRange: summaryRange),
-      steps: try await fetchSteps(forRange: summaryRange)
+      steps: await fetchSteps(forRange: summaryRange)
     )
   }
 
   func fetchSteps(forRange summaryRange: SummaryRange) async throws -> Int {
     let steps = try await fetchStatistics(
-      type: .cumulativeSum, quantityType:  HKQuantityType(.stepCount), unit: .count(), from: summaryRange.from, to: summaryRange.to
+      type: .cumulativeSum,
+      quantityType: HKQuantityType(.stepCount),
+      unit: .count(),
+      from: summaryRange.from,
+      to: summaryRange.to
     )
     return Int(summaryRange.averageIfNeeded(steps))
   }
@@ -120,18 +124,20 @@ class ContentViewModel {
     return Int(round(restingHeartRate))
   }
 
-  private func fetchWorkouts(from: Date, to: Date, ofType: HKWorkoutActivityType) async throws -> [HKWorkout] {
+  private func fetchWorkouts(from: Date, to: Date, ofType _: HKWorkoutActivityType) async throws -> [HKWorkout] {
     let workoutType = HKObjectType.workoutType()
     let predicate = NSCompoundPredicate(andPredicateWithSubpredicates: [
       HKQuery.predicateForWorkouts(with: .running),
-      HKQuery.predicateForSamples(withStart: from, end: to, options: .strictStartDate)
+      HKQuery.predicateForSamples(withStart: from, end: to, options: .strictStartDate),
     ])
 
     return try await withCheckedThrowingContinuation { continuation in
-      let query = HKSampleQuery(sampleType: workoutType,
-                                predicate: predicate,
-                                limit: HKObjectQueryNoLimit,
-                                sortDescriptors: nil) { _, samples, error in
+      let query = HKSampleQuery(
+        sampleType: workoutType,
+        predicate: predicate,
+        limit: HKObjectQueryNoLimit,
+        sortDescriptors: nil
+      ) { _, samples, error in
         if let error {
           continuation.resume(throwing: error)
           return
@@ -202,7 +208,7 @@ class ContentViewModel {
         predicate: predicate,
         limit: HKObjectQueryNoLimit,
         sortDescriptors: [sortDescriptor]
-      ) { [weak self] query, samples, error in
+      ) { [weak self] _, samples, error in
         guard let self else {
           return
         }
@@ -232,7 +238,7 @@ class ContentViewModel {
       predicate: nil,
       anchor: anchor,
       limit: HKObjectQueryNoLimit
-    ) { [weak self] query, samples, _, newAnchor, error in
+    ) { [weak self] _, samples, _, newAnchor, _ in
       guard let self, let newestSample = samples?.last as? HKQuantitySample else {
         return
       }
@@ -247,13 +253,19 @@ class ContentViewModel {
   }
 
   private func fetchStatistics(
-    type: StatisticsType, quantityType: HKQuantityType, unit: HKUnit, from: Date, to: Date
+    type: StatisticsType,
+    quantityType: HKQuantityType,
+    unit: HKUnit,
+    from: Date,
+    to: Date
   ) async throws -> Double {
     return try await withCheckedThrowingContinuation { continuation in
       let predicate = HKQuery.predicateForSamples(withStart: from, end: to, options: .strictStartDate)
       let query = HKStatisticsQuery(
-        quantityType: quantityType, quantitySamplePredicate: predicate, options: type.healthKitType
-      ) { query, statistics, error in
+        quantityType: quantityType,
+        quantitySamplePredicate: predicate,
+        options: type.healthKitType
+      ) { _, statistics, error in
         if let error {
           continuation.resume(throwing: error)
           return
