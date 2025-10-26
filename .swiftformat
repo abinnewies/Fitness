@@ -1,0 +1,35 @@
+# SwiftFormat Configuration
+
+# File options
+--exclude Pods,Carthage,vendor,.build
+
+# Format options
+--indent 2
+--maxwidth 120
+--indentcase false
+--trimwhitespace always
+--wraparguments before-first
+--wrapparameters before-first
+--wrapcollections before-first
+--closingparen balanced
+--commas always
+--decimalgrouping 3,6
+--exponentcase lowercase
+--fractiongrouping disabled
+--hexgrouping 4,8
+--hexliteralcase uppercase
+--ifdef noindent
+--importgrouping alphabetized
+--linebreaks lf
+--octalgrouping 4,8
+--operatorfunc spaced
+--selfrequired
+--semicolons inline
+--stripunusedargs always
+--swiftversion 5.0
+--allow-partial-wrapping false
+
+# Rules
+--enable isEmpty
+--enable sortedImports
+--disable andOperator

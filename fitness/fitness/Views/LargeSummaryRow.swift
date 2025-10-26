@@ -34,10 +34,8 @@ struct LargeSummaryRow: View {
     }
     .frame(maxWidth: .infinity, alignment: .leading)
     .padding(.all, 16)
-    .background(
-      RoundedRectangle(cornerRadius: 12)
-        .fill(Color(uiColor: .secondarySystemBackground))
-    )
+    .background(RoundedRectangle(cornerRadius: 12)
+      .fill(Color(uiColor: .secondarySystemBackground)))
   }
 }
 

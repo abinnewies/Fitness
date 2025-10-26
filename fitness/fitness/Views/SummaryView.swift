@@ -31,22 +31,18 @@ struct SummaryView: View {
         SummaryRow(emoji: "🏔️", title: "Feet Ascended", value: summary.elevationAscended.commaDelimitedString)
       }
     }
-    .background(
-      RoundedRectangle(cornerRadius: 12)
-        .fill(Color(uiColor: .secondarySystemBackground))
-    )
+    .background(RoundedRectangle(cornerRadius: 12)
+      .fill(Color(uiColor: .secondarySystemBackground)))
   }
 }
 
 #Preview {
-  SummaryView(
-    summary: .init(
-      range: .today,
-      caloriesBurned: 3175,
-      elevationAscended: 1200,
-      milesRun: 10,
-      restingHeartRate: 60,
-      steps: 34501
-    )
-  )
+  SummaryView(summary: .init(
+    range: .today,
+    caloriesBurned: 3175,
+    elevationAscended: 1200,
+    milesRun: 10,
+    restingHeartRate: 60,
+    steps: 34501
+  ))
 }
