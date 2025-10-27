@@ -18,8 +18,7 @@ struct SummaryRow: View {
 
       Spacer()
 
-      Text(value)
-        .font(.headline)
+      MetricValue(value: value, unit: nil)
     }
     .padding(.all, 16)
   }

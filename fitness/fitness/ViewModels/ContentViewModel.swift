@@ -16,13 +16,13 @@ struct HourlyHeartRateSample {
   let hour: Date
 }
 
-struct HeartRateSample {
-  let heartRate: Double
-  let date: Date
-}
-
 enum ContentViewModelError: Error {
   case missingValue
+}
+
+enum HourlyQuantityType {
+  case caloriesBurned
+  case stepCount
 }
 
 private enum StatisticsType {
@@ -37,6 +37,37 @@ private enum StatisticsType {
       .discreteAverage
     }
   }
+}
+
+private enum QuantityType {
+  case activeEnergyBurned
+  case basalEnergyBurned
+  case stepCount
+
+  var type: HKQuantityType {
+    switch self {
+    case .activeEnergyBurned:
+      HKQuantityType(.activeEnergyBurned)
+    case .basalEnergyBurned:
+      HKQuantityType(.basalEnergyBurned)
+    case .stepCount:
+      HKQuantityType(.stepCount)
+    }
+  }
+
+  var unit: HKUnit {
+    switch self {
+    case .stepCount:
+      HKUnit.count()
+    case .activeEnergyBurned, .basalEnergyBurned:
+      HKUnit.kilocalorie()
+    }
+  }
+}
+
+struct Sample {
+  let value: Double
+  let date: Date
 }
 
 @Observable
@@ -73,7 +104,9 @@ class ContentViewModel {
       distanceRunMeters: summaryRange == .last7Days ? await fetchMetersRun(forRange: summaryRange) : nil,
       restingHeartRate: try? await fetchingRestingHeartRate(forRange: summaryRange),
       steps: await fetchSteps(forRange: summaryRange),
-      runs: await fetchRunSummaries(forRange: summaryRange)
+      runs: await fetchRunSummaries(forRange: summaryRange),
+      calorieSamples: summaryRange == .today ? await fetchHourlySampleData(type: .caloriesBurned, hourStride: 3) : [:],
+      stepCountSamples: summaryRange == .today ? await fetchHourlySampleData(type: .stepCount, hourStride: 3) : [:]
     )
   }
 
@@ -233,62 +266,60 @@ class ContentViewModel {
     return totalMetersAscended
   }
 
-  func fetchHourlyHeartRateDate() async throws -> [HourlyHeartRateSample] {
+  func fetchHourlySampleData(type: HourlyQuantityType, hourStride: Int) async throws -> [Int: Sample] {
     let calendar = Calendar.current
     let now = Date()
     let startOfDay = calendar.startOfDay(for: now)
-    let heartRateSamples = try await fetchHeartRateSamples(from: startOfDay, to: now)
 
-    var hourlySamples: [Int: HourlyHeartRateSample] = [:]
-    for sample in heartRateSamples {
-      let hour = calendar.component(.hour, from: sample.date)
-      if let existing = hourlySamples[hour] {
-        hourlySamples[hour] = HourlyHeartRateSample(
-          minHeartRate: min(existing.minHeartRate, sample.heartRate),
-          maxHeartRate: max(existing.maxHeartRate, sample.heartRate),
-          hour: existing.hour
-        )
+    let allSamples: [Sample]
+    switch type {
+    case .stepCount:
+      allSamples = try await fetchSamples(type: .stepCount, from: startOfDay, to: now)
+    case .caloriesBurned:
+      let activeEnergySamples = try await fetchSamples(type: .activeEnergyBurned, from: startOfDay, to: now)
+      let basalEnergySamples = try await fetchSamples(type: .basalEnergyBurned, from: startOfDay, to: now)
+      allSamples = activeEnergySamples + basalEnergySamples
+    }
+
+    var hourlyTotals: [Int: Sample] = [:]
+    for sample in allSamples {
+      let hour = calendar.component(.hour, from: sample.date) / hourStride
+      if let existing = hourlyTotals[hour] {
+        hourlyTotals[hour] = Sample(value: existing.value + sample.value, date: existing.date)
       } else {
-        hourlySamples[hour] = HourlyHeartRateSample(
-          minHeartRate: sample.heartRate,
-          maxHeartRate: sample.heartRate,
-          hour: sample.date
-        )
+        hourlyTotals[hour] = sample
       }
     }
 
-    return Array(hourlySamples.values)
+    return hourlyTotals
   }
 
-  func fetchHeartRateSamples(from: Date, to: Date) async throws -> [HeartRateSample] {
+  private func fetchSamples(type: QuantityType, from: Date, to: Date) async throws -> [Sample] {
     let predicate = HKQuery.predicateForSamples(withStart: from, end: to, options: .strictStartDate)
     let sortDescriptor = NSSortDescriptor(key: HKSampleSortIdentifierEndDate, ascending: false)
 
     return try await withCheckedThrowingContinuation { continuation in
       let query = HKSampleQuery(
-        sampleType: HKQuantityType(.heartRate),
+        sampleType: type.type,
         predicate: predicate,
         limit: HKObjectQueryNoLimit,
         sortDescriptors: [sortDescriptor]
-      ) { [weak self] _, samples, error in
-        guard let self else {
-          return
-        }
-
+      ) { _, samples, error in
         if let error {
           continuation.resume(throwing: error)
           return
         }
 
         guard let samples = samples as? [HKQuantitySample] else {
+          continuation.resume(returning: [])
           return
         }
 
-        let heartRateSamples = samples.map { sample in
-          let value = sample.quantity.doubleValue(for: self.bpm)
-          return HeartRateSample(heartRate: value, date: sample.endDate)
+        let mapped = samples.map { sample in
+          Sample(value: sample.quantity.doubleValue(for: type.unit), date: sample.endDate)
         }
-        continuation.resume(returning: heartRateSamples)
+
+        continuation.resume(returning: mapped)
       }
       store.execute(query)
     }

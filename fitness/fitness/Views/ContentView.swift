@@ -21,6 +21,10 @@ struct ContentView: View {
     ScrollView {
       VStack {
         if let todaySummary {
+          ForEach(todaySummary.runs) { runSummary in
+            RunSummaryView(runSummary: runSummary)
+          }
+
           LargeSummaryView(summary: todaySummary)
         }
 

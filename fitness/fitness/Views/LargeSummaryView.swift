@@ -17,20 +17,23 @@ struct LargeSummaryView: View {
           symbol: .heartFill,
           title: "Resting Heart Rate",
           value: String(restingHeartRate),
-          unit: "bpm"
+          unit: "bpm",
+          samples: nil
         )
       }
       LargeSummaryRow(
         symbol: .shoeprintsFill,
         title: "Steps",
         value: summary.steps.commaDelimitedString,
-        unit: "steps"
+        unit: "steps",
+        samples: summary.stepCountSamples
       )
       LargeSummaryRow(
         symbol: .flameFill,
         title: "Calories",
         value: summary.caloriesBurned.commaDelimitedString,
-        unit: "calories"
+        unit: "calories",
+        samples: summary.calorieSamples
       )
       if let distanceRunMeters = summary.distanceRunMeters, distanceRunMeters > 0 {
         let distanceRunMiles = distanceRunMeters.milesFromMeters
@@ -38,7 +41,8 @@ struct LargeSummaryView: View {
           symbol: .figureRun,
           title: "Miles Run",
           value: String(format: "%.1f", distanceRunMiles),
-          unit: "miles"
+          unit: "miles",
+          samples: nil
         )
       }
       if let elevationAscendedMeters = summary.elevationAscendedMeters, elevationAscendedMeters > 0 {
@@ -47,21 +51,10 @@ struct LargeSummaryView: View {
           symbol: .mountain2Fill,
           title: "Feet Ascended",
           value: elevationAscendedFeet.commaDelimitedString,
-          unit: "feet"
+          unit: "feet",
+          samples: nil
         )
       }
     }
   }
-}
-
-#Preview {
-  SummaryView(summary: .init(
-    range: .today,
-    caloriesBurned: 3175,
-    elevationAscendedMeters: 1200,
-    distanceRunMeters: 16093.4,
-    restingHeartRate: 60,
-    steps: 34501,
-    runs: []
-  ))
 }

@@ -23,21 +23,14 @@ struct RunSummaryView: View {
 
         Spacer()
 
-        Text(runSummary.duration.durationFormatted)
-          .font(.headline)
+        MetricValue(value: runSummary.duration.durationFormatted, unit: nil)
           .frame(maxWidth: .infinity, alignment: .leading)
           .padding(.leading, -4)
 
         if let distanceMeters = runSummary.distanceMeters {
           let distanceMiles = distanceMeters.milesFromMeters
-          HStack(alignment: .lastTextBaseline, spacing: 4) {
-            Text(String(format: "%.1f", distanceMiles))
-              .font(.headline)
-            Text("miles")
-              .font(.subheadline)
-              .foregroundStyle(Color(.secondaryLabel))
-          }
-          .frame(maxWidth: .infinity, alignment: .leading)
+          MetricValue(value: String(format: "%.1f", distanceMiles), unit: "miles")
+            .frame(maxWidth: .infinity, alignment: .leading)
         }
       }
       .frame(maxWidth: .infinity, alignment: .leading)

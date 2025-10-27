@@ -13,4 +13,6 @@ struct Summary {
   let restingHeartRate: Int?
   let steps: Int
   let runs: [RunSummary]
+  let calorieSamples: [Int: Sample]
+  let stepCountSamples: [Int: Sample]
 }

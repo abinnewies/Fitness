@@ -56,15 +56,3 @@ struct SummaryView: View {
     }
   }
 }
-
-#Preview {
-  SummaryView(summary: .init(
-    range: .today,
-    caloriesBurned: 3175,
-    elevationAscendedMeters: 1200,
-    distanceRunMeters: 16093.4,
-    restingHeartRate: 60,
-    steps: 34501,
-    runs: []
-  ))
-}

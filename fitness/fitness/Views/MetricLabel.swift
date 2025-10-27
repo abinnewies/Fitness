@@ -13,6 +13,7 @@ struct MetricLabel: View {
 
   var body: some View {
     Label(title, symbol: symbol)
+      .font(.callout)
       .labelReservedIconWidth(20)
   }
 }
