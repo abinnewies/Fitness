@@ -9,13 +9,15 @@ import Charts
 import Combine
 import SwiftUI
 
-struct ContentView: View {
+struct DashboardView: View {
   @Environment(\.scenePhase) var scenePhase
 
-  @State var viewModel = ContentViewModel()
-  @State var todaySummary: Summary?
-  @State var yesterdaySummary: Summary?
-  @State var last7DaysSummary: Summary?
+  private let healthKitManager: HealthKitManager
+  @State private var viewModel: DashboardViewModel
+
+  @State private var todaySummary: Summary?
+  @State private var yesterdaySummary: Summary?
+  @State private var last7DaysSummary: Summary?
 
   var body: some View {
     ScrollView {
@@ -42,11 +44,11 @@ struct ContentView: View {
       }
       .padding(16)
     }
-    .onChange(of: scenePhase) { _, newPhase in
-      if newPhase == .active {
+    .onChange(of: scenePhase) {
+      if scenePhase == .active {
         Task {
           do {
-            try await viewModel.requestHealthKitAuthorization()
+            try await healthKitManager.requestHealthKitAuthorization()
             todaySummary = try await viewModel.fetchSummary(forRange: .today)
             yesterdaySummary = try await viewModel.fetchSummary(forRange: .yesterday)
             last7DaysSummary = try await viewModel.fetchSummary(forRange: .last7Days)
@@ -57,8 +59,9 @@ struct ContentView: View {
       }
     }
   }
-}
 
-#Preview {
-  ContentView()
+  init(healthKitManager: HealthKitManager) {
+    self.healthKitManager = healthKitManager
+    viewModel = DashboardViewModel(healthKitManager: healthKitManager)
+  }
 }
