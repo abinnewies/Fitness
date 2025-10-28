@@ -15,6 +15,8 @@ struct MetricValue: View {
     HStack(alignment: .lastTextBaseline, spacing: 4) {
       Text(value)
         .font(.title3.bold())
+        .contentTransition(.numericText())
+        .animation(.easeInOut(duration: 0.25), value: value)
       if let unit {
         Text(unit)
           .font(.subheadline)

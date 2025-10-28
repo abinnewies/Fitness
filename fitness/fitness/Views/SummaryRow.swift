@@ -11,19 +11,16 @@ struct SummaryRow: View {
   let symbol: SFSymbolName
   let title: String
   let value: String
+  let unit: String?
 
   var body: some View {
     HStack(spacing: 8) {
       MetricLabel(symbol: symbol, title: title)
+        .frame(maxWidth: .infinity, alignment: .leading)
 
-      Spacer()
-
-      MetricValue(value: value, unit: nil)
+      MetricValue(value: value, unit: unit)
+        .frame(maxWidth: .infinity, alignment: .leading)
     }
     .padding(.all, 16)
   }
-}
-
-#Preview {
-  SummaryRow(symbol: .shoeprintsFill, title: "Steps", value: "5,200")
 }

@@ -1,5 +1,5 @@
 //
-//  ContentView.swift
+//  DashboardView.swift
 //  Fitness
 //
 //  Created by Andreas Binnewies on 10/14/25.
@@ -23,23 +23,23 @@ struct DashboardView: View {
     ScrollView {
       VStack {
         if let todaySummary {
-          ForEach(todaySummary.runs) { runSummary in
-            RunSummaryView(runSummary: runSummary)
+          ForEach(todaySummary.workouts) { workoutSummary in
+            WorkoutSummaryView(workoutSummary: workoutSummary, healthKitManager: healthKitManager)
           }
 
-          LargeSummaryView(summary: todaySummary)
+          LargeSummaryView(summary: todaySummary, healthKitManager: healthKitManager)
         }
 
         Spacer().frame(height: 24)
 
         if let yesterdaySummary {
-          SummaryView(summary: yesterdaySummary)
+          SummaryView(summary: yesterdaySummary, healthKitManager: healthKitManager)
         }
 
         Spacer().frame(height: 24)
 
         if let last7DaysSummary {
-          SummaryView(summary: last7DaysSummary)
+          SummaryView(summary: last7DaysSummary, healthKitManager: healthKitManager)
         }
       }
       .padding(16)
@@ -49,9 +49,15 @@ struct DashboardView: View {
         Task {
           do {
             try await healthKitManager.requestHealthKitAuthorization()
-            todaySummary = try await viewModel.fetchSummary(forRange: .today)
-            yesterdaySummary = try await viewModel.fetchSummary(forRange: .yesterday)
-            last7DaysSummary = try await viewModel.fetchSummary(forRange: .last7Days)
+            let todaySummary = await viewModel.fetchSummary(forRange: .today)
+            let yesterdaySummary = await viewModel.fetchSummary(forRange: .yesterday)
+            let last7DaysSummary = await viewModel.fetchSummary(forRange: .last7Days)
+
+            // Set these all at the same time after everything has loaded to prevent them from rendering
+            // at different times.
+            self.todaySummary = todaySummary
+            self.yesterdaySummary = yesterdaySummary
+            self.last7DaysSummary = last7DaysSummary
           } catch {
             print(error)
           }

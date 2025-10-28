@@ -14,9 +14,9 @@ extension TimeInterval {
     let minutes = (total % 3600) / 60
     let seconds = total % 60
     if hours > 0 {
-      return String(format: "%2dh %02dm %02ds", hours, minutes, seconds)
+      return String(format: "%dh %dm %ds", hours, minutes, seconds)
     } else {
-      return String(format: "%2dm %02ds", minutes, seconds)
+      return String(format: "%dm %ds", minutes, seconds)
     }
   }
 }

@@ -9,50 +9,60 @@ import SwiftUI
 
 struct LargeSummaryView: View {
   let summary: Summary
+  let healthKitManager: HealthKitManager
 
   var body: some View {
     VStack(spacing: 8) {
-      if let restingHeartRate = summary.restingHeartRate {
+      if let hrv = summary.hrv {
         LargeSummaryRow(
           symbol: .heartFill,
-          title: "Resting Heart Rate",
-          value: String(restingHeartRate),
-          unit: "bpm",
-          samples: nil
+          title: "HRV",
+          value: String(hrv),
+          unit: "ms",
+          healthKitManager: healthKitManager,
+          healthMetric: .hrv
         )
       }
-      LargeSummaryRow(
-        symbol: .shoeprintsFill,
-        title: "Steps",
-        value: summary.steps.commaDelimitedString,
-        unit: "steps",
-        samples: summary.stepCountSamples
-      )
-      LargeSummaryRow(
-        symbol: .flameFill,
-        title: "Calories",
-        value: summary.caloriesBurned.commaDelimitedString,
-        unit: "calories",
-        samples: summary.calorieSamples
-      )
+      if let steps = summary.steps {
+        LargeSummaryRow(
+          symbol: .shoeprintsFill,
+          title: "Steps",
+          value: steps.commaDelimitedString,
+          unit: "steps",
+          healthKitManager: healthKitManager,
+          healthMetric: .stepCount
+        )
+      }
+      if let caloriesBurned = summary.caloriesBurned {
+        LargeSummaryRow(
+          symbol: .flameFill,
+          title: "Calories",
+          value: caloriesBurned.commaDelimitedString,
+          unit: "calories",
+          healthKitManager: healthKitManager,
+          healthMetric: .caloriesBurned
+        )
+      }
       if let distanceRunMeters = summary.distanceRunMeters, distanceRunMeters > 0 {
         let distanceRunMiles = distanceRunMeters.milesFromMeters
         LargeSummaryRow(
           symbol: .figureRun,
-          title: "Miles Run",
+          title: "Distance",
           value: String(format: "%.1f", distanceRunMiles),
           unit: "miles",
-          samples: nil
+          healthKitManager: healthKitManager,
+          healthMetric: nil
         )
       }
       if let elevationAscendedMeters = summary.elevationAscendedMeters, elevationAscendedMeters > 0 {
         let elevationAscendedFeet = Int(elevationAscendedMeters.feetFromMeters)
         LargeSummaryRow(
           symbol: .mountain2Fill,
-          title: "Feet Ascended",
+          title: "Elevation",
           value: elevationAscendedFeet.commaDelimitedString,
           unit: "feet",
-          samples: nil
+          healthKitManager: healthKitManager,
+          healthMetric: nil
         )
       }
     }

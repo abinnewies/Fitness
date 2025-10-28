@@ -189,7 +189,6 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 96C7A90E2E9E8BDF00F62AFD /* Build configuration list for PBXNativeTarget "Fitness" */;
 			buildPhases = (
-				96C7A91D2E9E8C0000F62AFD /* SwiftFormat */,
 				96C7A8C02E9E8BDD00F62AFD /* Sources */,
 				96C7A8C12E9E8BDD00F62AFD /* Frameworks */,
 				96C7A8C22E9E8BDD00F62AFD /* Resources */,
@@ -430,25 +429,6 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXShellScriptBuildPhase section */
-		96C7A91D2E9E8C0000F62AFD /* SwiftFormat */ = {
-			isa = PBXShellScriptBuildPhase;
-			alwaysOutOfDate = 1;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputFileListPaths = (
-			);
-			inputPaths = (
-			);
-			name = SwiftFormat;
-			outputFileListPaths = (
-			);
-			outputPaths = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "# Find swiftformat in common locations\nif [ -x \"/opt/homebrew/bin/swiftformat\" ]; then\n  SWIFTFORMAT=\"/opt/homebrew/bin/swiftformat\"\nelif [ -x \"/usr/local/bin/swiftformat\" ]; then\n  SWIFTFORMAT=\"/usr/local/bin/swiftformat\"\nelif which swiftformat >/dev/null 2>&1; then\n  SWIFTFORMAT=$(which swiftformat)\nelse\n  echo \"warning: SwiftFormat not installed, download from https://github.com/nicklockwood/SwiftFormat\"\n  exit 0\nfi\n\n# Run swiftformat\ncd \"$SRCROOT/..\"\n\"$SWIFTFORMAT\" .\n";
-		};
 		96C7A91E2E9E8C0000F62AFD /* SwiftFormat */ = {
 			isa = PBXShellScriptBuildPhase;
 			alwaysOutOfDate = 1;

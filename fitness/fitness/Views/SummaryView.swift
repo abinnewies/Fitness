@@ -9,36 +9,43 @@ import SwiftUI
 
 struct SummaryView: View {
   let summary: Summary
+  let healthKitManager: HealthKitManager
 
   var body: some View {
     Text(summary.range.description)
       .frame(maxWidth: .infinity, alignment: .leading)
-      .font(.title2)
+      .font(.title3.smallCaps())
 
     VStack(spacing: 8) {
-      ForEach(summary.runs) { runSummary in
-        RunSummaryView(runSummary: runSummary)
+      ForEach(summary.workouts) { workoutSummary in
+        SmallWorkoutSummaryView(workoutSummary: workoutSummary, healthKitManager: healthKitManager)
       }
 
       VStack(spacing: 0) {
-        if let restingHeartRate = summary.restingHeartRate {
-          SummaryRow(symbol: .heartFill, title: "Resting Heart Rate", value: String(restingHeartRate))
-          Divider()
+        if let hrv = summary.hrv {
+          SummaryRow(symbol: .heartFill, title: "HRV", value: String(hrv), unit: "ms")
         }
-        SummaryRow(symbol: .shoeprintsFill, title: "Steps", value: summary.steps.commaDelimitedString)
-        Divider()
-        SummaryRow(
-          symbol: .flameFill,
-          title: "Calories",
-          value: summary.caloriesBurned.commaDelimitedString
-        )
+        if let steps = summary.steps {
+          Divider()
+          SummaryRow(symbol: .shoeprintsFill, title: "Steps", value: steps.commaDelimitedString, unit: "steps")
+        }
+        if let caloriesBurned = summary.caloriesBurned {
+          Divider()
+          SummaryRow(
+            symbol: .flameFill,
+            title: "Energy",
+            value: caloriesBurned.commaDelimitedString,
+            unit: "calories"
+          )
+        }
         if let distanceRunMeters = summary.distanceRunMeters, distanceRunMeters > 0 {
           Divider()
           let distanceRunMiles = distanceRunMeters.milesFromMeters
           SummaryRow(
             symbol: .figureRun,
-            title: "Miles Run",
-            value: String(format: "%.1f", distanceRunMiles)
+            title: "Distance",
+            value: String(format: "%.1f", distanceRunMiles),
+            unit: "miles"
           )
         }
         if let elevationAscendedMeters = summary.elevationAscendedMeters, elevationAscendedMeters > 0 {
@@ -46,8 +53,9 @@ struct SummaryView: View {
           let elevationAscendedFeet = Int(elevationAscendedMeters.feetFromMeters)
           SummaryRow(
             symbol: .arrowUpRight,
-            title: "Feet Ascended",
-            value: elevationAscendedFeet.commaDelimitedString
+            title: "Elevation",
+            value: elevationAscendedFeet.commaDelimitedString,
+            unit: "ft"
           )
         }
       }

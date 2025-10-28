@@ -7,12 +7,10 @@
 
 struct Summary {
   let range: SummaryRange
-  let caloriesBurned: Int
+  let caloriesBurned: Int?
   let elevationAscendedMeters: Double?
   let distanceRunMeters: Double?
-  let restingHeartRate: Int?
-  let steps: Int
-  let runs: [RunSummary]
-  let calorieSamples: [Int: Sample]
-  let stepCountSamples: [Int: Sample]
+  let hrv: Int?
+  let steps: Int?
+  let workouts: [WorkoutSummary]
 }
