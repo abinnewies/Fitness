@@ -44,7 +44,7 @@ struct SummaryView: View {
           SummaryRow(
             symbol: .figureRun,
             title: "Distance",
-            value: String(format: "%.1f", distanceRunMiles),
+            value: String(format: "%.2f", distanceRunMiles),
             unit: "miles"
           )
         }

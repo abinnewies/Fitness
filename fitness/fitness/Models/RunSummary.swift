@@ -11,7 +11,7 @@ struct RunSummary: Identifiable, OutdoorWorkoutSummary {
   let name = "Run"
   let symbol = SFSymbolName.figureRun
   let id: String
-  let distanceMeters: Double?
+  let distanceMeters: Double
   let duration: TimeInterval
   let elevationAscendedMeters: Double?
   let workout: HKWorkout

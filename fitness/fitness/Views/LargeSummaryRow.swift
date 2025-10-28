@@ -46,7 +46,7 @@ struct LargeSummaryRow: View {
               y: .value("Value", item.y ?? 0),
               width: 3
             )
-            .opacity(isCurrentHour ? 1 : 0.5)
+            .foregroundStyle(isCurrentHour ? Color.accentColor : Color.secondary)
           } else {
             if let y = item.y {
               LineMark(
@@ -54,14 +54,21 @@ struct LargeSummaryRow: View {
                 y: .value("Value", y)
               )
               .interpolationMethod(.monotone)
-              .opacity(isCurrentHour ? 1 : 0.5)
+              .foregroundStyle(isCurrentHour ? Color.accentColor : Color.secondary)
 
               PointMark(
                 x: .value("Index", item.x),
                 y: .value("Value", y)
               )
               .symbolSize(20)
-              .opacity(isCurrentHour ? 1 : 0.5)
+              .foregroundStyle(isCurrentHour ? Color.accentColor : Color.secondary)
+              .annotation(position: .top) {
+                if y == chartData.map({ $0.y ?? 0 }).max() {
+                  Text(String(format: "%.0f", y))
+                    .font(.caption)
+                    .foregroundColor(.secondary)
+                }
+              }
             }
           }
         }

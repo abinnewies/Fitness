@@ -12,7 +12,7 @@ struct HikeSummary: Identifiable, OutdoorWorkoutSummary {
   let name = "Hike"
   let symbol = SFSymbolName.figureWalk
   let id: String
-  let distanceMeters: Double?
+  let distanceMeters: Double
   let duration: TimeInterval
   let elevationAscendedMeters: Double?
   let workout: HKWorkout

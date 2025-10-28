@@ -105,7 +105,7 @@ class DashboardViewModel {
       case .running:
         .run(RunSummary(
           id: workout.uuid.uuidString,
-          distanceMeters: workout.distanceMeters,
+          distanceMeters: workout.distanceMeters ?? 0,
           duration: workout.duration,
           elevationAscendedMeters: workout.elevationAscendedMeters,
           workout: workout
@@ -113,7 +113,7 @@ class DashboardViewModel {
       case .hiking:
         .hike(HikeSummary(
           id: workout.uuid.uuidString,
-          distanceMeters: workout.distanceMeters,
+          distanceMeters: workout.distanceMeters ?? 0,
           duration: workout.duration,
           elevationAscendedMeters: workout.elevationAscendedMeters,
           workout: workout

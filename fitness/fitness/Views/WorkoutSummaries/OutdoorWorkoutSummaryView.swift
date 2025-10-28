@@ -23,11 +23,9 @@ struct OutdoorWorkoutSummaryView: View {
 
         Spacer(minLength: 0)
 
-        if let distanceMeters = outdoorWorkoutSummary.distanceMeters {
-          let distanceMiles = distanceMeters.milesFromMeters
-          MetricValue(value: String(format: "%.1f", distanceMiles), unit: "miles")
-            .frame(maxWidth: .infinity, alignment: .leading)
-        }
+        let distanceMiles = outdoorWorkoutSummary.distanceMeters.milesFromMeters
+        MetricValue(value: String(format: "%.2f", distanceMiles), unit: "miles")
+          .frame(maxWidth: .infinity, alignment: .leading)
       }
       .frame(maxWidth: .infinity, alignment: .leading)
       .padding(.all, 12)
