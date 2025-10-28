@@ -17,6 +17,8 @@ enum HealthKitManagerError: Error {
 enum StatisticsType {
   case cumulativeSum
   case average
+  case min
+  case max
 
   var healthKitType: HKStatisticsOptions {
     switch self {
@@ -24,11 +26,28 @@ enum StatisticsType {
       .cumulativeSum
     case .average:
       .discreteAverage
+    case .min:
+      .discreteMin
+    case .max:
+      .discreteMax
+    }
+  }
+
+  nonisolated func doubleValue(from statistics: HKStatistics, unit: HKUnit) -> Double? {
+    switch self {
+    case .cumulativeSum:
+      statistics.sumQuantity()?.doubleValue(for: unit)
+    case .average:
+      statistics.averageQuantity()?.doubleValue(for: unit)
+    case .min:
+      statistics.minimumQuantity()?.doubleValue(for: unit)
+    case .max:
+      statistics.maximumQuantity()?.doubleValue(for: unit)
     }
   }
 }
 
-enum QuantityType: Sendable {
+enum QuantityType {
   case activeEnergyBurned
   case basalEnergyBurned
   case heartRate
@@ -167,6 +186,7 @@ class HealthKitManager {
     type: QuantityType,
     from: Date,
     to: Date,
+    statisticsType: StatisticsType,
     interval _: DateComponents
   ) async throws -> [Int: Double] {
     let predicate = HKQuery.predicateForSamples(withStart: from, end: to, options: .strictStartDate)
@@ -178,7 +198,7 @@ class HealthKitManager {
       let query = HKStatisticsCollectionQuery(
         quantityType: type.type,
         quantitySamplePredicate: predicate,
-        options: [.discreteAverage],
+        options: [statisticsType.healthKitType],
         anchorDate: anchorDate,
         intervalComponents: interval
       )
@@ -202,8 +222,8 @@ class HealthKitManager {
           by: 1
         ) {
           let date = from.addingTimeInterval(TimeInterval(index) * intervalSeconds)
-          if let stats = collection.statistics(for: date),
-             let value = stats.averageQuantity()?.doubleValue(for: unit)
+          if let statistics = collection.statistics(for: date),
+             let value = statisticsType.doubleValue(from: statistics, unit: unit)
           {
             results[index] = value
           }
@@ -212,37 +232,6 @@ class HealthKitManager {
       }
 
       HKHealthStore().execute(query)
-    }
-  }
-
-  func fetchSamples(type: QuantityType, from: Date, to: Date) async throws -> [Sample] {
-    let predicate = HKQuery.predicateForSamples(withStart: from, end: to, options: .strictStartDate)
-    let sortDescriptor = NSSortDescriptor(key: HKSampleSortIdentifierEndDate, ascending: false)
-
-    return try await withCheckedThrowingContinuation { continuation in
-      let query = HKSampleQuery(
-        sampleType: type.type,
-        predicate: predicate,
-        limit: HKObjectQueryNoLimit,
-        sortDescriptors: [sortDescriptor]
-      ) { _, samples, error in
-        if let error {
-          continuation.resume(throwing: error)
-          return
-        }
-
-        guard let samples = samples as? [HKQuantitySample] else {
-          continuation.resume(returning: [])
-          return
-        }
-
-        let mapped = samples.map { sample in
-          Sample(value: sample.quantity.doubleValue(for: type.unit), date: sample.endDate)
-        }
-
-        continuation.resume(returning: mapped)
-      }
-      store.execute(query)
     }
   }
 
@@ -264,14 +253,7 @@ class HealthKitManager {
           return
         }
 
-        let value = switch type {
-        case .cumulativeSum:
-          statistics?.sumQuantity()?.doubleValue(for: quantityType.unit)
-        case .average:
-          statistics?.averageQuantity()?.doubleValue(for: quantityType.unit)
-        }
-
-        guard let value else {
+        guard let statistics, let value = type.doubleValue(from: statistics, unit: quantityType.unit) else {
           continuation.resume(throwing: HealthKitManagerError.missingValue)
           return
         }

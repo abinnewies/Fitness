@@ -50,15 +50,13 @@ class HealthKitSampleManager {
     to: Date,
     stride: SampleStride
   ) async throws -> [Int: Double] {
-    let calendar = Calendar.current
-
-    let allSamples: [Sample]
     switch metric {
     case .heartRate:
       return try await healthKitManager.fetchStatisticsCollection(
         type: .heartRate,
         from: from,
         to: to,
+        statisticsType: .average,
         interval: stride.dateComponents
       )
     case .hrv:
@@ -66,6 +64,7 @@ class HealthKitSampleManager {
         type: .hrv,
         from: from,
         to: to,
+        statisticsType: .average,
         interval: stride.dateComponents
       )
     case .restingHeartRate:
@@ -73,26 +72,38 @@ class HealthKitSampleManager {
         type: .restingHeartRate,
         from: from,
         to: to,
+        statisticsType: .average,
         interval: stride.dateComponents
       )
     case .stepCount:
-      allSamples = try await healthKitManager.fetchSamples(type: .stepCount, from: from, to: to)
+      return try await healthKitManager.fetchStatisticsCollection(
+        type: .stepCount,
+        from: from,
+        to: to,
+        statisticsType: .cumulativeSum,
+        interval: stride.dateComponents
+      )
     case .caloriesBurned:
-      let activeEnergySamples = try await healthKitManager.fetchSamples(type: .activeEnergyBurned, from: from, to: to)
-      let basalEnergySamples = try await healthKitManager.fetchSamples(type: .basalEnergyBurned, from: from, to: to)
-      allSamples = activeEnergySamples + basalEnergySamples
-    }
+      let activeEnergySamples = try await healthKitManager.fetchStatisticsCollection(
+        type: .activeEnergyBurned,
+        from: from,
+        to: to,
+        statisticsType: .cumulativeSum,
+        interval: stride.dateComponents
+      )
+      let basalEnergySamples = try await healthKitManager.fetchStatisticsCollection(
+        type: .basalEnergyBurned,
+        from: from,
+        to: to,
+        statisticsType: .cumulativeSum,
+        interval: stride.dateComponents
+      )
 
-    var totals: [Int: Double] = [:]
-    for sample in allSamples {
-      let hour = calendar.component(stride.calendarComponent, from: sample.date) / stride.value
-      if let existing = totals[hour] {
-        totals[hour] = existing + sample.value
-      } else {
-        totals[hour] = sample.value
+      var caloriesBurned: [Int: Double] = [:]
+      for item in Set(activeEnergySamples.keys).union(Set(basalEnergySamples.keys)) {
+        caloriesBurned[item] = (activeEnergySamples[item] ?? 0) + (basalEnergySamples[item] ?? 0)
       }
+      return caloriesBurned
     }
-
-    return totals
   }
 }
