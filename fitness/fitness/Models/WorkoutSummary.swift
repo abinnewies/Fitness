@@ -17,4 +17,18 @@ enum WorkoutSummary: Identifiable {
       summary.id
     }
   }
+
+  var runSummary: RunSummary? {
+    if case let .run(runSummary) = self {
+      return runSummary
+    }
+    return nil
+  }
+
+  var hikeSummary: HikeSummary? {
+    if case let .hike(hikeSummary) = self {
+      return hikeSummary
+    }
+    return nil
+  }
 }

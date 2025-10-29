@@ -8,8 +8,6 @@
 struct Summary {
   let range: SummaryRange
   let caloriesBurned: Int?
-  let elevationAscendedMeters: Double?
-  let distanceRunMeters: Double?
   let hrv: Int?
   let steps: Int?
   let workouts: [WorkoutSummary]

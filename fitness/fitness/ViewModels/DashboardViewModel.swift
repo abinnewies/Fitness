@@ -22,9 +22,6 @@ class DashboardViewModel {
     Summary(
       range: summaryRange,
       caloriesBurned: try? await fetchCalories(forRange: summaryRange),
-      elevationAscendedMeters: summaryRange == .last7Days ? try? await fetchElevationAscended(forRange: summaryRange) :
-        nil,
-      distanceRunMeters: summaryRange == .last7Days ? try? await fetchMetersRun(forRange: summaryRange) : nil,
       hrv: try? await fetchHeartRateVariability(forRange: summaryRange),
       steps: try? await fetchSteps(forRange: summaryRange),
       workouts: (try? await fetchWorkoutSummaries(forRange: summaryRange)) ?? []
@@ -68,33 +65,7 @@ class DashboardViewModel {
     return Int(round(restingHeartRate))
   }
 
-  private func fetchMetersRun(forRange summaryRange: SummaryRange) async throws -> Double {
-    let workouts = try await healthKitManager.fetchWorkouts(
-      from: summaryRange.from,
-      to: summaryRange.to,
-      ofType: .running
-    )
-    let totalMeters = workouts
-      .compactMap(\.distanceMeters)
-      .reduce(0, +)
-    return totalMeters
-  }
-
-  private func fetchElevationAscended(forRange summaryRange: SummaryRange) async throws -> Double {
-    let workouts = try await healthKitManager.fetchWorkouts(
-      from: summaryRange.from,
-      to: summaryRange.to,
-      ofType: .running
-    )
-    let totalMetersAscended: Double = workouts.compactMap(\.elevationAscendedMeters).reduce(0, +)
-    return totalMetersAscended
-  }
-
   private func fetchWorkoutSummaries(forRange summaryRange: SummaryRange) async throws -> [WorkoutSummary] {
-    guard summaryRange != .last7Days else {
-      return []
-    }
-
     let workouts = try await healthKitManager.fetchWorkouts(
       from: summaryRange.from,
       to: summaryRange.to
