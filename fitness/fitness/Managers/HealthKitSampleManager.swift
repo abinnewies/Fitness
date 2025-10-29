@@ -15,13 +15,6 @@ struct Sample {
 enum SampleStride {
   case hour(Int)
 
-  var calendarComponent: Calendar.Component {
-    switch self {
-    case .hour:
-      return .hour
-    }
-  }
-
   var dateComponents: DateComponents {
     switch self {
     case let .hour(hour):
@@ -29,10 +22,10 @@ enum SampleStride {
     }
   }
 
-  var value: Int {
+  var timeInterval: TimeInterval {
     switch self {
     case let .hour(hour):
-      hour
+      TimeInterval(hour) * 3600
     }
   }
 }
@@ -65,6 +58,22 @@ class HealthKitSampleManager {
         from: from,
         to: to,
         statisticsType: .average,
+        interval: stride.dateComponents
+      )
+    case .minHeartRate:
+      return try await healthKitManager.fetchStatisticsCollection(
+        type: .heartRate,
+        from: from,
+        to: to,
+        statisticsType: .min,
+        interval: stride.dateComponents
+      )
+    case .maxHeartRate:
+      return try await healthKitManager.fetchStatisticsCollection(
+        type: .heartRate,
+        from: from,
+        to: to,
+        statisticsType: .max,
         interval: stride.dateComponents
       )
     case .restingHeartRate:

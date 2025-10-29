@@ -8,7 +8,8 @@
 struct Summary {
   let range: SummaryRange
   let caloriesBurned: Int?
-  let hrv: Int?
+  let minHeartRate: Int?
+  let maxHeartRate: Int?
   let steps: Int?
   let workouts: [WorkoutSummary]
 }

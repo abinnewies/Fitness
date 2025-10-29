@@ -22,7 +22,8 @@ class DashboardViewModel {
     Summary(
       range: summaryRange,
       caloriesBurned: try? await fetchCalories(forRange: summaryRange),
-      hrv: try? await fetchHeartRateVariability(forRange: summaryRange),
+      minHeartRate: try? await fetchMinHeartRate(forRange: summaryRange),
+      maxHeartRate: try? await fetchMaxHeartRate(forRange: summaryRange),
       steps: try? await fetchSteps(forRange: summaryRange),
       workouts: (try? await fetchWorkoutSummaries(forRange: summaryRange)) ?? []
     )
@@ -55,14 +56,24 @@ class DashboardViewModel {
     return Int(summaryRange.averageIfNeeded(activeCalories + passiveCalories))
   }
 
-  private func fetchHeartRateVariability(forRange summaryRange: SummaryRange) async throws -> Int {
-    let restingHeartRate = try await healthKitManager.fetchStatistics(
-      type: .average,
-      quantityType: .hrv,
+  private func fetchMinHeartRate(forRange summaryRange: SummaryRange) async throws -> Int {
+    let minHeartRate = try await healthKitManager.fetchStatistics(
+      type: .min,
+      quantityType: .heartRate,
       from: summaryRange.from,
       to: summaryRange.to
     )
-    return Int(round(restingHeartRate))
+    return Int(minHeartRate)
+  }
+
+  private func fetchMaxHeartRate(forRange summaryRange: SummaryRange) async throws -> Int {
+    let maxHeartRate = try await healthKitManager.fetchStatistics(
+      type: .max,
+      quantityType: .heartRate,
+      from: summaryRange.from,
+      to: summaryRange.to
+    )
+    return Int(maxHeartRate)
   }
 
   private func fetchWorkoutSummaries(forRange summaryRange: SummaryRange) async throws -> [WorkoutSummary] {

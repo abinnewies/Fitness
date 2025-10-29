@@ -9,15 +9,8 @@ enum HealthMetric {
   case caloriesBurned
   case heartRate
   case hrv
+  case minHeartRate
+  case maxHeartRate
   case restingHeartRate
   case stepCount
-
-  var cumulative: Bool {
-    switch self {
-    case .caloriesBurned, .stepCount:
-      true
-    case .heartRate, .hrv, .restingHeartRate:
-      false
-    }
-  }
 }

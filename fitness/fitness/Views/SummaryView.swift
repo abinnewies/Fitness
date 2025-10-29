@@ -46,9 +46,10 @@ struct SummaryView: View {
       .fill(Color(uiColor: .secondarySystemBackground)))
 
     VStack(spacing: 0) {
-      if let hrv = summary.hrv {
-        SummaryRow(symbol: .heartFill, title: "HRV", value: String(hrv), unit: "ms")
+      if let minHeartRate = summary.minHeartRate, let maxHeartRate = summary.maxHeartRate {
+        SummaryRow(symbol: .heartFill, title: "Heart Rate", value: "\(minHeartRate) - \(maxHeartRate)", unit: "bpm")
       }
+
       if let steps = summary.steps {
         Divider()
         SummaryRow(symbol: .shoeprintsFill, title: "Steps", value: steps.commaDelimitedString, unit: "steps")
