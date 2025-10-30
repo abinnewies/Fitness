@@ -8,13 +8,12 @@
 import SwiftUI
 
 struct SummaryRow: View {
-  let symbol: SFSymbolName
-  let title: String
+  let summaryMetric: HealthSummaryMetric
   let values: [SummaryRowValue]
 
   var body: some View {
     HStack(spacing: 8) {
-      MetricLabel(symbol: symbol, title: title)
+      MetricLabel(summaryMetric: summaryMetric)
         .frame(maxWidth: .infinity, alignment: .leading)
 
       HStack(spacing: 8) {

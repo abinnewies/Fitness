@@ -18,7 +18,7 @@ struct OutdoorWorkoutSummaryView: View {
   var body: some View {
     HStack(alignment: .top) {
       VStack(spacing: 8) {
-        Label(outdoorWorkoutSummary.name, symbol: outdoorWorkoutSummary.symbol)
+        MetricLabel(summaryMetric: outdoorWorkoutSummary.summaryMetric)
           .frame(maxWidth: .infinity, alignment: .leading)
 
         Spacer(minLength: 0)

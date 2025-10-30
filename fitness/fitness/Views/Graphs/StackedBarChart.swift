@@ -11,8 +11,9 @@ import SwiftUI
 struct StackedBarChart: View {
   let from: Date
   let to: Date
+  let bottomColor: Color
+  let topColor: Color
   let chartData: [(x: Date, y1: Double?, y2: Double?)]
-  let secondaryColor: Color
 
   var body: some View {
     Chart {
@@ -23,6 +24,7 @@ struct StackedBarChart: View {
             y: .value("Value", v1),
             width: 3
           )
+          .foregroundStyle(bottomColor)
         }
         if let v2 = item.y2, v2 != 0 {
           BarMark(
@@ -30,15 +32,9 @@ struct StackedBarChart: View {
             y: .value("Value", v2),
             width: 3
           )
-          .foregroundStyle(secondaryColor)
+          .foregroundStyle(topColor)
         }
       }
-    }
-    .chartPlotStyle { plotArea in
-      plotArea
-        .chartOverlay { _ in
-          Color.clear
-        }
     }
     .chartXAxis {
       // TODO: We'll need to fix this to handle days

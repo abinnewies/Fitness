@@ -11,6 +11,7 @@ import SwiftUI
 struct BarChart: View {
   let from: Date
   let to: Date
+  let color: Color
   let chartData: [(x: Date, y: Double?)]
 
   var body: some View {
@@ -20,6 +21,7 @@ struct BarChart: View {
         y: .value("Value", item.y ?? 0),
         width: 3
       )
+      .foregroundStyle(color)
     }
     .chartXAxis {
       // TODO: We'll need to fix this to handle days

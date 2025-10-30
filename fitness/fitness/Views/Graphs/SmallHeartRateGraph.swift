@@ -22,7 +22,7 @@ struct SmallHeartRateGraph: View {
 
   var body: some View {
     Group {
-      AreaChart(from: from, to: to, chartData: chartData, referenceY: restingHeartRate)
+      AreaChart(from: from, to: to, chartData: chartData, color: Color.heartRate, referenceY: restingHeartRate)
     }
     .task(id: currentDate) {
       do {

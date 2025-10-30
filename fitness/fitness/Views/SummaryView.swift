@@ -22,8 +22,7 @@ struct SummaryView: View {
       if !runs.isEmpty {
         let totalDistanceMiles = runs.compactMap(\.distanceMeters).reduce(0, +).milesFromMeters
         SummaryRow(
-          symbol: .figureRun,
-          title: runs.count == 1 ? "Run" : "\(runs.count) Runs",
+          summaryMetric: .runs(runs.count),
           values: [
             .init(value: String(format: "%.2f", totalDistanceMiles), unit: "miles"),
           ]
@@ -36,8 +35,7 @@ struct SummaryView: View {
         }
         let totalDistanceMiles = hikes.compactMap(\.distanceMeters).reduce(0, +).milesFromMeters
         SummaryRow(
-          symbol: .figureWalk,
-          title: hikes.count == 1 ? "Hike" : "\(hikes.count) Hikes",
+          summaryMetric: .hikes(hikes.count),
           values: [
             .init(value: String(format: "%.2f", totalDistanceMiles), unit: "miles"),
           ]
@@ -50,8 +48,7 @@ struct SummaryView: View {
     VStack(spacing: 0) {
       if let restingHeartRate = summary.restingHeartRate, let maxHeartRate = summary.maxHeartRate {
         SummaryRow(
-          symbol: .heartFill,
-          title: "Heart Rate",
+          summaryMetric: .heartRate,
           values: [
             .init(value: String(restingHeartRate), unit: "rest"),
             .init(value: String(maxHeartRate), unit: "max"),
@@ -62,8 +59,7 @@ struct SummaryView: View {
       if let steps = summary.steps {
         Divider()
         SummaryRow(
-          symbol: .shoeprintsFill,
-          title: "Steps",
+          summaryMetric: .stepCount,
           values: [
             .init(value: steps.commaDelimitedString, unit: "steps"),
           ]
@@ -72,8 +68,7 @@ struct SummaryView: View {
       if let caloriesBurned = summary.caloriesBurned {
         Divider()
         SummaryRow(
-          symbol: .flameFill,
-          title: "Energy",
+          summaryMetric: .caloriesBurned,
           values: [
             .init(value: caloriesBurned.commaDelimitedString, unit: "calories"),
           ]

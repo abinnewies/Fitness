@@ -16,8 +16,6 @@ struct LargeSummaryView: View {
       if let restingHeartRate = summary.restingHeartRate, let maxHeartRate = summary.maxHeartRate {
         LargeSummaryRow(
           summaryDate: summary.date,
-          symbol: .heartFill,
-          title: "Heart Rate",
           values: [
             .init(value: String(restingHeartRate), unit: "rest"),
             .init(value: String(maxHeartRate), unit: "max"),
@@ -30,8 +28,6 @@ struct LargeSummaryView: View {
       if let steps = summary.steps {
         LargeSummaryRow(
           summaryDate: summary.date,
-          symbol: .shoeprintsFill,
-          title: "Steps",
           values: [
             .init(value: steps.commaDelimitedString, unit: "steps"),
           ],
@@ -42,8 +38,6 @@ struct LargeSummaryView: View {
       if let caloriesBurned = summary.caloriesBurned {
         LargeSummaryRow(
           summaryDate: summary.date,
-          symbol: .flameFill,
-          title: "Calories",
           values: [
             .init(value: caloriesBurned.commaDelimitedString, unit: "calories"),
           ],

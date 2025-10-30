@@ -8,12 +8,16 @@
 import SwiftUI
 
 struct MetricLabel: View {
-  let symbol: SFSymbolName
-  let title: String
+  let summaryMetric: HealthSummaryMetric
 
   var body: some View {
-    Label(title, symbol: symbol)
-      .font(.callout)
-      .labelReservedIconWidth(20)
+    Label {
+      Text(summaryMetric.title)
+    } icon: {
+      Image(symbol: summaryMetric.symbol)
+        .foregroundStyle(summaryMetric.color)
+    }
+    .font(.callout)
+    .labelReservedIconWidth(20)
   }
 }

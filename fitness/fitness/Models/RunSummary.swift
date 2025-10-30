@@ -8,8 +8,7 @@
 import HealthKit
 
 struct RunSummary: Identifiable, OutdoorWorkoutSummary {
-  let name = "Run"
-  let symbol = SFSymbolName.figureRun
+  let summaryMetric = HealthSummaryMetric.runs(1)
   let id: String
   let distanceMeters: Double
   let duration: TimeInterval

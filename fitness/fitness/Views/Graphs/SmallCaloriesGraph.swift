@@ -21,10 +21,16 @@ struct SmallCaloriesGraph: View {
 
   var body: some View {
     Group {
-      StackedBarChart(from: from, to: to, chartData: chartData, secondaryColor: Color(hexString: "FF5C00")!)
-        .frame(maxWidth: .infinity, alignment: .bottomTrailing)
-        .opacity(showChart ? 1 : 0)
-        .animation(.easeIn(duration: 0.25), value: showChart)
+      StackedBarChart(
+        from: from,
+        to: to,
+        bottomColor: Color.basalCaloriesBurned,
+        topColor: Color.caloriesBurned,
+        chartData: chartData
+      )
+      .frame(maxWidth: .infinity, alignment: .bottomTrailing)
+      .opacity(showChart ? 1 : 0)
+      .animation(.easeIn(duration: 0.25), value: showChart)
     }
     .task(id: currentDate) {
       do {

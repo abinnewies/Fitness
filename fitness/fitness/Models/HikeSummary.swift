@@ -9,8 +9,7 @@ import Foundation
 import HealthKit
 
 struct HikeSummary: Identifiable, OutdoorWorkoutSummary {
-  let name = "Hike"
-  let symbol = SFSymbolName.figureWalk
+  let summaryMetric = HealthSummaryMetric.hikes(1)
   let id: String
   let distanceMeters: Double
   let duration: TimeInterval

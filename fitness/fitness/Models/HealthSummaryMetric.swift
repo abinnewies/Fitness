@@ -5,9 +5,57 @@
 //  Created by Andreas Binnewies on 10/29/25.
 //
 
+import SwiftUI
+
 enum HealthSummaryMetric {
   case caloriesBurned
   case heartRate
-  case hrv
+  case hikes(Int)
+  case runs(Int)
   case stepCount
+
+  var title: String {
+    switch self {
+    case .caloriesBurned:
+      "Calories"
+    case .heartRate:
+      "Heart Rate"
+    case let .hikes(count):
+      count == 1 ? "Hike" : "\(count) Hikes"
+    case let .runs(count):
+      count == 1 ? "Run" : "\(count) Runs"
+    case .stepCount:
+      "Steps"
+    }
+  }
+
+  var symbol: SFSymbolName {
+    switch self {
+    case .caloriesBurned:
+      .flameFill
+    case .heartRate:
+      .heartFill
+    case .hikes:
+      .figureWalk
+    case .runs:
+      .figureRun
+    case .stepCount:
+      .shoeprintsFill
+    }
+  }
+
+  var color: Color {
+    switch self {
+    case .caloriesBurned:
+      .caloriesBurned
+    case .heartRate:
+      .heartRate
+    case .hikes:
+      .hikes
+    case .runs:
+      .runs
+    case .stepCount:
+      .stepCount
+    }
+  }
 }

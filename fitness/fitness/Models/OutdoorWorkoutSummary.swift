@@ -9,8 +9,7 @@ import Foundation
 import HealthKit
 
 protocol OutdoorWorkoutSummary {
-  var name: String { get }
-  var symbol: SFSymbolName { get }
+  var summaryMetric: HealthSummaryMetric { get }
   var distanceMeters: Double { get }
   var duration: TimeInterval { get }
   var elevationAscendedMeters: Double? { get }

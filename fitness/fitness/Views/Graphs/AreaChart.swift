@@ -12,7 +12,8 @@ struct AreaChart: View {
   let from: Date
   let to: Date
   let chartData: [(x: Date, minY: Double?, maxY: Double?)]
-  let referenceY: Double? = nil
+  let color: Color
+  let referenceY: Double?
 
   var body: some View {
     Chart {
@@ -23,11 +24,13 @@ struct AreaChart: View {
           yEnd: .value("Max", item.maxY ?? 0),
           width: 3
         )
+        .foregroundStyle(color)
       }
       if let referenceY {
         RuleMark(y: .value("Reference", referenceY))
-          .foregroundStyle(.secondary)
-          .lineStyle(StrokeStyle(lineWidth: 1, dash: [4, 4]))
+          .foregroundStyle(color)
+          .lineStyle(StrokeStyle(lineWidth: 1, dash: [2, 2]))
+          .opacity(0.3)
       }
     }
     .chartXAxis {
