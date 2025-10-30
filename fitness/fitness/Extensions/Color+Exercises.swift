@@ -20,4 +20,15 @@ extension Color {
   static let run = Color(hexString: "9C27B0")!
   static let startTime = Color(hexString: "9AA0A6")!
   static let stepCount = Color(hexString: "3DA9FC")!
+
+  static let routeColors: [Color] = [
+    .init(hexString: "2962FF")!,
+    .init(hexString: "448AFF")!,
+    .init(hexString: "00C4B4")!,
+    .init(hexString: "00E676")!,
+    .init(hexString: "AEEA00")!,
+    .init(hexString: "FFB300")!,
+    .init(hexString: "FF6D00")!,
+    .init(hexString: "D50000")!,
+  ]
 }

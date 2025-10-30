@@ -27,7 +27,7 @@ struct OutdoorWorkoutSummaryView: View {
       .frame(maxWidth: .infinity, alignment: .leading)
       .padding(.all, 12)
 
-      WorkoutMap(workout: outdoorWorkoutSummary.workout, healthKitManager: healthKitManager)
+      WorkoutMap(workout: outdoorWorkoutSummary.workout, healthKitManager: healthKitManager, displayHeatmap: false)
         .mask(
           LinearGradient(
             gradient: Gradient(stops: [

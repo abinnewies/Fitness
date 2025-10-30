@@ -157,9 +157,9 @@ class HealthKitManager {
     }
   }
 
-  func fetchRoutePoints(for route: HKWorkoutRoute) async throws -> [RoutePoint] {
+  func fetchRoutePoints(for route: HKWorkoutRoute) async throws -> [CLLocation] {
     return try await withCheckedThrowingContinuation { continuation in
-      var routePoints: [RoutePoint] = []
+      var routePoints: [CLLocation] = []
 
       let query = HKWorkoutRouteQuery(route: route) { _, locations, done, error in
         if let error {
@@ -168,9 +168,7 @@ class HealthKitManager {
         }
 
         if let locations {
-          routePoints.append(contentsOf: locations.map {
-            RoutePoint(location: $0)
-          })
+          routePoints.append(contentsOf: locations)
         }
 
         if done {

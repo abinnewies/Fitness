@@ -17,7 +17,7 @@ struct WorkoutDetailsView: View {
   var body: some View {
     ScrollView {
       VStack {
-        WorkoutMap(workout: workout, healthKitManager: healthKitManager)
+        WorkoutMap(workout: workout, healthKitManager: healthKitManager, displayHeatmap: true)
           .frame(maxWidth: .infinity)
           .aspectRatio(1.5, contentMode: .fill)
           .clipShape(RoundedRectangle(cornerRadius: 12))

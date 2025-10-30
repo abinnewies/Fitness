@@ -12,8 +12,10 @@ import SwiftUI
 struct WorkoutMap: View {
   let workout: HKWorkout
   let healthKitManager: HealthKitManager
+  let displayHeatmap: Bool
 
-  @State private var routePoints: [RoutePoint] = []
+  @State private var routePoints: [CLLocation] = []
+  @State private var routeColors: Gradient = .init(colors: [.accentColor])
   @State private var mapPosition: MapCameraPosition = .automatic
 
   var body: some View {
@@ -22,8 +24,8 @@ struct WorkoutMap: View {
         Map(position: $mapPosition) {
           MapPolyline(coordinates: routePoints.routeCoordinates)
             .stroke(
-              .blue,
-              style: StrokeStyle(lineWidth: 4, lineCap: .round, lineJoin: .round)
+              routeColors,
+              style: StrokeStyle(lineWidth: 1.5, lineCap: .round, lineJoin: .round)
             )
           if let start = routePoints.routeCoordinates.first {
             Annotation("Start", coordinate: start) {
@@ -47,7 +49,7 @@ struct WorkoutMap: View {
           mapPosition = .region(region)
         }
       } else {
-        // Placeholder so there's not a jump when the route data arrives
+        // Placeholder so the UI doesn't jump when the data arrives
         Color.clear
       }
     }
@@ -59,7 +61,14 @@ struct WorkoutMap: View {
           return
         }
 
-        routePoints = try await healthKitManager.fetchRoutePoints(for: route)
+        let routePoints = try await healthKitManager.fetchRoutePoints(for: route)
+        if displayHeatmap {
+          let heatmapGradientGenerator = HeatmapGradientGenerator()
+          routeColors = heatmapGradientGenerator.heatmapGradient(for: routePoints, defaultColor: .accentColor)
+        } else {
+          routeColors = Gradient(colors: [.accentColor])
+        }
+        self.routePoints = routePoints
       } catch {
         routePoints = []
       }

@@ -1,5 +1,5 @@
 //
-//  Array+RoutePoint.swift
+//  Array+CLLocation.swift
 //  Fitness
 //
 //  Created by Andreas Binnewies on 10/27/25.
@@ -8,9 +8,9 @@
 import CoreLocation
 import MapKit
 
-extension Array where Element == RoutePoint {
+extension Array where Element == CLLocation {
   var routeCoordinates: [CLLocationCoordinate2D] {
-    map(\.location.coordinate)
+    map(\.coordinate)
   }
 
   var routeRegion: MKCoordinateRegion? {

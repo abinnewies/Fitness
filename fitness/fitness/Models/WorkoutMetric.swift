@@ -28,7 +28,7 @@ enum WorkoutMetric: Hashable, MetricRepresentable {
     case .duration:
       "Duration"
     case .elevationAscended:
-      "Elevation"
+      "Ascent"
     case .endTime:
       "End Time"
     case .pace:
