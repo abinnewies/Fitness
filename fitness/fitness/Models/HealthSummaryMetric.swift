@@ -7,7 +7,7 @@
 
 import SwiftUI
 
-enum HealthSummaryMetric {
+enum HealthSummaryMetric: Hashable, MetricRepresentable {
   case caloriesBurned
   case heartRate
   case hikes(Int)
@@ -51,9 +51,9 @@ enum HealthSummaryMetric {
     case .heartRate:
       .heartRate
     case .hikes:
-      .hikes
+      .hike
     case .runs:
-      .runs
+      .run
     case .stepCount:
       .stepCount
     }

@@ -7,7 +7,7 @@
 
 import HealthKit
 
-struct RunSummary: Identifiable, OutdoorWorkoutSummary {
+struct RunSummary: Identifiable, OutdoorWorkoutSummary, Hashable {
   let summaryMetric = HealthSummaryMetric.runs(1)
   let id: String
   let distanceMeters: Double

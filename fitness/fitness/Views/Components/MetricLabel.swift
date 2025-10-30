@@ -8,14 +8,14 @@
 import SwiftUI
 
 struct MetricLabel: View {
-  let summaryMetric: HealthSummaryMetric
+  let metric: MetricRepresentable
 
   var body: some View {
     Label {
-      Text(summaryMetric.title)
+      Text(metric.title)
     } icon: {
-      Image(symbol: summaryMetric.symbol)
-        .foregroundStyle(summaryMetric.color)
+      Image(symbol: metric.symbol)
+        .foregroundStyle(metric.color)
     }
     .font(.callout)
     .labelReservedIconWidth(20)

@@ -7,7 +7,7 @@
 
 import Foundation
 
-enum SummaryRange {
+enum SummaryRange: Hashable {
   case today
   case yesterday
   case last7Days

@@ -21,8 +21,8 @@ struct SummaryView: View {
       let hikes = summary.workouts.compactMap(\.hikeSummary)
       if !runs.isEmpty {
         let totalDistanceMiles = runs.compactMap(\.distanceMeters).reduce(0, +).milesFromMeters
-        SummaryRow(
-          summaryMetric: .runs(runs.count),
+        MetricRow(
+          metric: HealthSummaryMetric.runs(runs.count),
           values: [
             .init(value: String(format: "%.2f", totalDistanceMiles), unit: "miles"),
           ]
@@ -34,8 +34,8 @@ struct SummaryView: View {
           Divider()
         }
         let totalDistanceMiles = hikes.compactMap(\.distanceMeters).reduce(0, +).milesFromMeters
-        SummaryRow(
-          summaryMetric: .hikes(hikes.count),
+        MetricRow(
+          metric: HealthSummaryMetric.hikes(hikes.count),
           values: [
             .init(value: String(format: "%.2f", totalDistanceMiles), unit: "miles"),
           ]
@@ -47,8 +47,8 @@ struct SummaryView: View {
 
     VStack(spacing: 0) {
       if let restingHeartRate = summary.restingHeartRate, let maxHeartRate = summary.maxHeartRate {
-        SummaryRow(
-          summaryMetric: .heartRate,
+        MetricRow(
+          metric: HealthSummaryMetric.heartRate,
           values: [
             .init(value: String(restingHeartRate), unit: "rest"),
             .init(value: String(maxHeartRate), unit: "max"),
@@ -58,8 +58,8 @@ struct SummaryView: View {
 
       if let steps = summary.steps {
         Divider()
-        SummaryRow(
-          summaryMetric: .stepCount,
+        MetricRow(
+          metric: HealthSummaryMetric.stepCount,
           values: [
             .init(value: steps.commaDelimitedString, unit: "steps"),
           ]
@@ -67,8 +67,8 @@ struct SummaryView: View {
       }
       if let caloriesBurned = summary.caloriesBurned {
         Divider()
-        SummaryRow(
-          summaryMetric: .caloriesBurned,
+        MetricRow(
+          metric: HealthSummaryMetric.caloriesBurned,
           values: [
             .init(value: caloriesBurned.commaDelimitedString, unit: "calories"),
           ]

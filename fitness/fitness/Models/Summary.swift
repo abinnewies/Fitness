@@ -7,7 +7,7 @@
 
 import Foundation
 
-struct Summary {
+struct Summary: Hashable {
   let date = Date()
   let range: SummaryRange
   let caloriesBurned: Int?

@@ -1,5 +1,5 @@
 //
-//  SummaryRow.swift
+//  MetricRow.swift
 //  Fitness
 //
 //  Created by Andreas Binnewies on 10/20/25.
@@ -7,13 +7,13 @@
 
 import SwiftUI
 
-struct SummaryRow: View {
-  let summaryMetric: HealthSummaryMetric
-  let values: [SummaryRowValue]
+struct MetricRow: View {
+  let metric: MetricRepresentable
+  let values: [MetricRowValue]
 
   var body: some View {
     HStack(spacing: 8) {
-      MetricLabel(summaryMetric: summaryMetric)
+      MetricLabel(metric: metric)
         .frame(maxWidth: .infinity, alignment: .leading)
 
       HStack(spacing: 8) {

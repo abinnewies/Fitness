@@ -14,36 +14,71 @@ struct DashboardView: View {
 
   private let healthKitManager: HealthKitManager
   @State private var viewModel: DashboardViewModel
+  @State private var navigationPath = NavigationPath()
 
   @State private var todaySummary: Summary?
   @State private var yesterdaySummary: Summary?
   @State private var last7DaysSummary: Summary?
 
   var body: some View {
-    ScrollView {
-      VStack {
-        if let todaySummary {
-          ForEach(todaySummary.workouts) { workoutSummary in
-            WorkoutSummaryView(workoutSummary: workoutSummary, healthKitManager: healthKitManager)
+    NavigationStack(path: $navigationPath) {
+      ScrollView {
+        VStack {
+          if let todaySummary {
+            ForEach(todaySummary.workouts) { workoutSummary in
+              WorkoutSummaryView(
+                workoutSummary: workoutSummary,
+                healthKitManager: healthKitManager
+              )
+              .onTapGesture {
+                navigationPath.append(NavigationDestination.workoutDetails(workoutSummary.workout))
+              }
+            }
+
+            LargeSummaryView(
+              summary: todaySummary,
+              healthKitManager: healthKitManager
+            )
           }
 
-          LargeSummaryView(summary: todaySummary, healthKitManager: healthKitManager)
+          Spacer().frame(height: 24)
+
+          if let yesterdaySummary {
+            ForEach(yesterdaySummary.workouts) { workoutSummary in
+              WorkoutSummaryView(
+                workoutSummary: workoutSummary,
+                healthKitManager: healthKitManager
+              )
+              .onTapGesture {
+                navigationPath.append(NavigationDestination.workoutDetails(workoutSummary.workout))
+              }
+            }
+
+            SummaryView(
+              summary: yesterdaySummary,
+              healthKitManager: healthKitManager
+            )
+          }
+
+          Spacer().frame(height: 24)
+
+          if let last7DaysSummary {
+            SummaryView(
+              summary: last7DaysSummary,
+              healthKitManager: healthKitManager
+            )
+          }
         }
-
-        Spacer().frame(height: 24)
-
-        if let yesterdaySummary {
-          SummaryView(summary: yesterdaySummary, healthKitManager: healthKitManager)
-        }
-
-        Spacer().frame(height: 24)
-
-        if let last7DaysSummary {
-          SummaryView(summary: last7DaysSummary, healthKitManager: healthKitManager)
+        .padding(16)
+        .transition(.slide)
+      }
+      .navigationTitle("Dashboard")
+      .navigationDestination(for: NavigationDestination.self) { destination in
+        switch destination {
+        case let .workoutDetails(workout):
+          WorkoutDetailsView(workout: workout, healthKitManager: healthKitManager)
         }
       }
-      .padding(16)
-      .transition(.slide)
     }
     .onChange(of: scenePhase) {
       if scenePhase == .active {

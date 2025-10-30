@@ -5,7 +5,9 @@
 //  Created by Andreas Binnewies on 10/27/25.
 //
 
-enum WorkoutSummary: Identifiable {
+import HealthKit
+
+enum WorkoutSummary: Identifiable, Hashable {
   case run(RunSummary)
   case hike(HikeSummary)
 
@@ -30,5 +32,15 @@ enum WorkoutSummary: Identifiable {
       return hikeSummary
     }
     return nil
+  }
+
+  var workout: HKWorkout {
+    switch self {
+    case let .run(runSummary):
+      runSummary.workout
+
+    case let .hike(hikeSummary):
+      hikeSummary.workout
+    }
   }
 }

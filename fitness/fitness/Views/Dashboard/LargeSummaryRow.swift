@@ -10,7 +10,7 @@ import SwiftUI
 
 struct LargeSummaryRow: View {
   let summaryDate: Date
-  let values: [SummaryRowValue]
+  let values: [MetricRowValue]
   let healthKitManager: HealthKitManager
   let healthSummaryMetric: HealthSummaryMetric
 
@@ -19,7 +19,7 @@ struct LargeSummaryRow: View {
     let endOfToday = startOfToday.addingTimeInterval(86400)
     HStack(alignment: .bottom) {
       VStack(spacing: 8) {
-        MetricLabel(summaryMetric: healthSummaryMetric)
+        MetricLabel(metric: healthSummaryMetric)
           .frame(maxWidth: .infinity, alignment: .leading)
 
         Spacer(minLength: 8)

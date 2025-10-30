@@ -1,11 +1,11 @@
 //
-//  SummaryRowValue.swift
+//  MetricRowValue.swift
 //  Fitness
 //
 //  Created by Andreas Binnewies on 10/29/25.
 //
 
-struct SummaryRowValue: Identifiable {
+struct MetricRowValue: Identifiable {
   let value: String
   let unit: String
 

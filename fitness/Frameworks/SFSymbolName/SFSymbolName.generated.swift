@@ -1990,6 +1990,7 @@ public enum SFSymbolName: String, Codable {
   @available(iOS 14.0, macOS 11.0, tvOS 14.0, watchOS 7.0, *) case circlesHexagonpath = "circles.hexagonpath"
   @available(iOS 14.0, macOS 11.0, tvOS 14.0, watchOS 7.0, *) case circlesHexagonpathFill = "circles.hexagonpath.fill"
   @available(iOS 14.0, macOS 11.0, tvOS 14.0, watchOS 7.0, *) case clockArrowCirclepath = "clock.arrow.circlepath"
+  @available(iOS 14.0, macOS 10.15, tvOS 13.0, watchOS 6.0, *) case clockArrowTrianglehead = "clock.arrow.trianglehead.clockwise.rotate.90.path.dotted"
   @available(iOS 14.0, macOS 11.0, tvOS 14.0, watchOS 7.0, *) case comb = "comb"
   @available(iOS 14.0, macOS 11.0, tvOS 14.0, watchOS 7.0, *) case combFill = "comb.fill"
   @available(iOS 14.0, macOS 11.0, tvOS 14.0, watchOS 7.0, *) case commandCircle = "command.circle"
