@@ -9,6 +9,7 @@ import Charts
 import SwiftUI
 
 struct LargeSummaryRow: View {
+  let summaryDate: Date
   let symbol: SFSymbolName
   let title: String
   let value: String
@@ -34,13 +35,37 @@ struct LargeSummaryRow: View {
       if let healthSummaryMetric {
         switch healthSummaryMetric {
         case .caloriesBurned:
-          SmallCaloriesGraph(from: startOfToday, to: endOfToday, healthKitManager: healthKitManager, stride: .hour(1))
+          SmallCaloriesGraph(
+            from: startOfToday,
+            to: endOfToday,
+            currentDate: summaryDate,
+            healthKitManager: healthKitManager,
+            stride: .hour(1)
+          )
         case .heartRate:
-          SmallHeartRateGraph(from: startOfToday, to: endOfToday, healthKitManager: healthKitManager, stride: .hour(1))
+          SmallHeartRateGraph(
+            from: startOfToday,
+            to: endOfToday,
+            currentDate: summaryDate,
+            healthKitManager: healthKitManager,
+            stride: .hour(1)
+          )
         case .hrv:
-          SmallHRVGraph(from: startOfToday, to: endOfToday, healthKitManager: healthKitManager, stride: .hour(1))
+          SmallHRVGraph(
+            from: startOfToday,
+            to: endOfToday,
+            currentDate: summaryDate,
+            healthKitManager: healthKitManager,
+            stride: .hour(1)
+          )
         case .stepCount:
-          SmallStepsGraph(from: startOfToday, to: endOfToday, healthKitManager: healthKitManager, stride: .hour(1))
+          SmallStepsGraph(
+            from: startOfToday,
+            to: endOfToday,
+            currentDate: summaryDate,
+            healthKitManager: healthKitManager,
+            stride: .hour(1)
+          )
         }
       }
     }

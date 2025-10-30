@@ -15,6 +15,7 @@ struct LargeSummaryView: View {
     VStack(spacing: 8) {
       if let minHeartRate = summary.minHeartRate, let maxHeartRate = summary.maxHeartRate {
         LargeSummaryRow(
+          summaryDate: summary.date,
           symbol: .heartFill,
           title: "Heart Rate",
           value: "\(minHeartRate) - \(maxHeartRate)",
@@ -26,6 +27,7 @@ struct LargeSummaryView: View {
 
       if let steps = summary.steps {
         LargeSummaryRow(
+          summaryDate: summary.date,
           symbol: .shoeprintsFill,
           title: "Steps",
           value: steps.commaDelimitedString,
@@ -36,6 +38,7 @@ struct LargeSummaryView: View {
       }
       if let caloriesBurned = summary.caloriesBurned {
         LargeSummaryRow(
+          summaryDate: summary.date,
           symbol: .flameFill,
           title: "Calories",
           value: caloriesBurned.commaDelimitedString,

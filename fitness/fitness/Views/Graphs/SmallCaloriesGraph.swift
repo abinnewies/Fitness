@@ -10,6 +10,7 @@ import SwiftUI
 struct SmallCaloriesGraph: View {
   let from: Date
   let to: Date
+  let currentDate: Date
   let healthKitManager: HealthKitManager
   let stride: SampleStride
 
@@ -25,7 +26,7 @@ struct SmallCaloriesGraph: View {
         .opacity(showChart ? 1 : 0)
         .animation(.easeIn(duration: 0.25), value: showChart)
     }
-    .task(id: from ... to) {
+    .task(id: currentDate) {
       do {
         let sampleManager = HealthKitSampleManager(healthKitManager: healthKitManager)
         let samples = try await sampleManager.fetchSamples(metric: .caloriesBurned, from: from, to: to, stride: stride)
