@@ -24,8 +24,9 @@ struct SummaryView: View {
         SummaryRow(
           symbol: .figureRun,
           title: runs.count == 1 ? "Run" : "\(runs.count) Runs",
-          value: String(format: "%.2f", totalDistanceMiles),
-          unit: "miles"
+          values: [
+            .init(value: String(format: "%.2f", totalDistanceMiles), unit: "miles"),
+          ]
         )
       }
 
@@ -37,8 +38,9 @@ struct SummaryView: View {
         SummaryRow(
           symbol: .figureWalk,
           title: hikes.count == 1 ? "Hike" : "\(hikes.count) Hikes",
-          value: String(format: "%.2f", totalDistanceMiles),
-          unit: "miles"
+          values: [
+            .init(value: String(format: "%.2f", totalDistanceMiles), unit: "miles"),
+          ]
         )
       }
     }
@@ -46,21 +48,35 @@ struct SummaryView: View {
       .fill(Color(uiColor: .secondarySystemBackground)))
 
     VStack(spacing: 0) {
-      if let minHeartRate = summary.minHeartRate, let maxHeartRate = summary.maxHeartRate {
-        SummaryRow(symbol: .heartFill, title: "Heart Rate", value: "\(minHeartRate) - \(maxHeartRate)", unit: "bpm")
+      if let restingHeartRate = summary.restingHeartRate, let maxHeartRate = summary.maxHeartRate {
+        SummaryRow(
+          symbol: .heartFill,
+          title: "Heart Rate",
+          values: [
+            .init(value: String(restingHeartRate), unit: "rest"),
+            .init(value: String(maxHeartRate), unit: "max"),
+          ]
+        )
       }
 
       if let steps = summary.steps {
         Divider()
-        SummaryRow(symbol: .shoeprintsFill, title: "Steps", value: steps.commaDelimitedString, unit: "steps")
+        SummaryRow(
+          symbol: .shoeprintsFill,
+          title: "Steps",
+          values: [
+            .init(value: steps.commaDelimitedString, unit: "steps"),
+          ]
+        )
       }
       if let caloriesBurned = summary.caloriesBurned {
         Divider()
         SummaryRow(
           symbol: .flameFill,
           title: "Energy",
-          value: caloriesBurned.commaDelimitedString,
-          unit: "calories"
+          values: [
+            .init(value: caloriesBurned.commaDelimitedString, unit: "calories"),
+          ]
         )
       }
     }

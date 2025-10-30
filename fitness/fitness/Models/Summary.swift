@@ -13,6 +13,7 @@ struct Summary {
   let caloriesBurned: Int?
   let minHeartRate: Int?
   let maxHeartRate: Int?
+  let restingHeartRate: Int?
   let steps: Int?
   let workouts: [WorkoutSummary]
 }

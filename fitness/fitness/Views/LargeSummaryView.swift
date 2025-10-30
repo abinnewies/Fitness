@@ -13,13 +13,15 @@ struct LargeSummaryView: View {
 
   var body: some View {
     VStack(spacing: 8) {
-      if let minHeartRate = summary.minHeartRate, let maxHeartRate = summary.maxHeartRate {
+      if let restingHeartRate = summary.restingHeartRate, let maxHeartRate = summary.maxHeartRate {
         LargeSummaryRow(
           summaryDate: summary.date,
           symbol: .heartFill,
           title: "Heart Rate",
-          value: "\(minHeartRate) - \(maxHeartRate)",
-          unit: "bpm",
+          values: [
+            .init(value: String(restingHeartRate), unit: "rest"),
+            .init(value: String(maxHeartRate), unit: "max"),
+          ],
           healthKitManager: healthKitManager,
           healthSummaryMetric: .heartRate
         )
@@ -30,8 +32,9 @@ struct LargeSummaryView: View {
           summaryDate: summary.date,
           symbol: .shoeprintsFill,
           title: "Steps",
-          value: steps.commaDelimitedString,
-          unit: "steps",
+          values: [
+            .init(value: steps.commaDelimitedString, unit: "steps"),
+          ],
           healthKitManager: healthKitManager,
           healthSummaryMetric: .stepCount
         )
@@ -41,8 +44,9 @@ struct LargeSummaryView: View {
           summaryDate: summary.date,
           symbol: .flameFill,
           title: "Calories",
-          value: caloriesBurned.commaDelimitedString,
-          unit: "calories",
+          values: [
+            .init(value: caloriesBurned.commaDelimitedString, unit: "calories"),
+          ],
           healthKitManager: healthKitManager,
           healthSummaryMetric: .caloriesBurned
         )

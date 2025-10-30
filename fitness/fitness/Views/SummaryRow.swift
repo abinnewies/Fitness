@@ -10,16 +10,19 @@ import SwiftUI
 struct SummaryRow: View {
   let symbol: SFSymbolName
   let title: String
-  let value: String
-  let unit: String?
+  let values: [SummaryRowValue]
 
   var body: some View {
     HStack(spacing: 8) {
       MetricLabel(symbol: symbol, title: title)
         .frame(maxWidth: .infinity, alignment: .leading)
 
-      MetricValue(value: value, unit: unit)
-        .frame(maxWidth: .infinity, alignment: .leading)
+      HStack(spacing: 8) {
+        ForEach(values) { value in
+          MetricValue(value: value.value, unit: value.unit)
+        }
+      }
+      .frame(maxWidth: .infinity, alignment: .leading)
     }
     .padding(.all, 16)
   }

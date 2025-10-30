@@ -17,17 +17,24 @@ struct SmallHeartRateGraph: View {
   private let hourlyStride = 1
 
   @State private var chartData: [(x: Date, minY: Double?, maxY: Double?)] = []
+  @State private var restingHeartRate: Double?
   @State private var showChart = false
 
   var body: some View {
     Group {
-      AreaChart(from: from, to: to, chartData: chartData)
+      AreaChart(from: from, to: to, chartData: chartData, referenceY: restingHeartRate)
     }
     .task(id: currentDate) {
       do {
         let sampleManager = HealthKitSampleManager(healthKitManager: healthKitManager)
         let minSamples = try await sampleManager.fetchSamples(metric: .minHeartRate, from: from, to: to, stride: stride)
         let maxSamples = try await sampleManager.fetchSamples(metric: .maxHeartRate, from: from, to: to, stride: stride)
+        restingHeartRate = try? await healthKitManager.fetchStatistics(
+          type: .average,
+          quantityType: .restingHeartRate,
+          from: from,
+          to: to
+        )
 
         var combinedData: [Int: (minY: Double?, maxY: Double?)] = [:]
         for (key, value) in minSamples {

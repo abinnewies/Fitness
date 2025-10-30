@@ -12,8 +12,7 @@ struct LargeSummaryRow: View {
   let summaryDate: Date
   let symbol: SFSymbolName
   let title: String
-  let value: String
-  let unit: String
+  let values: [SummaryRowValue]
   let healthKitManager: HealthKitManager
   let healthSummaryMetric: HealthSummaryMetric?
 
@@ -27,8 +26,12 @@ struct LargeSummaryRow: View {
 
         Spacer(minLength: 8)
 
-        MetricValue(value: value, unit: unit)
-          .frame(maxWidth: .infinity, alignment: .leading)
+        HStack(spacing: 8) {
+          ForEach(values) { value in
+            MetricValue(value: value.value, unit: value.unit)
+          }
+        }
+        .frame(maxWidth: .infinity, alignment: .leading)
       }
       .frame(maxWidth: .infinity, alignment: .leading)
 
