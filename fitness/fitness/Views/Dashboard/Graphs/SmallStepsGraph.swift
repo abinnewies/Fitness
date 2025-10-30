@@ -31,11 +31,10 @@ struct SmallStepsGraph: View {
         let sampleManager = HealthKitSampleManager(healthKitManager: healthKitManager)
         let samples = try await sampleManager.fetchSamples(metric: .stepCount, from: from, to: to, stride: stride)
 
-        chartData = samples.map { key, value in
-          (x: from.addingTimeInterval(TimeInterval(key) * stride.timeInterval), y: value)
-        }.sorted(by: { $0.x < $1.x })
-
         withAnimation {
+          chartData = samples.map { key, value in
+            (x: from.addingTimeInterval(TimeInterval(key) * stride.timeInterval), y: value)
+          }.sorted(by: { $0.x < $1.x })
           showChart = true
         }
       } catch {}

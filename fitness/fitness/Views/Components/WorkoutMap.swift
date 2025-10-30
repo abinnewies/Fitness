@@ -42,7 +42,6 @@ struct WorkoutMap: View {
             }
           }
         }
-        .mapStyle(.standard)
         .allowsHitTesting(false)
         .onAppear {
           mapPosition = .region(region)

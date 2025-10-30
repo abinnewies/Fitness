@@ -57,11 +57,15 @@ struct SmallCaloriesGraph: View {
           combinedData[key, default: (y1: nil, y2: nil)].y2 = value
         }
 
-        chartData = combinedData.map { key, value in
-          (x: from.addingTimeInterval(TimeInterval(key) * stride.timeInterval), y1: value.y1, y2: value.y2)
-        }.sorted(by: { $0.x < $1.x })
-
         withAnimation {
+          chartData = combinedData.map { key, value in
+            (
+              x: from.addingTimeInterval(TimeInterval(key) * stride.timeInterval),
+              y1: value.y1,
+              y2: value.y2
+            )
+          }.sorted(by: { $0.x < $1.x })
+
           showChart = true
         }
       } catch {}

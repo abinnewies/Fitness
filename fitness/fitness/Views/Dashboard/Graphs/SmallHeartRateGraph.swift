@@ -44,11 +44,14 @@ struct SmallHeartRateGraph: View {
           combinedData[key, default: (minY: nil, maxY: nil)].maxY = value
         }
 
-        chartData = combinedData.map { key, value in
-          (x: from.addingTimeInterval(TimeInterval(key) * stride.timeInterval), minY: value.minY, maxY: value.maxY)
-        }.sorted(by: { $0.x < $1.x })
-
         withAnimation {
+          chartData = combinedData.map { key, value in
+            (
+              x: from.addingTimeInterval(TimeInterval(key) * stride.timeInterval),
+              minY: value.minY,
+              maxY: value.maxY
+            )
+          }.sorted(by: { $0.x < $1.x })
           showChart = true
         }
       } catch {}
