@@ -1,5 +1,5 @@
 //
-//  LineChart.swift
+//  StackedBarChart.swift
 //  Fitness
 //
 //  Created by Andreas Binnewies on 10/29/25.
@@ -8,40 +8,37 @@
 import Charts
 import SwiftUI
 
-struct LineChart: View {
+struct StackedBarChart: View {
   let from: Date
   let to: Date
-  let chartData: [(x: Date, y: Double?)]
+  let chartData: [(x: Date, y1: Double?, y2: Double?)]
+  let secondaryColor: Color
 
   var body: some View {
-    Chart(chartData, id: \.x) { item in
-      if let y = item.y {
-        LineMark(
-          x: .value("Index", item.x),
-          y: .value("Value", y)
-        )
-        .interpolationMethod(.monotone)
-
-        PointMark(
-          x: .value("Index", item.x),
-          y: .value("Value", y)
-        )
-        .symbolSize(20)
-        .annotation(position: .bottom) {
-          if y == chartData.compactMap({ $0.y }).min() {
-            Text(String(format: "%.0f", y))
-              .font(.caption)
-              .foregroundColor(.secondary)
-          }
+    Chart {
+      ForEach(chartData, id: \.x) { item in
+        if let v1 = item.y1, v1 != 0 {
+          BarMark(
+            x: .value("Index", item.x),
+            y: .value("Value", v1),
+            width: 3
+          )
         }
-        .annotation(position: .top) {
-          if y == chartData.compactMap({ $0.y }).max() {
-            Text(String(format: "%.0f", y))
-              .font(.caption)
-              .foregroundColor(.secondary)
-          }
+        if let v2 = item.y2, v2 != 0 {
+          BarMark(
+            x: .value("Index", item.x),
+            y: .value("Value", v2),
+            width: 3
+          )
+          .foregroundStyle(secondaryColor)
         }
       }
+    }
+    .chartPlotStyle { plotArea in
+      plotArea
+        .chartOverlay { _ in
+          Color.clear
+        }
     }
     .chartXAxis {
       // TODO: We'll need to fix this to handle days

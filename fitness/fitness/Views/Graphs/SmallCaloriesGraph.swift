@@ -16,23 +16,43 @@ struct SmallCaloriesGraph: View {
 
   private let hourlyStride = 1
 
-  @State private var chartData: [(x: Date, y: Double?)] = []
+  @State private var chartData: [(x: Date, y1: Double?, y2: Double?)] = []
   @State private var showChart = false
 
   var body: some View {
     Group {
-      BarChart(from: from, to: to, chartData: chartData)
+      StackedBarChart(from: from, to: to, chartData: chartData, secondaryColor: Color(hexString: "FF5C00")!)
         .frame(maxWidth: .infinity, alignment: .bottomTrailing)
         .opacity(showChart ? 1 : 0)
         .animation(.easeIn(duration: 0.25), value: showChart)
     }
     .task(id: currentDate) {
       do {
-        let sampleManager = HealthKitSampleManager(healthKitManager: healthKitManager)
-        let samples = try await sampleManager.fetchSamples(metric: .caloriesBurned, from: from, to: to, stride: stride)
+        let basalEnergyBurnedSamples = try await healthKitManager.fetchStatisticsCollection(
+          type: .basalEnergyBurned,
+          from: from,
+          to: to,
+          statisticsType: .cumulativeSum,
+          interval: stride.dateComponents
+        )
+        let activeEnergyBurnedSamples = try await healthKitManager.fetchStatisticsCollection(
+          type: .activeEnergyBurned,
+          from: from,
+          to: to,
+          statisticsType: .cumulativeSum,
+          interval: stride.dateComponents
+        )
 
-        chartData = samples.map { key, value in
-          (x: from.addingTimeInterval(TimeInterval(key) * stride.timeInterval), y: value)
+        var combinedData: [Int: (y1: Double?, y2: Double?)] = [:]
+        for (key, value) in basalEnergyBurnedSamples {
+          combinedData[key, default: (y1: nil, y2: nil)].y1 = value
+        }
+        for (key, value) in activeEnergyBurnedSamples {
+          combinedData[key, default: (y1: nil, y2: nil)].y2 = value
+        }
+
+        chartData = combinedData.map { key, value in
+          (x: from.addingTimeInterval(TimeInterval(key) * stride.timeInterval), y1: value.y1, y2: value.y2)
         }.sorted(by: { $0.x < $1.x })
 
         withAnimation {

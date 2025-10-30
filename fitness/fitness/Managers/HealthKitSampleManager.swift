@@ -92,27 +92,22 @@ class HealthKitSampleManager {
         statisticsType: .cumulativeSum,
         interval: stride.dateComponents
       )
-    case .caloriesBurned:
-      let activeEnergySamples = try await healthKitManager.fetchStatisticsCollection(
+    case .activeCaloriesBurned:
+      return try await healthKitManager.fetchStatisticsCollection(
         type: .activeEnergyBurned,
         from: from,
         to: to,
         statisticsType: .cumulativeSum,
         interval: stride.dateComponents
       )
-      let basalEnergySamples = try await healthKitManager.fetchStatisticsCollection(
+    case .basalCaloriesBurned:
+      return try await healthKitManager.fetchStatisticsCollection(
         type: .basalEnergyBurned,
         from: from,
         to: to,
         statisticsType: .cumulativeSum,
         interval: stride.dateComponents
       )
-
-      var caloriesBurned: [Int: Double] = [:]
-      for item in Set(activeEnergySamples.keys).union(Set(basalEnergySamples.keys)) {
-        caloriesBurned[item] = (activeEnergySamples[item] ?? 0) + (basalEnergySamples[item] ?? 0)
-      }
-      return caloriesBurned
     }
   }
 }

@@ -11,7 +11,7 @@ import SwiftUI
 struct BarChart: View {
   let from: Date
   let to: Date
-  var chartData: [(x: Date, y: Double?)]
+  let chartData: [(x: Date, y: Double?)]
 
   var body: some View {
     Chart(chartData, id: \.x) { item in

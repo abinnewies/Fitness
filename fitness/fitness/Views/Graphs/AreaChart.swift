@@ -11,8 +11,8 @@ import SwiftUI
 struct AreaChart: View {
   let from: Date
   let to: Date
-  var chartData: [(x: Date, minY: Double?, maxY: Double?)]
-  var referenceY: Double? = nil
+  let chartData: [(x: Date, minY: Double?, maxY: Double?)]
+  let referenceY: Double? = nil
 
   var body: some View {
     Chart {

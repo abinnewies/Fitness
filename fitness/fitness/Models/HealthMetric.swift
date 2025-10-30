@@ -6,7 +6,8 @@
 //
 
 enum HealthMetric {
-  case caloriesBurned
+  case activeCaloriesBurned
+  case basalCaloriesBurned
   case heartRate
   case hrv
   case minHeartRate
