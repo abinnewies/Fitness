@@ -43,6 +43,7 @@ struct DashboardView: View {
         }
       }
       .padding(16)
+      .transition(.slide)
     }
     .onChange(of: scenePhase) {
       if scenePhase == .active {
@@ -54,10 +55,18 @@ struct DashboardView: View {
             let last7DaysSummary = await viewModel.fetchSummary(forRange: .last7Days)
 
             // Set these all at the same time after everything has loaded to prevent them from rendering
-            // at different times.
-            self.todaySummary = todaySummary
-            self.yesterdaySummary = yesterdaySummary
-            self.last7DaysSummary = last7DaysSummary
+            // at different times. Also we only animate after the first load.
+            if self.todaySummary != nil, self.yesterdaySummary != nil, self.last7DaysSummary != nil {
+              withAnimation {
+                self.todaySummary = todaySummary
+                self.yesterdaySummary = yesterdaySummary
+                self.last7DaysSummary = last7DaysSummary
+              }
+            } else {
+              self.todaySummary = todaySummary
+              self.yesterdaySummary = yesterdaySummary
+              self.last7DaysSummary = last7DaysSummary
+            }
           } catch {
             print(error)
           }
