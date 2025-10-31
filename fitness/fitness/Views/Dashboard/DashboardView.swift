@@ -44,16 +44,6 @@ struct DashboardView: View {
           Spacer().frame(height: 24)
 
           if let yesterdaySummary {
-            ForEach(yesterdaySummary.workouts) { workoutSummary in
-              WorkoutSummaryView(
-                workoutSummary: workoutSummary,
-                healthKitManager: healthKitManager
-              )
-              .onTapGesture {
-                navigationPath.append(NavigationDestination.workoutDetails(workoutSummary.workout))
-              }
-            }
-
             SummaryView(
               summary: yesterdaySummary,
               healthKitManager: healthKitManager
