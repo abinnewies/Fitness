@@ -25,13 +25,14 @@ struct DashboardView: View {
       ScrollView {
         VStack {
           if let todaySummary {
-            ForEach(todaySummary.workouts) { workoutSummary in
+            ForEach(todaySummary.workouts) { workout in
               WorkoutSummaryView(
-                workoutSummary: workoutSummary,
+                workout: workout,
                 healthKitManager: healthKitManager
               )
               .onTapGesture {
-                navigationPath.append(NavigationDestination.workoutDetails(workoutSummary.workout))
+                UISelectionFeedbackGenerator().selectionChanged()
+                navigationPath.append(NavigationDestination.workoutDetails(workout))
               }
             }
 
@@ -46,7 +47,8 @@ struct DashboardView: View {
           if let yesterdaySummary {
             SummaryView(
               summary: yesterdaySummary,
-              healthKitManager: healthKitManager
+              healthKitManager: healthKitManager,
+              navigationPath: $navigationPath
             )
           }
 
@@ -55,7 +57,8 @@ struct DashboardView: View {
           if let last7DaysSummary {
             SummaryView(
               summary: last7DaysSummary,
-              healthKitManager: healthKitManager
+              healthKitManager: healthKitManager,
+              navigationPath: $navigationPath
             )
           }
         }
@@ -67,6 +70,8 @@ struct DashboardView: View {
         switch destination {
         case let .workoutDetails(workout):
           WorkoutDetailsView(workout: workout, healthKitManager: healthKitManager)
+        case let .workoutList(workoutType):
+          WorkoutListView(navigationPath: $navigationPath, healthKitManager: healthKitManager, workoutType: workoutType)
         }
       }
     }
@@ -92,9 +97,7 @@ struct DashboardView: View {
               self.yesterdaySummary = yesterdaySummary
               self.last7DaysSummary = last7DaysSummary
             }
-          } catch {
-            print(error)
-          }
+          } catch {}
         }
       }
     }

@@ -48,6 +48,7 @@ struct WorkoutMap: View {
         .onAppear {
           mapPosition = .region(region)
         }
+        .mapStyle(.standard(elevation: .flat, emphasis: .muted, pointsOfInterest: []))
       } else {
         // Placeholder so the UI doesn't jump when the data arrives
         Color.clear

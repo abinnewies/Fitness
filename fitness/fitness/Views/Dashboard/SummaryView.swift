@@ -5,11 +5,13 @@
 //  Created by Andreas Binnewies on 10/24/25.
 //
 
+import HealthKit
 import SwiftUI
 
 struct SummaryView: View {
   let summary: Summary
   let healthKitManager: HealthKitManager
+  @Binding var navigationPath: NavigationPath
 
   var body: some View {
     Text(summary.range.description)
@@ -17,8 +19,8 @@ struct SummaryView: View {
       .font(.title3.smallCaps())
 
     VStack(spacing: 0) {
-      let runs = summary.workouts.compactMap(\.runSummary)
-      let hikes = summary.workouts.compactMap(\.hikeSummary)
+      let runs = summary.workouts.filter { $0.workoutActivityType == .running }
+      let hikes = summary.workouts.filter { $0.workoutActivityType == .hiking }
       if !runs.isEmpty {
         let totalDistanceMiles = runs.compactMap(\.distanceMeters).reduce(0, +).milesFromMeters
         MetricRow(
@@ -27,6 +29,10 @@ struct SummaryView: View {
             .init(value: String(format: "%.2f", totalDistanceMiles), unit: "miles"),
           ]
         )
+        .onTapGesture {
+          UISelectionFeedbackGenerator().selectionChanged()
+          navigationPath.append(NavigationDestination.workoutList(.running))
+        }
       }
 
       if !hikes.isEmpty {
@@ -40,6 +46,10 @@ struct SummaryView: View {
             .init(value: String(format: "%.2f", totalDistanceMiles), unit: "miles"),
           ]
         )
+        .onTapGesture {
+          UISelectionFeedbackGenerator().selectionChanged()
+          navigationPath.append(NavigationDestination.workoutList(.hiking))
+        }
       }
     }
     .background(RoundedRectangle(cornerRadius: 12)

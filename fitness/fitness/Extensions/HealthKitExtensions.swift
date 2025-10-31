@@ -19,3 +19,9 @@ extension HKWorkout {
     return quantity.doubleValue(for: .meter())
   }
 }
+
+extension HKWorkout: @retroactive Identifiable {
+  public var id: String {
+    uuid.uuidString
+  }
+}

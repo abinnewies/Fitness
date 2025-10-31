@@ -1,5 +1,5 @@
 //
-//  HKWorkoutActivityType+Display.swift
+//  HKWorkoutActivityType+MetricRepresentable.swift
 //  Fitness
 //
 //  Created by Andreas Binnewies on 10/30/25.
@@ -8,7 +8,7 @@
 import HealthKit
 import SwiftUI
 
-extension HKWorkoutActivityType {
+extension HKWorkoutActivityType: MetricRepresentable {
   var title: String {
     switch self {
     case .hiking:
@@ -17,6 +17,17 @@ extension HKWorkoutActivityType {
       "Run"
     default:
       "Activity"
+    }
+  }
+
+  var pluralTitle: String {
+    switch self {
+    case .hiking:
+      "Hikes"
+    case .running:
+      "Runs"
+    default:
+      "Activities"
     }
   }
 

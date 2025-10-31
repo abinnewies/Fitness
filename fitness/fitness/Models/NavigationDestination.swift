@@ -10,4 +10,5 @@ import HealthKit
 
 enum NavigationDestination: Hashable {
   case workoutDetails(HKWorkout)
+  case workoutList(HKWorkoutActivityType?)
 }

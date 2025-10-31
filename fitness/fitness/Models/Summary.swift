@@ -6,6 +6,7 @@
 //
 
 import Foundation
+import HealthKit
 
 struct Summary: Hashable {
   let date = Date()
@@ -15,5 +16,5 @@ struct Summary: Hashable {
   let maxHeartRate: Int?
   let restingHeartRate: Int?
   let steps: Int?
-  let workouts: [WorkoutSummary]
+  let workouts: [HKWorkout]
 }
