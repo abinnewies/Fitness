@@ -24,6 +24,7 @@ struct WorkoutListView: View {
                 WorkoutSummaryView(workout: workout, healthKitManager: healthKitManager)
                   .listRowSeparator(.hidden)
                   .listRowInsets(EdgeInsets(top: 0, leading: 16, bottom: 0, trailing: 16))
+                  .contentShape(Rectangle())
                   .onTapGesture {
                     UISelectionFeedbackGenerator().selectionChanged()
                     navigationPath.append(NavigationDestination.workoutDetails(workout))

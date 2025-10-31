@@ -30,6 +30,7 @@ struct DashboardView: View {
                 workout: workout,
                 healthKitManager: healthKitManager
               )
+              .contentShape(Rectangle())
               .onTapGesture {
                 UISelectionFeedbackGenerator().selectionChanged()
                 navigationPath.append(NavigationDestination.workoutDetails(workout))

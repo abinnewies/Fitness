@@ -29,6 +29,7 @@ struct SummaryView: View {
             .init(value: String(format: "%.2f", totalDistanceMiles), unit: "miles"),
           ]
         )
+        .contentShape(Rectangle())
         .onTapGesture {
           UISelectionFeedbackGenerator().selectionChanged()
           navigationPath.append(NavigationDestination.workoutList(.running))
@@ -46,6 +47,7 @@ struct SummaryView: View {
             .init(value: String(format: "%.2f", totalDistanceMiles), unit: "miles"),
           ]
         )
+        .contentShape(Rectangle())
         .onTapGesture {
           UISelectionFeedbackGenerator().selectionChanged()
           navigationPath.append(NavigationDestination.workoutList(.hiking))
