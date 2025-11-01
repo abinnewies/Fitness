@@ -185,10 +185,9 @@ class HealthKitManager {
     from: Date,
     to: Date,
     statisticsType: StatisticsType,
-    interval _: DateComponents
+    interval: DateComponents
   ) async throws -> [Int: Double] {
     let predicate = HKQuery.predicateForSamples(withStart: from, end: to, options: .strictStartDate)
-    let interval = DateComponents(hour: 1)
     let anchorDate = Calendar.current.date(bySettingHour: 0, minute: 0, second: 0, of: from)!
     let unit = type.unit
 
@@ -213,7 +212,7 @@ class HealthKitManager {
         }
 
         var results: [Int: Double] = [:]
-        let intervalSeconds = TimeInterval(interval.hour ?? 0) * 3600 + TimeInterval(interval.day ?? 0) * 86400
+        let intervalSeconds = interval.timeInterval
         for index in stride(
           from: 0,
           to: Int(ceil((to.timeIntervalSince1970 - from.timeIntervalSince1970) / intervalSeconds)),

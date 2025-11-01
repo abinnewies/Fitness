@@ -12,8 +12,6 @@ import SwiftUI
 class DashboardViewModel {
   private let healthKitManager: HealthKitManager
 
-  private let bpm = HKUnit.count().unitDivided(by: HKUnit.minute())
-
   init(healthKitManager: HealthKitManager) {
     self.healthKitManager = healthKitManager
   }
@@ -26,7 +24,10 @@ class DashboardViewModel {
       maxHeartRate: try? await fetchMaxHeartRate(forRange: summaryRange),
       restingHeartRate: try? await fetchRestingHeartRate(forRange: summaryRange),
       steps: try? await fetchSteps(forRange: summaryRange),
-      workouts: (try? await healthKitManager.fetchWorkouts(from: summaryRange.from, to: summaryRange.to)) ?? []
+      workouts: summaryRange != .last7Days ? (try? await healthKitManager.fetchWorkouts(
+        from: summaryRange.from,
+        to: summaryRange.to
+      )) ?? [] : []
     )
   }
 

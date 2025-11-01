@@ -30,24 +30,8 @@ struct WorkoutSummaryView: View {
       .frame(maxWidth: .infinity, alignment: .leading)
       .padding(.all, 12)
 
-      WorkoutMap(workout: workout, healthKitManager: healthKitManager, displayHeatmap: false)
-//        .mask(
-//          LinearGradient(
-//            gradient: Gradient(stops: [
-//              .init(color: .clear, location: 0.0),
-//              .init(color: .black, location: 0.5),
-//              .init(color: .black, location: 1.0),
-//            ]),
-//            startPoint: .leading,
-//            endPoint: .trailing
-//          )
-//        )
-        .clipShape(.rect(
-          topLeadingRadius: 12,
-          bottomLeadingRadius: 12,
-          bottomTrailingRadius: 12,
-          topTrailingRadius: 12
-        ))
+      WorkoutMap(workout: workout, healthKitManager: healthKitManager, displayHeatmap: false, fadeTerrain: true)
+        .clipShape(RoundedRectangle(cornerRadius: 12))
     }
     .padding(.all, 4)
     .background(Color(uiColor: .secondarySystemBackground))

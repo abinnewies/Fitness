@@ -14,11 +14,20 @@ struct Sample {
 
 enum SampleStride {
   case hour(Int)
+  case minute(Int)
+  case timeInterval(TimeInterval)
 
   var dateComponents: DateComponents {
     switch self {
     case let .hour(hour):
-      DateComponents(hour: hour)
+      return DateComponents(hour: hour)
+    case let .minute(minute):
+      return DateComponents(minute: minute)
+    case let .timeInterval(timeInterval):
+      let hour = Int((timeInterval / 3600).truncatingRemainder(dividingBy: 3600))
+      let minute = Int((timeInterval / 60).truncatingRemainder(dividingBy: 60))
+      let second = Int(timeInterval.truncatingRemainder(dividingBy: 60))
+      return DateComponents(hour: hour, minute: minute, second: second)
     }
   }
 
@@ -26,6 +35,10 @@ enum SampleStride {
     switch self {
     case let .hour(hour):
       TimeInterval(hour) * 3600
+    case let .minute(minute):
+      TimeInterval(minute) * 60
+    case let .timeInterval(timeInterval):
+      timeInterval
     }
   }
 }
@@ -44,7 +57,7 @@ class HealthKitSampleManager {
     stride: SampleStride
   ) async throws -> [Int: Double] {
     switch metric {
-    case .heartRate:
+    case .averageHeartRate, .heartRate:
       return try await healthKitManager.fetchStatisticsCollection(
         type: .heartRate,
         from: from,

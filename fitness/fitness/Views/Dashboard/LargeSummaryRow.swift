@@ -43,7 +43,7 @@ struct LargeSummaryRow: View {
           stride: .hour(1)
         )
       case .heartRate:
-        SmallHeartRateGraph(
+        SmallHeartRateChart(
           from: startOfToday,
           to: endOfToday,
           currentDate: summaryDate,

@@ -13,6 +13,7 @@ struct WorkoutMap: View {
   let workout: HKWorkout
   let healthKitManager: HealthKitManager
   let displayHeatmap: Bool
+  let fadeTerrain: Bool
 
   @State private var routePoints: [CLLocation] = []
   @State private var routeColors: Gradient = .init(colors: [.accentColor])
@@ -48,7 +49,7 @@ struct WorkoutMap: View {
         .onAppear {
           mapPosition = .region(region)
         }
-        .mapStyle(.standard(elevation: .flat, emphasis: .muted, pointsOfInterest: []))
+        .mapStyle(.standard(elevation: .flat, emphasis: fadeTerrain ? .muted : .automatic, pointsOfInterest: []))
       } else {
         // Placeholder so the UI doesn't jump when the data arrives
         Color.clear
