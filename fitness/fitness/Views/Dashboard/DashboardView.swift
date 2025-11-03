@@ -7,75 +7,73 @@
 
 import Charts
 import Combine
+import HealthKit
 import SwiftUI
 
 struct DashboardView: View {
+  typealias SelectWorkoutTypeCallback = (HKWorkoutActivityType) -> Void
   @Environment(\.scenePhase) var scenePhase
 
   private let healthKitManager: HealthKitManager
   @State private var viewModel: DashboardViewModel
-  @State private var navigationPath = NavigationPath()
+  @Binding private var navigationPath: NavigationPath
 
   @State private var todaySummary: Summary?
   @State private var yesterdaySummary: Summary?
   @State private var last7DaysSummary: Summary?
 
   var body: some View {
-    NavigationStack(path: $navigationPath) {
-      ScrollView {
-        VStack {
-          if let todaySummary {
-            ForEach(todaySummary.workouts) { workout in
-              WorkoutSummaryView(
-                workout: workout,
-                healthKitManager: healthKitManager
-              )
-              .contentShape(Rectangle())
-              .onTapGesture {
-                UISelectionFeedbackGenerator().selectionChanged()
-                navigationPath.append(NavigationDestination.workoutDetails(workout))
-              }
-            }
-
-            LargeSummaryView(
-              summary: todaySummary,
+    ScrollView {
+      VStack {
+        if let todaySummary {
+          ForEach(todaySummary.workouts) { workout in
+            WorkoutSummaryView(
+              workout: workout,
               healthKitManager: healthKitManager
             )
+            .contentShape(Rectangle())
+            .onTapGesture {
+              UISelectionFeedbackGenerator().selectionChanged()
+              navigationPath.append(NavigationDestination.workoutDetails(workout))
+            }
           }
 
-          Spacer().frame(height: 24)
-
-          if let yesterdaySummary {
-            SummaryView(
-              summary: yesterdaySummary,
-              healthKitManager: healthKitManager,
-              navigationPath: $navigationPath
-            )
-          }
-
-          Spacer().frame(height: 24)
-
-          if let last7DaysSummary {
-            SummaryView(
-              summary: last7DaysSummary,
-              healthKitManager: healthKitManager,
-              navigationPath: $navigationPath
-            )
-          }
+          LargeSummaryView(
+            summary: todaySummary,
+            healthKitManager: healthKitManager
+          )
         }
-        .padding(16)
-        .transition(.slide)
-      }
-      .navigationTitle("Dashboard")
-      .navigationDestination(for: NavigationDestination.self) { destination in
-        switch destination {
-        case let .workoutDetails(workout):
-          WorkoutDetailsView(workout: workout, healthKitManager: healthKitManager)
-        case let .workoutList(workoutType):
-          WorkoutListView(navigationPath: $navigationPath, healthKitManager: healthKitManager, workoutType: workoutType)
+
+        Spacer().frame(height: 24)
+
+        if let yesterdaySummary {
+          SummaryView(
+            summary: yesterdaySummary,
+            healthKitManager: healthKitManager,
+            onSelectWorkoutType: { workoutType in
+              UISelectionFeedbackGenerator().selectionChanged()
+              navigationPath.append(NavigationDestination.workoutList(workoutType))
+            }
+          )
+        }
+
+        Spacer().frame(height: 24)
+
+        if let last7DaysSummary {
+          SummaryView(
+            summary: last7DaysSummary,
+            healthKitManager: healthKitManager,
+            onSelectWorkoutType: { workoutType in
+              UISelectionFeedbackGenerator().selectionChanged()
+              navigationPath.append(NavigationDestination.workoutList(workoutType))
+            }
+          )
         }
       }
+      .padding(16)
+      .transition(.slide)
     }
+    .navigationTitle("Dashboard")
     .onChange(of: scenePhase) {
       if scenePhase == .active {
         Task {
@@ -104,7 +102,8 @@ struct DashboardView: View {
     }
   }
 
-  init(healthKitManager: HealthKitManager) {
+  init(navigationPath: Binding<NavigationPath>, healthKitManager: HealthKitManager) {
+    _navigationPath = navigationPath
     self.healthKitManager = healthKitManager
     viewModel = DashboardViewModel(healthKitManager: healthKitManager)
   }

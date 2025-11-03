@@ -11,7 +11,7 @@ import SwiftUI
 struct SummaryView: View {
   let summary: Summary
   let healthKitManager: HealthKitManager
-  @Binding var navigationPath: NavigationPath
+  let onSelectWorkoutType: (HKWorkoutActivityType) -> Void
 
   var body: some View {
     Text(summary.range.description)
@@ -24,14 +24,6 @@ struct SummaryView: View {
       let runs = summary.workouts.filter { $0.workoutActivityType == .running }
       let hikes = summary.workouts.filter { $0.workoutActivityType == .hiking }
       if !runs.isEmpty {
-        ForEach(runs) { run in
-          WorkoutSummaryView(workout: run, healthKitManager: healthKitManager)
-            .contentShape(Rectangle())
-            .onTapGesture {
-              UISelectionFeedbackGenerator().selectionChanged()
-              navigationPath.append(NavigationDestination.workoutDetails(run))
-            }
-        }
         let totalDistanceMiles = runs.compactMap(\.distanceMeters).reduce(0, +).milesFromMeters
         MetricRow(
           metric: HealthSummaryMetric.runs(runs.count),
@@ -41,8 +33,7 @@ struct SummaryView: View {
         )
         .contentShape(Rectangle())
         .onTapGesture {
-          UISelectionFeedbackGenerator().selectionChanged()
-          navigationPath.append(NavigationDestination.workoutList(.running))
+          onSelectWorkoutType(.running)
         }
       }
 
@@ -59,8 +50,7 @@ struct SummaryView: View {
         )
         .contentShape(Rectangle())
         .onTapGesture {
-          UISelectionFeedbackGenerator().selectionChanged()
-          navigationPath.append(NavigationDestination.workoutList(.hiking))
+          onSelectWorkoutType(.hiking)
         }
       }
     }

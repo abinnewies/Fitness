@@ -1,5 +1,5 @@
 //
-//  WorkoudDetailsViewModel.swift
+//  WorkoutDetailsViewModel.swift
 //  Fitness
 //
 //  Created by Andreas Binnewies on 10/31/25.

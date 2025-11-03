@@ -10,11 +10,33 @@ import SwiftUI
 
 @Observable
 class WorkoutListViewModel {
-  var groupedWorkouts: [(date: Date, workouts: [HKWorkout])]?
+  typealias GroupedWorkouts = (date: Date, workouts: [HKWorkout])
+  var filteredWorkouts: [GroupedWorkouts] = []
+
+  var selectedTypes: Set<HKWorkoutActivityType> {
+    didSet {
+      filterWorkouts()
+    }
+  }
+
+  var availableTypes: [HKWorkoutActivityType] {
+    let allTypes = allWorkouts.flatMap {
+      $0.workouts.map {
+        $0.workoutActivityType
+      }
+    }
+    let unique = Set(allTypes).intersection(supportedTypes)
+    return Array(unique).sorted { $0.rawValue < $1.rawValue }
+  }
+
+  private var allWorkouts: [GroupedWorkouts] = []
+
+  private let supportedTypes = Set([HKWorkoutActivityType.running, HKWorkoutActivityType.hiking])
 
   private let healthKitManager: HealthKitManager
 
-  init(healthKitManager: HealthKitManager) {
+  init(selectedTypes: Set<HKWorkoutActivityType>, healthKitManager: HealthKitManager) {
+    self.selectedTypes = selectedTypes
     self.healthKitManager = healthKitManager
   }
 
@@ -32,11 +54,22 @@ class WorkoutListViewModel {
     }
 
     let orderedDays = grouped.keys.sorted(by: >)
-    groupedWorkouts = orderedDays.map { day in
+    allWorkouts = orderedDays.map { day in
       let ws = (grouped[day] ?? []).sorted {
         $0.startDate > $1.startDate
       }
       return (day, ws)
     }
+    filterWorkouts()
+  }
+
+  private func filterWorkouts() {
+    let filteredWorkouts = allWorkouts.compactMap {
+      let workouts = $0.workouts.filter {
+        selectedTypes.isEmpty || selectedTypes.contains($0.workoutActivityType)
+      }
+      return workouts.isEmpty ? nil : (date: $0.date, workouts: workouts)
+    }
+    self.filteredWorkouts = filteredWorkouts
   }
 }

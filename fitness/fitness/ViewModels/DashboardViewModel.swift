@@ -24,10 +24,10 @@ class DashboardViewModel {
       maxHeartRate: try? await fetchMaxHeartRate(forRange: summaryRange),
       restingHeartRate: try? await fetchRestingHeartRate(forRange: summaryRange),
       steps: try? await fetchSteps(forRange: summaryRange),
-      workouts: summaryRange != .last7Days ? (try? await healthKitManager.fetchWorkouts(
+      workouts: (try? await healthKitManager.fetchWorkouts(
         from: summaryRange.from,
         to: summaryRange.to
-      )) ?? [] : []
+      )) ?? []
     )
   }
 
