@@ -33,8 +33,7 @@ struct DashboardView: View {
             )
             .contentShape(Rectangle())
             .onTapGesture {
-              UISelectionFeedbackGenerator().selectionChanged()
-              navigationPath.append(NavigationDestination.workoutDetails(workout))
+              selectWorkout(workout)
             }
           }
 
@@ -50,10 +49,8 @@ struct DashboardView: View {
           SummaryView(
             summary: yesterdaySummary,
             healthKitManager: healthKitManager,
-            onSelectWorkoutType: { workoutType in
-              UISelectionFeedbackGenerator().selectionChanged()
-              navigationPath.append(NavigationDestination.workoutList(workoutType))
-            }
+            onSelectWorkout: selectWorkout,
+            onSelectWorkoutType: selectWorkoutType
           )
         }
 
@@ -63,10 +60,8 @@ struct DashboardView: View {
           SummaryView(
             summary: last7DaysSummary,
             healthKitManager: healthKitManager,
-            onSelectWorkoutType: { workoutType in
-              UISelectionFeedbackGenerator().selectionChanged()
-              navigationPath.append(NavigationDestination.workoutList(workoutType))
-            }
+            onSelectWorkout: selectWorkout,
+            onSelectWorkoutType: selectWorkoutType
           )
         }
       }
@@ -106,5 +101,15 @@ struct DashboardView: View {
     _navigationPath = navigationPath
     self.healthKitManager = healthKitManager
     viewModel = DashboardViewModel(healthKitManager: healthKitManager)
+  }
+
+  private func selectWorkout(_ workout: HKWorkout) {
+    UISelectionFeedbackGenerator().selectionChanged()
+    navigationPath.append(NavigationDestination.workoutDetails(workout))
+  }
+
+  private func selectWorkoutType(_ workoutType: HKWorkoutActivityType) {
+    UISelectionFeedbackGenerator().selectionChanged()
+    navigationPath.append(NavigationDestination.workoutList(workoutType))
   }
 }

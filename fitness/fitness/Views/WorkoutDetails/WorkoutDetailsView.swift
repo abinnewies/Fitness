@@ -21,7 +21,7 @@ struct WorkoutDetailsView: View {
         VStack(spacing: 16) {
           if viewModel.hasRoute {
             VStack(spacing: 8) {
-              WorkoutMap(workout: workout, healthKitManager: healthKitManager, displayHeatmap: true, fadeTerrain: false)
+              WorkoutMap(workout: workout, healthKitManager: healthKitManager, displayHeatmap: true, fadeTerrain: true)
                 .frame(maxWidth: .infinity)
                 .aspectRatio(1.5, contentMode: .fill)
                 .clipShape(RoundedRectangle(cornerRadius: 12))

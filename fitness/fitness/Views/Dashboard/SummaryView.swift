@@ -11,6 +11,7 @@ import SwiftUI
 struct SummaryView: View {
   let summary: Summary
   let healthKitManager: HealthKitManager
+  let onSelectWorkout: (HKWorkout) -> Void
   let onSelectWorkoutType: (HKWorkoutActivityType) -> Void
 
   var body: some View {
@@ -33,7 +34,11 @@ struct SummaryView: View {
         )
         .contentShape(Rectangle())
         .onTapGesture {
-          onSelectWorkoutType(.running)
+          if runs.count == 1, let run = runs.first {
+            onSelectWorkout(run)
+          } else {
+            onSelectWorkoutType(.running)
+          }
         }
       }
 
@@ -50,7 +55,11 @@ struct SummaryView: View {
         )
         .contentShape(Rectangle())
         .onTapGesture {
-          onSelectWorkoutType(.hiking)
+          if hikes.count == 1, let hike = hikes.first {
+            onSelectWorkout(hike)
+          } else {
+            onSelectWorkoutType(.hiking)
+          }
         }
       }
     }
