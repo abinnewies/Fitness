@@ -23,6 +23,7 @@ class DashboardViewModel {
       minHeartRate: try? await fetchMinHeartRate(forRange: summaryRange),
       maxHeartRate: try? await fetchMaxHeartRate(forRange: summaryRange),
       restingHeartRate: try? await fetchRestingHeartRate(forRange: summaryRange),
+      sleepDuration: try? await fetchSleepDuration(forRange: summaryRange),
       steps: try? await fetchSteps(forRange: summaryRange),
       workouts: (try? await healthKitManager.fetchWorkouts(
         from: summaryRange.from,
@@ -86,5 +87,39 @@ class DashboardViewModel {
       to: summaryRange.to
     )
     return Int(maxHeartRate)
+  }
+
+  private func fetchSleepDuration(forRange summaryRange: SummaryRange) async throws -> TimeInterval {
+    let halfDaySeconds: TimeInterval = 43200
+    let samples = try await healthKitManager.fetchSamples(
+      from: summaryRange.from.addingTimeInterval(-halfDaySeconds),
+      to: summaryRange == .yesterday ? summaryRange.to.addingTimeInterval(-halfDaySeconds) : summaryRange.to,
+      sampleType: HKCategoryType(.sleepAnalysis)
+    )
+    let categorySamples = (samples as? [HKCategorySample]) ?? []
+
+    let asleepValues: Set<Int> = {
+      if #available(iOS 16.0, *) {
+        return Set([
+          HKCategoryValueSleepAnalysis.asleepCore.rawValue,
+          HKCategoryValueSleepAnalysis.asleepDeep.rawValue,
+          HKCategoryValueSleepAnalysis.asleepREM.rawValue,
+        ])
+      } else {
+        return Set([HKCategoryValueSleepAnalysis.asleep.rawValue])
+      }
+    }()
+
+    let duration: TimeInterval = categorySamples.reduce(0) { partial, sample in
+      guard asleepValues.contains(sample.value) else { return partial }
+      return partial + sample.endDate.timeIntervalSince(sample.startDate)
+    }
+
+    switch summaryRange {
+    case .today, .yesterday:
+      return duration
+    case .last7Days:
+      return duration / 7.0
+    }
   }
 }

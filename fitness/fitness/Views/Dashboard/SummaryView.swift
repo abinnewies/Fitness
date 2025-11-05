@@ -58,7 +58,17 @@ struct SummaryView: View {
       .fill(Color(uiColor: .secondarySystemBackground)))
 
     VStack(spacing: 0) {
+      if let sleep = summary.sleepDuration {
+        MetricRow(
+          metric: HealthSummaryMetric.sleep,
+          values: [
+            .init(value: sleep.durationFormatted(includeSeconds: false), unit: ""),
+          ]
+        )
+      }
+
       if let restingHeartRate = summary.restingHeartRate, let maxHeartRate = summary.maxHeartRate {
+        Divider()
         MetricRow(
           metric: HealthSummaryMetric.heartRate,
           values: [
@@ -77,6 +87,7 @@ struct SummaryView: View {
           ]
         )
       }
+
       if let caloriesBurned = summary.caloriesBurned {
         Divider()
         MetricRow(

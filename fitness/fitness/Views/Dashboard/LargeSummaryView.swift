@@ -13,6 +13,17 @@ struct LargeSummaryView: View {
 
   var body: some View {
     VStack(spacing: 8) {
+      if let sleep = summary.sleepDuration {
+        LargeSummaryRow(
+          summaryDate: summary.date,
+          values: [
+            .init(value: sleep.durationFormatted(includeSeconds: false), unit: ""),
+          ],
+          healthKitManager: healthKitManager,
+          healthSummaryMetric: .sleep
+        )
+      }
+
       if let restingHeartRate = summary.restingHeartRate, let maxHeartRate = summary.maxHeartRate {
         LargeSummaryRow(
           summaryDate: summary.date,
@@ -35,6 +46,7 @@ struct LargeSummaryView: View {
           healthSummaryMetric: .stepCount
         )
       }
+
       if let caloriesBurned = summary.caloriesBurned {
         LargeSummaryRow(
           summaryDate: summary.date,

@@ -6,6 +6,7 @@
 //
 
 import Charts
+import SleepChartKit
 import SwiftUI
 
 struct LargeSummaryRow: View {
@@ -31,7 +32,6 @@ struct LargeSummaryRow: View {
         }
         .frame(maxWidth: .infinity, alignment: .leading)
       }
-      .frame(maxWidth: .infinity, alignment: .leading)
 
       switch healthSummaryMetric {
       case .caloriesBurned:
@@ -52,6 +52,13 @@ struct LargeSummaryRow: View {
         )
       case .hikes, .runs:
         Color.clear
+      case .sleep:
+        SmallSleepChart(
+          from: startOfToday,
+          to: endOfToday,
+          currentDate: summaryDate,
+          healthKitManager: healthKitManager
+        )
       case .stepCount:
         SmallStepsGraph(
           from: startOfToday,

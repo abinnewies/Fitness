@@ -15,6 +15,7 @@ struct Summary: Hashable {
   let minHeartRate: Int?
   let maxHeartRate: Int?
   let restingHeartRate: Int?
+  let sleepDuration: TimeInterval?
   let steps: Int?
   let workouts: [HKWorkout]
 }

@@ -1,0 +1,240 @@
+import SwiftUI
+
+/// A SwiftUI view that displays sleep data as a timeline, circular chart, or minimalist timeline.
+///
+/// The chart can display sleep stages as horizontal bars (timeline style), as a 
+/// minimalist timeline without overlays (minimal style), or as color-coded segments 
+/// around a circle (circular style). Each style supports customizable colors, and 
+/// timeline-based styles can optionally include legends and axes.
+///
+/// ## Usage
+/// ```swift
+/// // Basic timeline usage
+/// SleepChartView(samples: sleepSamples)
+///
+/// // Circular chart
+/// SleepChartView(
+///     samples: sleepSamples,
+///     style: .circular,
+///     circularConfig: CircularChartConfiguration(size: 200, lineWidth: 20)
+/// )
+///
+/// // With custom providers
+/// SleepChartView(
+///     samples: sleepSamples,
+///     colorProvider: customColorProvider,
+///     displayNameProvider: localizedNameProvider
+/// )
+///
+/// // Minimal timeline without axis or legend
+/// SleepChartView(
+///     samples: sleepSamples,
+///     style: .minimal
+/// )
+/// ```
+public struct SleepChartView: View {
+    
+    // MARK: - Properties
+    
+    /// The sleep samples to display in the chart
+    private let samples: [SleepSample]
+    
+    /// The visual style of the chart
+    private let style: SleepChartStyle
+    
+    /// Configuration for circular charts
+    private let circularConfig: CircularChartConfiguration
+    
+    /// Provider for sleep stage colors
+    private let colorProvider: SleepStageColorProvider
+    
+    /// Formatter for displaying durations in the legend
+    private let durationFormatter: DurationFormatter
+    
+    /// Generator for time span markers on the axis
+    private let timeSpanGenerator: TimeSpanGenerator
+    
+    /// Provider for sleep stage display names
+    private let displayNameProvider: SleepStageDisplayNameProvider
+    
+    // MARK: - Initialization
+    
+    /// Creates a new sleep chart view with the specified configuration.
+    ///
+    /// - Parameters:
+    ///   - samples: The sleep samples to display
+    ///   - style: The visual style of the chart (timeline, circular, or minimal; default: .timeline)
+    ///   - circularConfig: Configuration for circular charts (default: .default)
+    ///   - colorProvider: Provider for sleep stage colors (default: DefaultSleepStageColorProvider)
+    ///   - durationFormatter: Formatter for duration display (default: DefaultDurationFormatter)
+    ///   - timeSpanGenerator: Generator for time axis markers (default: DefaultTimeSpanGenerator)
+    ///   - displayNameProvider: Provider for stage names (default: DefaultSleepStageDisplayNameProvider)
+    public init(
+        samples: [SleepSample],
+        style: SleepChartStyle = .timeline,
+        circularConfig: CircularChartConfiguration = .default,
+        colorProvider: SleepStageColorProvider = DefaultSleepStageColorProvider(),
+        durationFormatter: DurationFormatter = DefaultDurationFormatter(),
+        timeSpanGenerator: TimeSpanGenerator = DefaultTimeSpanGenerator(),
+        displayNameProvider: SleepStageDisplayNameProvider = DefaultSleepStageDisplayNameProvider()
+    ) {
+        self.samples = samples
+        self.style = style
+        self.circularConfig = circularConfig
+        self.colorProvider = colorProvider
+        self.durationFormatter = durationFormatter
+        self.timeSpanGenerator = timeSpanGenerator
+        self.displayNameProvider = displayNameProvider
+    }
+    
+    // MARK: - Computed Properties
+    
+    /// Aggregated sleep data by stage, calculating total duration for each stage
+    private var sleepData: [SleepStage: TimeInterval] {
+        var data: [SleepStage: TimeInterval] = [:]
+        for sample in samples {
+            data[sample.stage, default: 0] += sample.duration
+        }
+        return data
+    }
+    
+    /// Active sleep stages sorted by their natural order
+    private var activeStages: [SleepStage] {
+        sleepData.keys.sorted { $0.sortOrder < $1.sortOrder }
+    }
+    
+    /// Time span markers for the horizontal axis
+    private var timeSpans: [TimeSpan] {
+        timeSpanGenerator.generateTimeSpans(for: samples)
+    }
+
+    private var dateFormatter: DateFormatter {
+      let dateFormatter = DateFormatter()
+      dateFormatter.dateFormat = "h:mma"
+      dateFormatter.amSymbol = "a"
+      dateFormatter.pmSymbol = "p"
+      return dateFormatter
+    }
+
+    /// Formatted start time for the axis labels
+    private var startTime: String? {
+        samples.first != nil ? dateFormatter.string(from: samples.first!.startDate) : nil
+    }
+    
+    /// Formatted end time for the axis labels
+    private var endTime: String? {
+        samples.last != nil ? dateFormatter.string(from: samples.last!.endDate) : nil
+    }
+    
+    // MARK: - Body
+    
+    public var body: some View {
+        switch style {
+        case .timeline:
+            timelineChartView
+        case .circular:
+            circularChartView
+        case .minimal:
+            minimalChartView
+        }
+    }
+    
+    // MARK: - Chart Views
+    
+    /// Timeline chart view (original implementation)
+    private var timelineChartView: some View {
+        VStack(spacing: SleepChartConstants.componentSpacing) {
+            // Chart area with timeline graph and dotted lines overlay
+            chartWithDottedLinesOverlay
+            
+            // Time axis showing start/end times and intermediate markers
+            SleepTimeAxisView(
+                startTime: startTime,
+                endTime: endTime,
+                timeSpans: timeSpans
+            )
+        }
+    }
+    
+    /// Circular chart view with optional legend
+    private var circularChartView: some View {
+        VStack(spacing: 20) {
+            SleepCircularChartView(
+                samples: samples,
+                colorProvider: colorProvider,
+                lineWidth: circularConfig.lineWidth,
+                size: circularConfig.size,
+                showLabels: circularConfig.showLabels
+            )
+            
+            // Optional legend for circular charts
+            SleepLegendView(
+                activeStages: activeStages,
+                sleepData: sleepData,
+                colorProvider: colorProvider,
+                durationFormatter: durationFormatter,
+                displayNameProvider: displayNameProvider
+            )
+        }
+    }
+    
+    /// Minimal timeline chart without axis, legends, or overlays
+    private var minimalChartView: some View {
+        SleepTimelineGraph(
+            samples: samples,
+            colorProvider: colorProvider
+        )
+        .frame(height: SleepChartConstants.chartHeight)
+        .clipShape(RoundedRectangle(cornerRadius: SleepChartConstants.chartClipCornerRadius))
+    }
+    
+    // MARK: - Private Views
+    
+    /// Chart area combining the sleep timeline graph with dotted vertical lines overlay
+    private var chartWithDottedLinesOverlay: some View {
+        ZStack(alignment: .bottom) {
+            // Main sleep timeline graph showing sleep stages as horizontal bars
+            SleepTimelineGraph(
+                samples: samples,
+                colorProvider: colorProvider
+            )
+
+            // Dotted vertical lines connecting chart to time axis
+            dottedLinesOverlay
+        }
+    }
+    
+    /// Dotted vertical lines overlay for time axis alignment
+    private var dottedLinesOverlay: some View {
+        GeometryReader { geometry in
+            let axisHeight = geometry.size.height
+            let lineBottomY = geometry.size.height - (axisHeight / 2)
+            let lineTopY = geometry.size.height
+
+            Path { path in
+                // Start line
+                path.move(to: CGPoint(x: 0, y: lineBottomY))
+                path.addLine(to: CGPoint(x: 0, y: lineTopY))
+
+                // End line
+                path.move(to: CGPoint(x: geometry.size.width, y: lineBottomY))
+                path.addLine(to: CGPoint(x: geometry.size.width, y: lineTopY))
+
+                // Intermediate time span lines
+                for span in timeSpans {
+                    let xPos = geometry.size.width * span.position
+                    path.move(to: CGPoint(x: xPos, y: lineBottomY))
+                    path.addLine(to: CGPoint(x: xPos, y: lineTopY))
+                }
+            }
+            .stroke(
+                style: StrokeStyle(
+                    lineWidth: SleepChartConstants.dottedLineWidth,
+                    dash: SleepChartConstants.dottedLineDashPattern
+                )
+            )
+            .foregroundColor(.secondary.opacity(SleepChartConstants.dottedLineOpacity))
+        }
+        .padding(.bottom, SleepChartConstants.dottedLinesBottomPadding)
+    }
+}

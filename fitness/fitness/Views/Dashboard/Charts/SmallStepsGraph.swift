@@ -22,7 +22,6 @@ struct SmallStepsGraph: View {
   var body: some View {
     Group {
       BarChart(from: from, to: to, color: Color.stepCount, chartData: chartData)
-        .frame(maxWidth: .infinity, alignment: .bottomTrailing)
         .opacity(showChart ? 1 : 0)
         .animation(.easeIn(duration: 0.25), value: showChart)
     }

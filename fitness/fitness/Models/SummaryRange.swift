@@ -30,7 +30,7 @@ enum SummaryRange: Hashable {
     case .yesterday:
       Calendar.current.startOfDay(for: Date().addingTimeInterval(-86400))
     case .last7Days:
-      Calendar.current.startOfDay(for: Date().addingTimeInterval(-7 * 86400))
+      Calendar.current.startOfDay(for: Date().addingTimeInterval(-6 * 86400))
     }
   }
 

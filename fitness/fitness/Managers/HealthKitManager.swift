@@ -97,6 +97,7 @@ class HealthKitManager {
     HKQuantityType(.basalEnergyBurned),
     HKQuantityType(.stepCount),
     HKQuantityType(.heartRateVariabilitySDNN),
+    HKCategoryType(.sleepAnalysis),
     HKObjectType.workoutType(),
     HKSeriesType.workoutRoute(),
   ]
@@ -258,6 +259,27 @@ class HealthKitManager {
         continuation.resume(returning: value)
       }
       store.execute(query)
+    }
+  }
+
+  func fetchSamples(from: Date, to: Date, sampleType: HKSampleType) async throws -> [HKSample] {
+    let predicate = HKQuery.predicateForSamples(withStart: from, end: to, options: .strictStartDate)
+    return try await withCheckedThrowingContinuation { continuation in
+      let query = HKSampleQuery(
+        sampleType: sampleType,
+        predicate: predicate,
+        limit: HKObjectQueryNoLimit,
+        sortDescriptors: nil
+      ) { _, samples, error in
+        if let error {
+          continuation.resume(throwing: error)
+          return
+        }
+
+        continuation.resume(returning: samples ?? [])
+      }
+
+      self.store.execute(query)
     }
   }
 }

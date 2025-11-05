@@ -13,6 +13,7 @@ enum HealthSummaryMetric: Hashable, MetricRepresentable {
   case hikes(Int)
   case runs(Int)
   case stepCount
+  case sleep
 
   var title: String {
     switch self {
@@ -26,6 +27,8 @@ enum HealthSummaryMetric: Hashable, MetricRepresentable {
       count == 1 ? "Run" : "\(count) Runs"
     case .stepCount:
       "Steps"
+    case .sleep:
+      "Sleep"
     }
   }
 
@@ -41,6 +44,8 @@ enum HealthSummaryMetric: Hashable, MetricRepresentable {
       .figureRun
     case .stepCount:
       .shoeprintsFill
+    case .sleep:
+      .bedDoubleFill
     }
   }
 
@@ -56,6 +61,8 @@ enum HealthSummaryMetric: Hashable, MetricRepresentable {
       .run
     case .stepCount:
       .stepCount
+    case .sleep:
+      .blue
     }
   }
 }

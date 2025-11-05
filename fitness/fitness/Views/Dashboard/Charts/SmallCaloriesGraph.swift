@@ -28,7 +28,6 @@ struct SmallCaloriesGraph: View {
         topColor: Color.caloriesBurned,
         chartData: chartData
       )
-      .frame(maxWidth: .infinity, alignment: .bottomTrailing)
       .opacity(showChart ? 1 : 0)
       .animation(.easeIn(duration: 0.25), value: showChart)
     }
