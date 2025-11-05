@@ -56,7 +56,8 @@ public struct SleepTimeAxisView: View {
                 .font(.caption2)
                 .foregroundColor(.secondary)
                 .frame(minWidth: SleepChartConstants.axisLabelMinWidth, alignment: .leading)
-            
+                .offset(x: -4)
+
             Spacer()
             
             // End time label
@@ -64,6 +65,7 @@ public struct SleepTimeAxisView: View {
                 .font(.caption2)
                 .foregroundColor(.secondary)
                 .frame(minWidth: SleepChartConstants.axisLabelMinWidth, alignment: .trailing)
+                .offset(x: 4)
         }
         .overlay(alignment: .leading) {
             // Intermediate time span markers

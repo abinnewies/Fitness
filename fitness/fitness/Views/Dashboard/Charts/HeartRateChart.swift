@@ -22,20 +22,6 @@ struct HeartRateChart: View {
   let referenceY: Double?
   let displayMinMaxValues: Bool
 
-  private static let hourLabelFormatter: DateFormatter = {
-    let df = DateFormatter()
-    df.dateFormat = "ha"
-    df.amSymbol = "a"
-    df.pmSymbol = "p"
-    return df
-  }()
-
-  private static let hourMinuteLabelFormatter: DateFormatter = {
-    let df = DateFormatter()
-    df.dateFormat = "h:mm"
-    return df
-  }()
-
   private var minPoint: (x: Date, y: Double)? {
     chartData.compactMap { item in
       if let minHeartRate = item.minHeartRate { return (item.date, minHeartRate) }
@@ -50,11 +36,6 @@ struct HeartRateChart: View {
       if let minHeartRate = item.minHeartRate { return (item.date, minHeartRate) }
       return nil
     }.max(by: { $0.y < $1.y })
-  }
-
-  private var xDomain: ClosedRange<Date> {
-    let sidePadding = to.timeIntervalSince(from) * 0.1
-    return from.addingTimeInterval(-sidePadding) ... to.addingTimeInterval(sidePadding)
   }
 
   private var yDomain: ClosedRange<Double>? {
@@ -75,6 +56,12 @@ struct HeartRateChart: View {
     let range = maxValue - minValue
     let padding = range * verticalPadding
     return (minValue - padding) ... (maxValue + padding)
+  }
+
+  private var displayReferenceYAnnotation: Bool {
+    let rangeInSeconds = to.timeIntervalSince(from)
+    // Hide the reference annotation when the chart data gets within the last 20% of the chart
+    return chartData.contains(where: { from.timeIntervalSince($0.date) < rangeInSeconds * 0.2 })
   }
 
   var body: some View {
@@ -121,15 +108,17 @@ struct HeartRateChart: View {
         RuleMark(y: .value("Reference", referenceY))
           .foregroundStyle(color)
           .lineStyle(StrokeStyle(lineWidth: 1, dash: [2, 2]))
-          .annotation(position: .top, alignment: .trailing) {
-            Text(String(Int(referenceY)))
-              .font(.caption2)
-              .foregroundStyle(color)
+          .if(displayReferenceYAnnotation) {
+            $0.annotation(position: .top, alignment: .trailing) {
+              Text(String(Int(referenceY)))
+                .font(.caption2)
+                .foregroundStyle(color)
+            }
           }
       }
     }
     .chartXAxis {
-      let totalSegments = 4
+      let totalSegments = 3
       let start = from.timeIntervalSinceReferenceDate
       let end = to.timeIntervalSinceReferenceDate
       let step = (end - start) / Double(totalSegments)
@@ -142,16 +131,18 @@ struct HeartRateChart: View {
         AxisTick()
         AxisValueLabel {
           if let date = value.as(Date.self) {
-            if dateStyle == .hour {
-              Text(Self.hourLabelFormatter.string(from: date))
-            } else {
-              Text(Self.hourMinuteLabelFormatter.string(from: date))
-            }
+            Text(date.formattedHourOfDay)
+              .if(date == ticks.first || date == ticks.last) {
+                $0.frame(width: 40, alignment: .leading)
+              }
+              .if(date == ticks.first) {
+                $0.offset(x: 20)
+              }
           }
         }
       }
     }
-    .chartXScale(domain: xDomain)
+    .chartXScale(domain: from ... to)
     .ifLet(yDomain) { view, domain in
       view.chartYScale(domain: domain)
     }

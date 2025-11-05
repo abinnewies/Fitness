@@ -37,20 +37,28 @@ struct StackedBarChart: View {
       }
     }
     .chartXAxis {
-      // TODO: We'll need to fix this to handle days
-      AxisMarks(values: .stride(by: .hour, count: 6)) { value in
-        if let date = value.as(Date.self) {
-          let hour = Calendar.current.component(.hour, from: date)
-          switch hour {
-          case 0, 12:
-            AxisValueLabel(format: .dateTime.hour(.defaultDigits(amPM: .narrow)))
-          default:
-            AxisValueLabel(format: .dateTime.hour(.defaultDigits(amPM: .omitted)))
-          }
-        }
+      let totalSegments = 3
+      let start = from.timeIntervalSinceReferenceDate
+      let end = to.timeIntervalSinceReferenceDate
+      let step = (end - start) / Double(totalSegments)
+      let ticks: [Date] = (0 ... totalSegments).map { i in
+        Date(timeIntervalSinceReferenceDate: start + Double(i) * step)
+      }
 
+      AxisMarks(preset: .aligned, values: ticks) { value in
         AxisGridLine()
         AxisTick()
+        AxisValueLabel {
+          if let date = value.as(Date.self) {
+            Text(date.formattedHourOfDay)
+              .if(date == ticks.first || date == ticks.last) {
+                $0.frame(width: 40, alignment: .leading)
+              }
+              .if(date == ticks.first) {
+                $0.offset(x: 20)
+              }
+          }
+        }
       }
     }
     .chartXScale(domain: from ... to)
