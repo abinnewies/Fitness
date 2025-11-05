@@ -26,6 +26,12 @@ struct DashboardView: View {
     ScrollView {
       VStack {
         if let todaySummary {
+          Text(todaySummary.range.description)
+            .frame(maxWidth: .infinity, alignment: .leading)
+            .font(.title3)
+
+          Spacer(minLength: 8)
+
           ForEach(todaySummary.workouts) { workout in
             WorkoutSummaryView(
               workout: workout,
@@ -43,7 +49,7 @@ struct DashboardView: View {
           )
         }
 
-        Spacer().frame(height: 24)
+        Spacer(minLength: 32)
 
         if let yesterdaySummary {
           SummaryView(
@@ -54,7 +60,7 @@ struct DashboardView: View {
           )
         }
 
-        Spacer().frame(height: 24)
+        Spacer(minLength: 32)
 
         if let last7DaysSummary {
           SummaryView(
