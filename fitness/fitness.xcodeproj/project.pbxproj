@@ -7,7 +7,6 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		9657A4892EBA32210022C211 /* SleepChartKit in Frameworks */ = {isa = PBXBuildFile; productRef = 9657A4882EBA32210022C211 /* SleepChartKit */; };
 		96C7A8E82E9E8BDE00F62AFD /* Fitness Watch App.app in Embed Watch Content */ = {isa = PBXBuildFile; fileRef = 96C7A8E72E9E8BDE00F62AFD /* Fitness Watch App.app */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
 /* End PBXBuildFile section */
 
@@ -115,7 +114,6 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				9657A4892EBA32210022C211 /* SleepChartKit in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -207,7 +205,6 @@
 			);
 			name = Fitness;
 			packageProductDependencies = (
-				9657A4882EBA32210022C211 /* SleepChartKit */,
 			);
 			productName = Fitness;
 			productReference = 96C7A8C42E9E8BDD00F62AFD /* Fitness.app */;
@@ -372,7 +369,6 @@
 			mainGroup = 96C7A8BB2E9E8BDD00F62AFD;
 			minimizedProjectReferenceProxies = 1;
 			packageReferences = (
-				9657A4872EBA32210022C211 /* XCRemoteSwiftPackageReference "SleepChartKit" */,
 			);
 			preferredProjectObjectVersion = 77;
 			productRefGroup = 96C7A8C52E9E8BDD00F62AFD /* Products */;
@@ -1041,25 +1037,6 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
-
-/* Begin XCRemoteSwiftPackageReference section */
-		9657A4872EBA32210022C211 /* XCRemoteSwiftPackageReference "SleepChartKit" */ = {
-			isa = XCRemoteSwiftPackageReference;
-			repositoryURL = "https://github.com/DanielJamesTronca/SleepChartKit";
-			requirement = {
-				kind = upToNextMajorVersion;
-				minimumVersion = 1.0.0;
-			};
-		};
-/* End XCRemoteSwiftPackageReference section */
-
-/* Begin XCSwiftPackageProductDependency section */
-		9657A4882EBA32210022C211 /* SleepChartKit */ = {
-			isa = XCSwiftPackageProductDependency;
-			package = 9657A4872EBA32210022C211 /* XCRemoteSwiftPackageReference "SleepChartKit" */;
-			productName = SleepChartKit;
-		};
-/* End XCSwiftPackageProductDependency section */
 	};
 	rootObject = 96C7A8BC2E9E8BDD00F62AFD /* Project object */;
 }
