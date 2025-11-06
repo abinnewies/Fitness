@@ -24,7 +24,9 @@ extension Date {
 
   var formattedHourMinute: String {
     let dateFormatter = DateFormatter()
-    dateFormatter.dateFormat = "h:mm"
+    dateFormatter.dateFormat = "h:mma"
+    dateFormatter.amSymbol = "a"
+    dateFormatter.pmSymbol = "p"
     return dateFormatter.string(from: self)
   }
 

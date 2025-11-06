@@ -8,8 +8,26 @@
 import HealthKit
 
 extension HKWorkout {
+  var hasHeartRateData: Bool {
+    statistics(for: HKQuantityType(.heartRate)) != nil
+  }
+
   var averageHeartRate: Int? {
     guard let quantity = statistics(for: HKQuantityType(.heartRate))?.averageQuantity() else {
+      return nil
+    }
+    return Int(quantity.doubleValue(for: HKUnit.count().unitDivided(by: HKUnit.minute())))
+  }
+
+  var minHeartRate: Int? {
+    guard let quantity = statistics(for: HKQuantityType(.heartRate))?.minimumQuantity() else {
+      return nil
+    }
+    return Int(quantity.doubleValue(for: HKUnit.count().unitDivided(by: HKUnit.minute())))
+  }
+
+  var maxHeartRate: Int? {
+    guard let quantity = statistics(for: HKQuantityType(.heartRate))?.maximumQuantity() else {
       return nil
     }
     return Int(quantity.doubleValue(for: HKUnit.count().unitDivided(by: HKUnit.minute())))

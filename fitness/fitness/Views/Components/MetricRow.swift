@@ -10,10 +10,11 @@ import SwiftUI
 struct MetricRow: View {
   let metric: MetricRepresentable
   let values: [MetricRowValue]
+  let hideIcon: Bool
 
   var body: some View {
     HStack(spacing: 8) {
-      MetricLabel(metric: metric)
+      MetricLabel(metric: metric, hideIcon: hideIcon)
         .frame(maxWidth: .infinity, alignment: .leading)
 
       HStack(spacing: 8) {
@@ -24,5 +25,11 @@ struct MetricRow: View {
       .frame(maxWidth: .infinity, alignment: .leading)
     }
     .padding(.all, 16)
+  }
+
+  init(metric: MetricRepresentable, values: [MetricRowValue], hideIcon: Bool = false) {
+    self.metric = metric
+    self.values = values
+    self.hideIcon = hideIcon
   }
 }

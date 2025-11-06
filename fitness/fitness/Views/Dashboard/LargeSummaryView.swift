@@ -24,11 +24,13 @@ struct LargeSummaryView: View {
         )
       }
 
-      if let restingHeartRate = summary.restingHeartRate, let maxHeartRate = summary.maxHeartRate {
+      if let maxHeartRate = summary.maxHeartRate {
         LargeSummaryRow(
           summaryDate: summary.date,
-          values: [
-            .init(value: String(restingHeartRate), unit: "rest"),
+          values: summary.restingHeartRate != nil ? [
+            .init(value: String(summary.restingHeartRate!), unit: "rest"),
+            .init(value: String(maxHeartRate), unit: "max"),
+          ] : [
             .init(value: String(maxHeartRate), unit: "max"),
           ],
           healthKitManager: healthKitManager,

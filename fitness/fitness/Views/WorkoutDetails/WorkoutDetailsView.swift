@@ -62,13 +62,6 @@ struct WorkoutDetailsView: View {
                 values: [.init(value: pace.durationFormattedShort, unit: "")]
               )
             }
-            if let averageHeartRate = workout.averageHeartRate {
-              Divider()
-              MetricRow(
-                metric: HealthMetric.averageHeartRate,
-                values: [.init(value: String(averageHeartRate), unit: "bpm")]
-              )
-            }
             if let elevationAscendedMeters = workout.elevationAscendedMeters {
               let elevationAscendedFeet = Int(ceil(elevationAscendedMeters.feetFromMeters))
               Divider()
@@ -88,23 +81,44 @@ struct WorkoutDetailsView: View {
           .background(RoundedRectangle(cornerRadius: 12)
             .fill(Color(uiColor: .secondarySystemBackground)))
 
-          VStack(spacing: 8) {
+          if workout.hasHeartRateData {
+            Spacer(minLength: 8)
+
             MetricLabel(metric: HealthMetric.heartRate)
               .frame(maxWidth: .infinity, alignment: .leading)
 
-            WorkoutHeartRateChart(
-              from: workout.startDate,
-              to: workout.endDate,
-              currentDate: Date(),
-              healthKitManager: healthKitManager,
-              stride: .timeInterval(workout.endDate.timeIntervalSince(workout.startDate) / 60)
-            )
-            .aspectRatio(2, contentMode: .fill)
-            .frame(maxWidth: .infinity)
+            VStack(spacing: 0) {
+              MetricRow(
+                metric: HealthMetric.averageHeartRate,
+                values: [.init(value: String(workout.averageHeartRate!), unit: "bpm")],
+                hideIcon: true
+              )
+
+              Divider()
+              MetricRow(
+                metric: HealthMetric.maxHeartRate,
+                values: [.init(value: String(workout.maxHeartRate!), unit: "bpm")],
+                hideIcon: true
+              )
+            }
+            .background(RoundedRectangle(cornerRadius: 12)
+              .fill(Color(uiColor: .secondarySystemBackground)))
+
+            VStack(spacing: 8) {
+              WorkoutHeartRateChart(
+                from: workout.startDate,
+                to: workout.endDate,
+                currentDate: Date(),
+                healthKitManager: healthKitManager,
+                stride: .timeInterval(workout.endDate.timeIntervalSince(workout.startDate) / 60)
+              )
+              .aspectRatio(2, contentMode: .fill)
+              .frame(maxWidth: .infinity)
+            }
+            .padding(16)
+            .background(RoundedRectangle(cornerRadius: 12)
+              .fill(Color(uiColor: .secondarySystemBackground)))
           }
-          .padding(16)
-          .background(RoundedRectangle(cornerRadius: 12)
-            .fill(Color(uiColor: .secondarySystemBackground)))
         }
         .padding(16)
       }

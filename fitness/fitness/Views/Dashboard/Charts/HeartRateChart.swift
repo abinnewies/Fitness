@@ -61,7 +61,7 @@ struct HeartRateChart: View {
   private var displayReferenceYAnnotation: Bool {
     let rangeInSeconds = to.timeIntervalSince(from)
     // Hide the reference annotation when the chart data gets within the last 20% of the chart
-    return chartData.contains(where: { from.timeIntervalSince($0.date) < rangeInSeconds * 0.2 })
+    return !chartData.contains(where: { from.timeIntervalSince($0.date) < rangeInSeconds * 0.2 })
   }
 
   var body: some View {
@@ -131,7 +131,7 @@ struct HeartRateChart: View {
         AxisTick()
         AxisValueLabel {
           if let date = value.as(Date.self) {
-            Text(date.formattedHourOfDay)
+            Text(dateStyle == .hour ? date.formattedHourOfDay : date.formattedHourMinute)
               .if(date == ticks.first || date == ticks.last) {
                 $0.frame(width: 40, alignment: .leading)
               }

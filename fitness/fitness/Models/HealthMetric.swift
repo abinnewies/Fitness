@@ -33,7 +33,7 @@ enum HealthMetric: MetricRepresentable {
     case .minHeartRate:
       return "Min Heart Rate"
     case .maxHeartRate:
-      return "max Heart Rate"
+      return "Max Heart Rate"
     case .restingHeartRate:
       return "Resting Heart Rate"
     case .stepCount:
