@@ -13,11 +13,11 @@ struct LargeSummaryView: View {
 
   var body: some View {
     VStack(spacing: 8) {
-      if let sleep = summary.sleepDuration {
+      if let sleepDuration = summary.sleepDuration, sleepDuration > 0 {
         LargeSummaryRow(
           summaryDate: summary.date,
           values: [
-            .init(value: sleep.durationFormatted(includeSeconds: false), unit: ""),
+            .init(value: sleepDuration.durationFormatted(includeSeconds: false), unit: ""),
           ],
           healthKitManager: healthKitManager,
           healthSummaryMetric: .sleep
