@@ -24,7 +24,7 @@ struct WorkoutHeartRateChart: View {
         from: from,
         to: to,
         chartData: chartData,
-        color: Color.heartRate,
+        colorStyle: .zoneBased(.heartRate),
         dateStyle: .minute,
         referenceY: averageHeartRate,
         displayMinMaxValues: true

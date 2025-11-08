@@ -100,22 +100,30 @@ struct WorkoutDetailsView: View {
                 values: [.init(value: String(workout.maxHeartRate!), unit: "bpm")],
                 hideIcon: true
               )
-            }
-            .background(RoundedRectangle(cornerRadius: 12)
-              .fill(Color(uiColor: .secondarySystemBackground)))
 
-            VStack(spacing: 8) {
-              WorkoutHeartRateChart(
-                from: workout.startDate,
-                to: workout.endDate,
-                currentDate: Date(),
-                healthKitManager: healthKitManager,
-                stride: .timeInterval(workout.endDate.timeIntervalSince(workout.startDate) / 60)
-              )
-              .aspectRatio(2, contentMode: .fill)
-              .frame(maxWidth: .infinity)
+              Spacer(minLength: 16)
+
+              VStack(spacing: 24) {
+                WorkoutHeartRateChart(
+                  from: workout.startDate,
+                  to: workout.endDate,
+                  currentDate: Date(),
+                  healthKitManager: healthKitManager,
+                  stride: .timeInterval(workout.endDate.timeIntervalSince(workout.startDate) / 60)
+                )
+                .aspectRatio(2, contentMode: .fill)
+                .frame(maxWidth: .infinity)
+
+                WorkoutHeartRateZonesChart(
+                  from: workout.startDate,
+                  to: workout.endDate,
+                  healthKitManager: healthKitManager
+                )
+                .aspectRatio(2, contentMode: .fill)
+                .frame(maxWidth: .infinity)
+              }
+              .padding(16)
             }
-            .padding(16)
             .background(RoundedRectangle(cornerRadius: 12)
               .fill(Color(uiColor: .secondarySystemBackground)))
           }

@@ -31,4 +31,10 @@ extension Color {
     .init(hexString: "FF6D00")!,
     .init(hexString: "D50000")!,
   ]
+
+  static let zone1 = Color(hexString: "3A7DFF")!
+  static let zone2 = Color(hexString: "20CFCF")!
+  static let zone3 = Color(hexString: "41D653")!
+  static let zone4 = Color(hexString: "FFA738")!
+  static let zone5 = Color(hexString: "FF3030")!
 }

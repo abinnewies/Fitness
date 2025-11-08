@@ -14,10 +14,47 @@ struct HeartRateChart: View {
     case minute
   }
 
+  enum ColorStyle {
+    case singleColor(Color)
+    case zoneBased(Color)
+
+    var uiColor: Color {
+      switch self {
+      case let .singleColor(color), let .zoneBased(color):
+        return color
+      }
+    }
+
+    func color(forHeartRate heartRate: Double) -> Color {
+      switch self {
+      case let .singleColor(color):
+        return color
+      case .zoneBased:
+        let zone = HeartRateZone.zones.zone(forHeartRate: heartRate)
+        return zone.color
+      }
+    }
+
+    func foregroundStyle(minHeartRate: Double, maxHeartRate: Double) -> any ShapeStyle {
+      switch self {
+      case let .singleColor(color):
+        return color
+      case .zoneBased:
+        let minZone = HeartRateZone.zones.zone(forHeartRate: minHeartRate)
+        let maxZone = HeartRateZone.zones.zone(forHeartRate: maxHeartRate)
+        return LinearGradient(
+          gradient: Gradient(colors: [minZone.color, maxZone.color]),
+          startPoint: .bottom,
+          endPoint: .top
+        )
+      }
+    }
+  }
+
   let from: Date
   let to: Date
   let chartData: [HeartRateChartDataPoint]
-  let color: Color
+  let colorStyle: ColorStyle
   let dateStyle: DateStyle
   let referenceY: Double?
   let displayMinMaxValues: Bool
@@ -67,16 +104,22 @@ struct HeartRateChart: View {
   var body: some View {
     Chart {
       ForEach(chartData, id: \.date) { item in
+        let minHeartRate = item.minHeartRate ?? 0
+        let maxHeartRate = item.maxHeartRate ?? 0
         BarMark(
           x: .value("Index", item.date),
-          yStart: .value("Min", item.minHeartRate ?? 0),
-          yEnd: .value("Max", item.maxHeartRate ?? 0),
+          yStart: .value("Min", minHeartRate),
+          yEnd: .value("Max", maxHeartRate),
           width: 3
         )
-        .foregroundStyle(color)
+        .foregroundStyle(AnyShapeStyle(colorStyle.foregroundStyle(
+          minHeartRate: minHeartRate,
+          maxHeartRate: maxHeartRate
+        )))
       }
 
       if let minPoint, displayMinMaxValues {
+        let color = colorStyle.color(forHeartRate: minPoint.y)
         PointMark(
           x: .value("Index", minPoint.x),
           y: .value("Value", minPoint.y)
@@ -91,6 +134,7 @@ struct HeartRateChart: View {
       }
 
       if let maxPoint, displayMinMaxValues {
+        let color = colorStyle.color(forHeartRate: maxPoint.y)
         PointMark(
           x: .value("Index", maxPoint.x),
           y: .value("Value", maxPoint.y)
@@ -106,13 +150,13 @@ struct HeartRateChart: View {
 
       if let referenceY {
         RuleMark(y: .value("Reference", referenceY))
-          .foregroundStyle(color)
+          .foregroundStyle(colorStyle.uiColor)
           .lineStyle(StrokeStyle(lineWidth: 1, dash: [2, 2]))
           .if(displayReferenceYAnnotation) {
             $0.annotation(position: .top, alignment: .trailing) {
               Text(String(Int(referenceY)))
                 .font(.caption2)
-                .foregroundStyle(color)
+                .foregroundStyle(colorStyle.uiColor)
             }
           }
       }

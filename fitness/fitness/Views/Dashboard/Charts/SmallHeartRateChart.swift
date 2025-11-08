@@ -24,7 +24,7 @@ struct SmallHeartRateChart: View {
         from: from,
         to: to,
         chartData: chartData,
-        color: Color.heartRate,
+        colorStyle: .singleColor(.heartRate),
         dateStyle: .hour,
         referenceY: restingHeartRate,
         displayMinMaxValues: false
